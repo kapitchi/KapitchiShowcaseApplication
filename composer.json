@@ -1,0 +1,19 @@
+{
+    "name": "kapitchi/showcase-application",
+    "description": "Kapitchi showcase application",
+    "keywords": [
+        "kapitchi",
+        "zf2",
+        "cms"
+    ],
+    "homepage": "http://kapitchi.com",
+    "require": {
+        "php": ">=5.3.3",
+        "zendframework/zendframework": "dev-master#cef2f9c90a9dc3fe3018b624ff9113666a397b73"
+    },
+    "autoload": {
+        "psr-0": {
+            "Application": "module/Application/src"
+        }
+    }
+}
