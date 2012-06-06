@@ -12,6 +12,12 @@ if (!include_once('vendor/autoload.php')) {
 // Get application stack configuration
 $configuration = include 'config/application.config.php';
 
+//loads local config if available
+if(is_readable('config/application.local.php')) {
+    $localConfig = include 'config/application.local.php';
+    $configuration = array_merge_recursive($configuration, $localConfig);
+}
+
 // Setup service manager
 $serviceManager = new ServiceManager(new ServiceManagerConfiguration($configuration['service_manager']));
 $serviceManager->setService('ApplicationConfiguration', $configuration);

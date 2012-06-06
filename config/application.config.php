@@ -4,7 +4,6 @@ return array(
         'Application',
         'KapitchiIdentity',
         'KapitchiProcess',
-        //'KapitchiProcessUI',
     ),
     'module_listener_options' => array(
         'config_glob_paths'    => array(

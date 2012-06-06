@@ -2,3 +2,6 @@
 /composer.lock
 /nbproject
 /data
+/develop
+/vendor
+/config/application.local.php
