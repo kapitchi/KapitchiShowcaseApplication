@@ -2,8 +2,11 @@
 return array(
     'modules' => array(
         'Application',
+        'KapitchiIdentity',
+        'KapitchiProcess',
+        //'KapitchiProcessUI',
     ),
-    'module_listener_options' => array( 
+    'module_listener_options' => array(
         'config_glob_paths'    => array(
             'config/autoload/{,*.}{global,local}.php',
         ),
@@ -12,6 +15,7 @@ return array(
         'module_paths' => array(
             './module',
             './vendor',
+            './develop',
         ),
     ),
     'service_manager' => array(
