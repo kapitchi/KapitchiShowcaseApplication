@@ -11,8 +11,14 @@
         {
             "name": "Matus Zeman",
             "email": "mz@kapitchi.com",
-            "homepage": "http://kapitchi.com/team/matus-zeman",
-            "role": "Lead developer"
+            "homepage": "http://kapitchi.com",
+            "role": "Developer"
+        },
+        {
+            "name": "Antoine Kociuba",
+            "email": "ak@kapitchi.com",
+            "homepage": "http://kapitchi.com",
+            "role": "Developer"
         }
     ],
     "support": {
@@ -22,7 +28,7 @@
     "require": {
         "php": ">=5.3.3",
         "zendframework/zendframework": "dev-master",
-        "zf-commons/zfc-acl": "dev-master",
+        
         "kapitchi/identity": "dev-master",
         "kapitchi/process": "dev-master"
     },

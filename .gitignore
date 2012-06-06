@@ -2,6 +2,7 @@
 /composer.lock
 /nbproject
 /data
-/develop
+/module-dev
 /vendor
 /config/application.local.php
+/htdocs
