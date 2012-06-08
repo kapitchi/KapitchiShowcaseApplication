@@ -37,7 +37,7 @@
             "Application": "module/Application/src"
         },
         "classmap": [
-            "./develop"
+            "./module-dev"
         ]
     }
 }

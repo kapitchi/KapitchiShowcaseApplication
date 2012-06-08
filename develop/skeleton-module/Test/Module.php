@@ -3,7 +3,7 @@
 namespace Test;
 
 use Zend\EventManager\Event,
-		KapitchiBase\Module\ModuleAbstract;
+	KapitchiBase\Module\ModuleAbstract;
 
 class Module extends ModuleAbstract
 {
