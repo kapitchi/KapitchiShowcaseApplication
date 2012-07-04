@@ -2,6 +2,7 @@
 return array(
     'modules' => array(
         'Application',
+        'KapitchiBase',
         'KapitchiIdentity',
         'KapitchiProcess',
     ),
@@ -14,7 +15,6 @@ return array(
         'module_paths' => array(
             './module',
             './vendor',
-            './develop',
         ),
     ),
     'service_manager' => array(
