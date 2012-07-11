@@ -2,17 +2,18 @@
 
 namespace Test;
 
-use Zend\EventManager\Event,
+use Zend\EventManager\EventInterface,
 	KapitchiBase\ModuleManager\AbstractModule;
 
 class Module extends AbstractModule
 {
 
-	public function onBootstrap(Event $e) {
+	public function onBootstrap(EventInterface $e) {
 		parent::onBootstrap($e);
 		
+        
 	}
-	
+    
     public function getDir() {
         return __DIR__;
     }
