@@ -1,10 +1,5 @@
 <?php
 return array(
-    'controllers' => array(
-        'invokables' => array(
-            'Test\Controller\Index' => 'Test\Controller\IndexController'
-        ),
-    ),
     'controller_plugins' => array(
         'classes' => array(
             //'test' => 'Test\Controller\Plugin\Test'
@@ -26,17 +21,32 @@ return array(
     'router' => array(
         'routes' => array(
             'test' => array(
-                'type'    => 'Zend\Mvc\Router\Http\Segment',
+                'application' => array(
+                'type'    => 'Literal',
                 'options' => array(
-                    'route'    => '/test[/:action]',
-                    'constraints' => array(
-                        'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
-                    ),
+                    'route'    => '/test',
                     'defaults' => array(
-                        'controller' => 'Test\Controller\Index',
-                        'action'     => 'index',
+                        '__NAMESPACE__' => 'Test\Controller',
+                        'controller'    => 'Index',
+                        'action'        => 'index',
                     ),
                 ),
+                'may_terminate' => true,
+                'child_routes' => array(
+                    'default' => array(
+                        'type'    => 'Segment',
+                        'options' => array(
+                            'route'    => '/[:controller[/:action]]',
+                            'constraints' => array(
+                                'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
+                            ),
+                            'defaults' => array(
+                            ),
+                        ),
+                    ),
+                ),
+            ),
             ),
         ),
     ),
