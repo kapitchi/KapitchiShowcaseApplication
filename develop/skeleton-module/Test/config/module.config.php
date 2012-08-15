@@ -21,7 +21,6 @@ return array(
     'router' => array(
         'routes' => array(
             'test' => array(
-                'application' => array(
                 'type'    => 'Literal',
                 'options' => array(
                     'route'    => '/test',
@@ -46,7 +45,6 @@ return array(
                         ),
                     ),
                 ),
-            ),
             ),
         ),
     ),
