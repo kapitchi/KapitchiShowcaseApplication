@@ -5,9 +5,11 @@ namespace Test;
 use Zend\EventManager\EventInterface,
     Zend\ModuleManager\Feature\ControllerProviderInterface,
     Zend\ModuleManager\Feature\ServiceProviderInterface,
+    Zend\ModuleManager\Feature\ViewHelperProviderInterface,
 	KapitchiBase\ModuleManager\AbstractModule;
 
-class Module extends AbstractModule implements ServiceProviderInterface, ControllerProviderInterface
+class Module extends AbstractModule
+    implements ServiceProviderInterface, ControllerProviderInterface, ViewHelperProviderInterface
 {
 
 	public function onBootstrap(EventInterface $e) {
@@ -21,8 +23,20 @@ class Module extends AbstractModule implements ServiceProviderInterface, Control
         return array(
             'factories' => array(
                 'Test\Controller\Index' => function($sm) {
-                    $cont = new Controller\TestController();
-                    return $cont;
+                    $ins = new Controller\TestController();
+                    return $ins;
+                },
+            )
+        );
+    }
+    
+    public function getViewHelperConfig()
+    {
+        return array(
+            'factories' => array(
+                'test' => function($sm) {
+                    $ins = new View\Helper\Test();
+                    return $ins;
                 },
             )
         );
@@ -35,13 +49,9 @@ class Module extends AbstractModule implements ServiceProviderInterface, Control
                 //'KapitchiAuction\Entity\Auction' => 'KapitchiAuction\Entity\Auction',
             ),
             'factories' => array(
-//                'KapitchiAuction\ModuleOptions' => function ($sm) {
-//                    $config = $sm->get('Configuration');
-//                    return new ModuleOptions(isset($config['KapitchiAuction']) ? $config['KapitchiAuction'] : array());
-//                },
 //                'KapitchiAuction\Form\Auction' => function ($sm) {
-//                    $form = new Form\Auction();
-//                    return $form;
+//                    $ins = new Form\Auction();
+//                    return $ins;
 //                },
             )
         );
