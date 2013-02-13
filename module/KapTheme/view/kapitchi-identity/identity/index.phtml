@@ -1,0 +1,83 @@
+<?php
+$viewModel = $this->viewModel()->getCurrent();
+$paginator = $viewModel->paginator;
+?>
+<h1><?=$this->translate("Users")?></h1>
+<table>
+    <thead>
+        <tr>
+            <th><?=$this->translate("ID")?></th>
+            <th><?=$this->translate("Display name")?></th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php foreach($paginator as $entity):
+            $data = $this->identity()->toArray($entity, array(
+                'url' => $this->url('identity/identity', array('action' => 'update', 'id' => $entity->getId()))
+            ));
+            ?>
+            <?=$this->mustachePartial('identity-index', $data)?>
+        <?php endforeach; ?>
+    </tbody>
+</table>
+<?php $this->inlineScript()->captureStart(); ?>
+        $(function() {
+            "use strict";
+            var $el = $('#x');
+            
+            var Identity = Backbone.Model.extend({
+                urlRoot: '/identity/api/backbone-dev/identity'
+            });
+            
+            var data = $el.data('model-data');
+            var identity = new Identity(data);
+            
+            var IdentityCollection = Backbone.Collection.extend({
+                model: Identity,
+                url: '/identity/api/backbone-dev/identity'
+            });
+            
+            var idCol = new IdentityCollection();
+            
+            var view = new Backbone.View();
+            view.setElement($('#identities'));
+            var rowHtml = '<tr><td data-name="id"></td><td data-name="displayName"></td><td data-name="created"></td></tr>';
+            var elManagerFactory = new Backbone.CollectionBinder.ElManagerFactory(rowHtml, "data-name");
+            var collectionBinder = new Backbone.CollectionBinder(elManagerFactory);
+            collectionBinder.bind(idCol, view.$('tbody'));
+            
+            idCol.fetch();
+            
+            //console.log(idCollection.toArray());
+            //console.log(JSON.stringify(idCollection.toJSON()));
+//            identity.on('change:color', function(model, color) {
+//                $('.circle').css({background: color});
+//            });
+
+            /*var IdentityView = Backbone.View.extend({
+                //tag: 'div',
+                //template: _.template('<ul><% console.log(collection); _.each(collection.models, function(model) { %> <li><% print(model.get("changed")) %></li> <% }); %></ul>'),
+                initialize: function(){ this.modelBinder = new Backbone.ModelBinder(); }, 
+                render: function() {
+                    this.modelBinder.bind(this.model, this.$el);
+                    return this;
+                }
+            });
+            
+            var x = new IdentityView({
+                model: identity
+            });
+            x.el = $el.get(0);
+            x.$el = $el;
+            x.render();*/
+            
+            $('#debugBtn').bind('click', function(e) {
+                console.log(identity);
+                console.log(identity.attributes);
+            });
+            $('#saveBtn').bind('click', function(e) {
+                identity.save();
+            });
+              
+        });
+<?php $this->inlineScript()->captureEnd() ?>

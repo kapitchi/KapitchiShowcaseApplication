@@ -1,5 +1,5 @@
 {
-    "name": "kapitchi/showcase-application",
+    "name": "kapitchi/KapShowcaseApp",
     "description": "Kapitchi showcase application",
     "keywords": [
         "kapitchi",
@@ -24,17 +24,24 @@
     "support": {
         "email": "dev@kapitchi.com"
     },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/kapitchi/zf2-mustache-module.git"
+        }
+    ],
     "minimum-stability": "dev",
     "require": {
         "php": ">=5.3.3",
         "zendframework/zendframework": "dev-master",
-        
+        "kapitchi/app": "dev-master",
         "kapitchi/identity": "dev-master",
-        "kapitchi/process": "dev-master"
+        "kapitchi/process": "dev-master",
+        "widmogrod/zf2-assetic-module": "dev-master",
+        "widmogrod/zf2-mustache-module": "dev-master"
     },
     "autoload": {
         "psr-0": {
-            "Application": "module/Application/src"
         },
         "classmap": [
             "./module-dev"

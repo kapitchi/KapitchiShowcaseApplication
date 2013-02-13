@@ -1,0 +1,69 @@
+<?php
+//XXX TODO hack to test angular
+if($this->angular()->isTemplateRequest()) {
+    echo $this->content;
+    return;
+}
+
+$this->plugin('InlineScript')->appendFile('/assets/js/jquery.min.js');
+$this->plugin('InlineScript')->appendFile('/assets/js/bootstrap.js');
+$this->plugin('HeadLink')->appendStylesheet('/assets/css/bootstrap.css');
+$this->plugin('HeadLink')->appendStylesheet('/assets/css/bootstrap-responsive.css');
+
+$this->plugin('InlineScript')->appendFile('/assets/js/angular.js');
+$this->plugin('InlineScript')->appendFile('/assets/js/angular-resource.js');
+$this->plugin('InlineScript')->appendFile('https://raw.github.com/angular/angular.js/master/src/ngLocale/angular-locale_en-gb.js');
+
+//$this->plugin('InlineScript')->appendFile('https://raw.github.com/angular-ui/ng-grid/master/ng-grid-1.8.0.debug.js');
+//$this->plugin('HeadLink')->appendStylesheet('https://raw.github.com/angular-ui/ng-grid/master/ng-grid.css');
+$this->plugin('InlineScript')->appendFile('http://angular-ui.github.com/ng-grid/lib/ng-grid.debug.js');
+$this->plugin('HeadLink')->appendStylesheet('http://angular-ui.github.com/ng-grid/css/ng-grid.css');
+
+$this->plugin('InlineScript')->appendFile('/assets/js/KapApp.js');
+
+echo $this->plugin('doctype')->setDoctype(\Zend\View\Helper\Doctype::HTML5); ?>
+<html lang="en" ng-app="KapApp">
+  <head>
+    <meta charset="utf-8">
+    <?php
+        echo $this->plugin('HeadTitle');
+        echo $this->plugin('HeadMeta');
+        echo $this->plugin('HeadLink');
+        echo $this->plugin('HeadStyle');
+        echo $this->plugin('HeadScript');
+    ?>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+  </head>
+  <body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="/">Project name</a>
+          <div class="nav-collapse collapse">
+            <ul class="nav">
+              <li class="active"><a href="/">Home</a></li>
+              <li><a href="/identity/identity/index">Identities</a></li>
+              <li><a href="/contact">Contact</a></li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+      <br>
+      <br>
+      <br>
+    <div class="container" ng-view>
+        <?php //=$this->content?>
+    </div>
+    <?php
+        echo $this->plugin('InlineScript');
+    ?>
+  </body>
+</html>

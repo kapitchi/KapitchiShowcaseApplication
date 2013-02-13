@@ -1,0 +1,18 @@
+<h1>403 - Unauthorized</h1>
+<h2><?php echo $this->message ?></h2>
+<dl>
+    <dt>Roles:</dt>
+    <dd>
+        <pre class="prettyprint linenums"><?=implode(', ', $this->exception->getRoles())?></pre>
+    </dd>
+    <dt>Resource:</dt>
+    <dd>
+        <pre class="prettyprint linenums"><?=$this->exception->getResource()?></pre>
+    </dd>
+    <dt>Privilege:</dt>
+    <dd>
+        <pre class="prettyprint linenums"><?=$this->exception->getPrivilege() ?></pre>
+    </dd>
+</dl>
+
+<?=$this->render('error/exception.phtml')?>

@@ -1,0 +1,51 @@
+<?php
+$viewModel = $this->viewModel()->getCurrent();
+$model = $viewModel->model;
+$form = $viewModel->form;
+$form->setName('identity-form');
+$form->prepare();
+?>
+<div class="mws-tabs">
+    <ul>
+        <li><a href="#identity"><?=$this->translate("User")?></a></li>
+        <li><a href="#permissions"><?=$this->translate("Permissions")?></a></li>
+    </ul>
+
+    <div id="identity">
+        <div class="mws-panel">
+            <?php echo $this->formRenderer()->renderHeader($form);?>
+            <div class="mws-panel-body">
+                <div class="mws-accordion">
+                    <h3><a href="#"><?=$this->translate("System")?></a></h3>
+                    <div>
+                        <?=$this->formRenderer()->renderElements($form);?>
+                        <?php if($this->appPlugin()->isEnabled('Identity/AuthCredential')):?>
+                            <?=$this->formRenderer()->renderElements($form->get('auth-credential'));?>
+                        <?php endif?>
+                    </div>
+                    <?php if($this->appPlugin()->isEnabled('Contact/KapitchiIdentity')):?>
+                        <h3><a href="#"><?=$this->translate("Contact")?></a></h3>
+                        <div>
+                            <?=$this->partial('kapitchi-contact/partial/contact-form-elements.phtml', array('form' => $form->get('contact')))?>
+                        </div>
+                    <?php endif?>
+                    
+                </div>
+                <div class="mws-button-row">
+                    <?php echo $this->formRenderer()->renderSubmit("Zmen", "identity-submit-btn")?>
+                </div>
+            </div>
+            <?php echo $this->formRenderer()->renderFooter($form);?>
+        </div>
+    </div>
+    <div id="permissions">
+        <div class="mws-panel">
+            <div class="mws-panel-header">
+                <span class="mws-i-24 i-pencil"><?=$this->translate("Permissions")?></span>
+            </div>
+            <div class="mws-panel-body">
+                TODO
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,8 +1,13 @@
 <?php
 return array(
     'modules' => array(
-        'Application',
+        'KapShowcaseApp',
         'KapitchiBase',
+        'KapitchiApp',
+        'KapTheme',
+        'KapAngularTheme',
+        //'AsseticBundle',
+        'KapitchiEntity',
         'KapitchiIdentity',
         'KapitchiProcess',
     ),

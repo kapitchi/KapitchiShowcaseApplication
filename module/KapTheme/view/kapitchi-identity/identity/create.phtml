@@ -1,0 +1,10 @@
+<?php
+$viewModel = $this->viewModel()->getCurrent();
+$form = $viewModel->form;
+//$form->prepare();
+?>
+<?php //echo $this->formRenderer($form);?>
+<?php echo $this->formRenderer()->renderHeader($form);?>
+<?php echo $this->formRenderer()->renderElements($form);?>
+<input type="submit" value="Save" />
+<?php echo $this->formRenderer()->renderFooter($form);?>
