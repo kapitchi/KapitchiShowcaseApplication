@@ -28,6 +28,10 @@
         {
             "type": "vcs",
             "url": "https://github.com/kapitchi/zf2-mustache-module.git"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/kapitchi/zf2.git"
         }
     ],
     "minimum-stability": "dev",

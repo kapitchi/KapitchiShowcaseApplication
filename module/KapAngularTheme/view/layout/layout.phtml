@@ -1,6 +1,31 @@
 <?php
-//XXX TODO hack to test angular
-if($this->angular()->isTemplateRequest()) {
+//mz: XXX TODO hack to test angular
+
+if($this->exception) {
+    echo $this->json(array(
+        'title' => 'Exception',
+        'exception' => array(
+            'message' => $this->exception->getMessage(),
+            'code' => $this->exception->getCode(),
+            'traceString' => $this->exception->getTraceAsString(),
+        ),
+        //'content' => $this->content
+    ));
+    return;
+}
+
+//page action
+if($this->angular()->isPageRequest()) {
+    $headTitle = (string)$this->plugin('HeadTitle');
+    echo $this->json(array(
+        'title' => $headTitle,
+        'content' => $this->content
+    ));
+    return;
+}
+
+//default angular action
+if($this->angular()->isAngularRequest()) {
     echo $this->content;
     return;
 }
@@ -14,6 +39,8 @@ $this->plugin('InlineScript')->appendFile('/assets/js/angular.js');
 $this->plugin('InlineScript')->appendFile('/assets/js/angular-resource.js');
 $this->plugin('InlineScript')->appendFile('https://raw.github.com/angular/angular.js/master/src/ngLocale/angular-locale_en-gb.js');
 
+$this->plugin('InlineScript')->appendFile('https://raw.github.com/angular-ui/router/ui-states/build/angular-ui-states.js');
+
 //$this->plugin('InlineScript')->appendFile('https://raw.github.com/angular-ui/ng-grid/master/ng-grid-1.8.0.debug.js');
 //$this->plugin('HeadLink')->appendStylesheet('https://raw.github.com/angular-ui/ng-grid/master/ng-grid.css');
 $this->plugin('InlineScript')->appendFile('http://angular-ui.github.com/ng-grid/lib/ng-grid.debug.js');
@@ -25,8 +52,9 @@ echo $this->plugin('doctype')->setDoctype(\Zend\View\Helper\Doctype::HTML5); ?>
 <html lang="en" ng-app="KapApp">
   <head>
     <meta charset="utf-8">
+    <title>{{title}}</title>
     <?php
-        echo $this->plugin('HeadTitle');
+        //echo $this->plugin('HeadTitle');
         echo $this->plugin('HeadMeta');
         echo $this->plugin('HeadLink');
         echo $this->plugin('HeadStyle');
@@ -59,9 +87,8 @@ echo $this->plugin('doctype')->setDoctype(\Zend\View\Helper\Doctype::HTML5); ?>
       <br>
       <br>
       <br>
-    <div class="container" ng-view>
-        <?php //=$this->content?>
-    </div>
+      <div ui-view></div>
+      
     <?php
         echo $this->plugin('InlineScript');
     ?>

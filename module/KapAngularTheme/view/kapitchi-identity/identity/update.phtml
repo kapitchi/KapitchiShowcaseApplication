@@ -1,18 +1,15 @@
 <?php
 $viewModel = $this->viewModel()->getCurrent();
-$model = $viewModel->model;
 $form = $viewModel->form;
 $form->setName('identity-form');
+
+//$form->setAttribute('data-ng-submit', 'xxx()');
+$form->setAttribute('data-ng-controller' , 'IdentityUpdate');
+
 $form->prepare();
 ?>
-
-<?php echo $this->formRenderer()->renderHeader($form);?>
-<?=$this->formRenderer()->renderElements($form);?>
-<?php if($this->appPlugin()->isEnabled('Identity/AuthCredential')):?>
-    <?=$this->formRenderer()->renderElements($form->get('auth-credential'));?>
-<?php endif?>
-<?php if($this->appPlugin()->isEnabled('Contact/KapitchiIdentity')):?>
-    <?=$this->partial('kapitchi-contact/partial/contact-form-elements.phtml', array('form' => $form->get('contact')))?>
-<?php endif?>
-<?=$this->formRenderer()->renderSubmit("Zmen", "identity-submit-btn")?>
-<?php echo $this->formRenderer()->renderFooter($form);?>
+<h1><?=$this->translate('Identity')?></h1>
+<div>
+    <?=$this->partial('partial/form.phtml', array('form' => $form, 'modelPrefix' => 'identity'));?>
+    <input type="submit" value="Submit" />
+</div>

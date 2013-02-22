@@ -1,33 +1,132 @@
-var kapApp = angular.module('KapApp', ['ngGrid']);
-kapApp.config(['$routeProvider', '$locationProvider', '$httpProvider', function($routeProvider, $locationProvider, $httpProvider) {
-    function updateCntl(x) {
-        console.log(x);
-    }
+var kapApp = angular.module('KapApp', ['ngGrid', 'ui.compat']);
+kapApp.config(function($routeProvider, $locationProvider, $httpProvider, $stateProvider) {
     
-    $routeProvider.
-        when('/', {templateUrl: '/'}).
-        when('/identity/identity/index', {templateUrl: '/identity/identity/index'}).
-        when('/identity/identity/update/:id', {templateUrl: function(routeMatch) {
-            return '/identity/identity/update/' + routeMatch.id;
-        }}).
-        otherwise({redirectTo: '/'});
+    
+    $httpProvider.responseInterceptors.push(function($q) {
+        return function(promise) {
+            return promise.then(function(response) {
+                //on success
+                return response;
+            }, function(response) {
+//                if (canRecover(response)) {
+//                    return responseOrNewPromise
+//                }
+                console.error(response.data.exception.message, response.data.exception.traceString);
+                
+                return $q.reject(response);
+            });
+        }
+    });
+    
+    $stateProvider
+        .state('home', {
+            url: '/',
+            templateProvider:
+                [        '$timeout',
+                function ($timeout) {
+                    return $timeout(function () {return "Hello world"}, 100);
+                }]
+            }
+        ).state('entity', {
+            'abstract': true,
+            template: '<div ng-view></div>'
+        }).state('entity.identity', {
+            url: '/identity/identity',
+            'abstract': true,
+            controller: function($scope) {
+                //console.log($scope);
+//                $scope.entities = [
+//                    {id: 1},
+//                    {id: 2},
+//                ];
+            },
+            template: '<div ng-view></div>'
+        }).state('entity.identity.index', {
+            url: '/index',
+            templateProvider: function($http, $templateCache, $rootScope) {
+                return $http.get('/identity/identity/index', {
+                        headers: {
+                            'Accept': 'application/kap-page'
+                        },
+                        cache: $templateCache
+                    }).then(function(response) {
+                        var data = response.data;
+                        
+                        $rootScope.title = data.title;
+                        return data.content;
+                    });
+            }
+        }).state('entity.identity.update', {
+            url: '/update/:id',
+            templateProvider: function($http, $templateCache, $rootScope, $stateParams) {
+                return $http.get('/identity/identity/update/' + $stateParams.id, {
+//                        params: {
+//                            id: $stateParams.id
+//                        },
+                        headers: {
+                            'Accept': 'application/kap-page'
+                        },
+                        cache: $templateCache
+                    }).then(function(response) {
+                        var data = response.data;
+                        
+                        $rootScope.title = data.title;
+                        
+                        return data.content;
+                    });
+            }
+        });
+    
+//    $routeProvider.
+//        when('/', {requestUrl: '/'}).
+//        when('/identity/identity/index', {requestUrl: '/identity/identity/index'}).
+//        when('/identity/identity/update/:id', {requestUrl: function(routeMatch) {
+//            return '/identity/identity/update/' + routeMatch.params.id;
+//        }}).
+//        otherwise({redirectTo: '/'});
   
     $locationProvider.html5Mode(true);
     
-}]).run(function($rootScope, $http) {
+}).run(function($rootScope, $http) {
     //http://stackoverflow.com/questions/14833597/listen-for-multiple-events-on-a-scope
     
     //mz: add mime to route template requests
-    var origAcceptHeader = $http.defaults.headers.common.Accept;
-    $rootScope.$on('$routeChangeStart', function(e, fn) {
-        $http.defaults.headers.common.Accept = "text/ng-template, " + origAcceptHeader;
-    });
-    $rootScope.$on('$routeChangeSuccess', function(e, fn) {
-        $http.defaults.headers.common.Accept = origAcceptHeader;
-    });
-    $rootScope.$on('$routeChangeError', function(e, fn) {
-        $http.defaults.headers.common.Accept = origAcceptHeader;
-    });
+    //var origAcceptHeader = $http.defaults.headers.common.Accept;
+    
+//    $rootScope.title = 'XXXX';
+//    $rootScope.$on('$routeChangeStart', function(e, routeMatch) {
+//        console.log(e);
+//        console.log(routeMatch);
+//        
+//    });
+//    $rootScope.$on('$routeChangeSuccess', function(e, routeMatch) {
+//        console.log(e);
+//        console.log(routeMatch);
+//        
+//        var url = routeMatch.requestUrl;
+//        if(angular.isFunction(url)) {
+//            url = url(routeMatch);
+//        }
+//        
+//        $http.get(url, {
+//            headers: {
+//                'Accept': 'application/kap-page'
+//            }
+//        }).success(function(data, status, headers, config) {
+//            console.log(data);
+//            $rootScope.title = data.title;
+//            $rootScope.content = data.content;
+//        }).error(function(data, status, headers, config) {
+//            // called asynchronously if an error occurs
+//            // or server returns response with an error status.
+//        });
+//    });
+//    $rootScope.$on('$routeChangeError', function(e, routeMatch) {
+//        //$http.defaults.headers.common.Accept = origAcceptHeader;
+//        console.log(e);
+//        console.log(routeMatch);
+//        
+//    });
     //END
     
 });
@@ -63,6 +162,18 @@ kapApp.controller('IdentityIndex', function($scope, $http) {
     });
     
     
+});
+
+kapApp.controller('IdentityUpdate', function($scope, $http) {
+//    $http.get('/identity/api/identity').success(function (data) {
+//        $scope.myData = data.entities;
+//        $scope.pagingOptions.totalServerItems = data.totalCount;
+//        //$scope.$apply();
+//        //$scope.setPagingData(largeLoad,page,pageSize);
+//    });
+    $scope.xxx = function() {
+        console.log($scope);
+    };
 });
 
 kapApp.filter('checkmark', function() {

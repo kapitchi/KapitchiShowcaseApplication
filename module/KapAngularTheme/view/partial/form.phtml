@@ -1,0 +1,13 @@
+<?php
+$form = $this->form;
+$modelPrefix = $this->modelPrefix;
+?>
+<?=$this->partial('partial/form/header.phtml', array('form' => $form));?>
+<?php foreach($form->getIterator() as $element):
+    $modelProp = $modelPrefix . '.' . $element->getName();
+    $element->setAttribute('data-ng-model', $modelProp);
+    //$element->setAttribute('data-ng-init', "$modelProp='" . $element->getValue() . "'");
+    ?>
+    <?=$this->partial('partial/form/row.phtml', array('form' => $form, 'element' => $element))?>
+<?php endforeach;?>
+<?=$this->partial('partial/form/footer.phtml', array('form' => $form));?>

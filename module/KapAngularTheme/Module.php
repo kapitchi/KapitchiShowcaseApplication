@@ -52,7 +52,14 @@ class Module extends AbstractModule
                     $ins = new View\Helper\Angular();
                     $ins->setRequest($sl->get('Request'));
                     return $ins;
-                }
+                },
+                //XXX TODO -- mz: needed because response is not injected into helper in ZF2
+                'json' => function($sm) {
+                    $sl = $sm->getServiceLocator();
+                    $ins = new \Zend\View\Helper\Json();
+                    $ins->setResponse($sl->get('response'));
+                    return $ins;
+                }    
             )
         );
     }

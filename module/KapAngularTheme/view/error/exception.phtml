@@ -1,6 +1,10 @@
 <?php if (true || isset($this->display_exceptions) && $this->display_exceptions): ?>
 
-<?php if(isset($this->exception) && $this->exception instanceof Exception): ?>
+<?php if(isset($this->exception) && $this->exception instanceof Exception):
+    
+    //mz: TODO XXX hack to display exception specific response from layout file
+    $this->layout()->exception = $this->exception;
+    ?>
 <hr/>
 <h2>Additional information:</h2>
 <h3><?php echo get_class($this->exception); ?></h3>

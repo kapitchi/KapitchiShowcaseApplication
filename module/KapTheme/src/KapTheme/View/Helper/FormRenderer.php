@@ -100,7 +100,7 @@ class FormRenderer extends AbstractHelper
     public function renderFooter(FormInterface $form)
     {
         $view = $this->getView();
-        $str .= $view->form()->closeTag();
+        $str = $view->form()->closeTag();
         
         return $str;
     }

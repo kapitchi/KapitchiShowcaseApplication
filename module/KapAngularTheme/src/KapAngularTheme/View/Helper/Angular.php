@@ -18,12 +18,29 @@ class Angular extends \Zend\View\Helper\AbstractHelper
         return $this;
     }
     
+    public function isAngularRequest()
+    {
+        return $this->isPageRequest() || $this->isTemplateRequest();
+    }
+    
     public function isTemplateRequest()
     {
         $accept = $this->getRequest()->getHeaders()->get('accept');
-        $matchedFormat = $accept->match('text/ng-template')->getFormat();
+        $matched = $accept->match('text/ng-template');
         
-        if($matchedFormat == 'ng-template') {
+        if($matched && $matched->getFormat()== 'ng-template') {
+            return true;
+        }
+        
+        return false;
+    }
+    
+    public function isPageRequest()
+    {
+        $accept = $this->getRequest()->getHeaders()->get('accept');
+        $matched = $accept->match('application/kap-page');
+        
+        if($matched && $matched->getFormat()== 'kap-page') {
             return true;
         }
         

@@ -9,7 +9,7 @@ $paginator = $viewModel->paginator;
 ?>
 <div ng-controller="IdentityIndex">
     <h1><?=$this->translate("Identities")?></h1>
-    <?php if($this->angular()->isTemplateRequest()):?>
+    <?php if($this->angular()->isAngularRequest()):?>
         <div class="gridStyle" ng-grid="gridOptions" style="width: 100%; height: 400px"></div>
     <?php else:?>
         <?php foreach($paginator as $item):?>
