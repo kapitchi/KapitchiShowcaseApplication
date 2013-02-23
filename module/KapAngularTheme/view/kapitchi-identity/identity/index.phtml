@@ -7,7 +7,7 @@ $paginator = $viewModel->paginator;
 //}
 //$jsonData = \Zend\Json\Json::encode($identityData);
 ?>
-<div ng-controller="IdentityIndex">
+<div ng-controller="EntityIndex">
     <h1><?=$this->translate("Identities")?></h1>
     <?php if($this->angular()->isAngularRequest()):?>
         <div class="gridStyle" ng-grid="gridOptions" style="width: 100%; height: 400px"></div>
@@ -16,4 +16,12 @@ $paginator = $viewModel->paginator;
             <?=var_dump($item)?>
         <?php endforeach?>
     <?php endif; ?>
+    
+    <table border="1">
+        <tr ng-repeat="entity in selectedEntities">
+            <td>{{entity.id}}</td>
+            <td>{{entity.displayName}}</td>
+        </tr>
+    </table>
+    
 </div>

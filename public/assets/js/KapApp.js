@@ -87,7 +87,9 @@ kapApp.config(function($routeProvider, $locationProvider, $httpProvider, $stateP
   
     $locationProvider.html5Mode(true);
     
-}).run(function($rootScope, $http) {
+}).run(function($rootScope, $http, $state) {
+    $rootScope.$state = $state;
+    
     //http://stackoverflow.com/questions/14833597/listen-for-multiple-events-on-a-scope
     
     //mz: add mime to route template requests
@@ -131,32 +133,54 @@ kapApp.config(function($routeProvider, $locationProvider, $httpProvider, $stateP
     
 });
 
-kapApp.controller('IdentityIndex', function($scope, $http) {
-    $scope.myData = [];
-    
-    $scope.gridOptions = {
-        data: 'myData',
-        //enablePaging: true,
-        //pagingOptions: $scope.pagingOptions,
-        //checkboxCellTemplate: '<div class="ngSelectionCell"><input tabindex="-1" class="ngSelectionCheckbox" type="checkbox" ng-checked="row.selected" /></div>',
-        columnDefs: [
+kapApp.controller('EntityIndex', function($scope, $http) {
+    $scope.$on('ngGridEventData', function(e, a1, a2) {
+        console.log(e);
+        console.log(a1);
+        console.log(a2);
+    });
+
+    $scope.selectedEntities = [];
+    $scope.entities = [];
+    $scope.gridColumnDefs = [
             {field: 'id', displayName: 'ID', cellTemplate: '<div ng-class="\'ngCellText colt\' + $index"><a href="/identity/identity/update/{{row.getProperty(\'id\')}}"><span ng-cell-text>{{COL_FIELD}}</span></a></div>'},
             {field: 'displayName', displayName:'Display name'},
             {field: 'authEnabled', displayName:'Auth. enabled', cellFilter: 'checkmark'},
             {field: 'created', displayName:'Created', cellFilter: 'date:"medium"'}
-        ]
-    };
+        ];
     
-    $scope.pagingOptions = {
+    $scope.gridPagingOptions = {
         pageSizes: [250, 500, 1000],
         pageSize: 250,
-        totalServerItems: 10,
+        totalServerItems: 0,
         currentPage: 1
     };
     
+    $scope.gridOptions = {
+        data: 'entities',
+        selectedItems: $scope.selectedEntities,
+        multiSelect: true,
+        enablePaging: true,
+        pagingOptions: $scope.gridPagingOptions,
+        //checkboxCellTemplate: '<div class="ngSelectionCell"><input tabindex="-1" class="ngSelectionCheckbox" type="checkbox" ng-checked="row.selected" /></div>',
+        columnDefs: 'gridColumnDefs'
+    };
+    
+    
+//    setTimeout(function() {
+//        $scope.columnDefs = [
+//                {field: 'id', displayName: 'ID', cellTemplate: '<div ng-class="\'ngCellText colt\' + $index"><a href="/identity/identity/update/{{row.getProperty(\'id\')}}"><span ng-cell-text>{{COL_FIELD}}</span></a></div>'},
+//                {field: 'displayName', displayName:'Display name'},
+//                //{field: 'authEnabled', displayName:'Auth. enabled', cellFilter: 'checkmark'},
+//                {field: 'created', displayName:'Created', cellFilter: 'date:"medium"'}
+//            ];
+//        
+//        console.log($scope);
+//    }, 2000);
+    
     $http.get('/identity/api/identity').success(function (data) {
-        $scope.myData = data.entities;
-        $scope.pagingOptions.totalServerItems = data.totalCount;
+        $scope.entities = data.entities;
+        $scope.gridPagingOptions.totalServerItems = data.totalCount;
         //$scope.$apply();
         //$scope.setPagingData(largeLoad,page,pageSize);
     });
@@ -164,15 +188,17 @@ kapApp.controller('IdentityIndex', function($scope, $http) {
     
 });
 
-kapApp.controller('IdentityUpdate', function($scope, $http) {
-//    $http.get('/identity/api/identity').success(function (data) {
-//        $scope.myData = data.entities;
-//        $scope.pagingOptions.totalServerItems = data.totalCount;
-//        //$scope.$apply();
-//        //$scope.setPagingData(largeLoad,page,pageSize);
-//    });
-    $scope.xxx = function() {
-        console.log($scope);
+kapApp.controller('EntityUpdate', function($scope, $http, $stateParams, $state) {
+    //$scope.entity = {};
+    $http.get('/identity/api/identity/' + $stateParams.id).success(function (data) {
+        $scope.entity = data.entity;
+    });
+    
+    $scope.save = function(entity) {
+        $http.put('/identity/api/identity/' + entity.id, entity).success(function (data) {
+            $scope.entity = data.entity;
+            $state.transitionTo('entity.identity.index');
+        }); 
     };
 });
 

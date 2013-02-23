@@ -1,0 +1,18 @@
+<?php
+$form = $this->form;
+$modelPrefix = empty($this->modelPrefix) ? 'entity' : $modelPrefix;
+?>
+<?php foreach($form->getIterator() as $element):
+    $modelProp = $modelPrefix . '.' . $element->getName();
+    $element->setAttribute('data-ng-model', $modelProp);
+    //mz: this can't be here as this supposed to be template only -- template is cached!!!
+    //$element->setAttribute('data-ng-init', "$modelProp='" . $element->getValue() . "'");
+    
+    //mz: this should be moved to checkbox view helper directly?
+    if($element instanceof Zend\Form\Element\Checkbox) {
+        $element->setAttribute('data-ng-true-value', '1');
+        $element->setAttribute('data-ng-false-value', '0');
+    }
+    ?>
+    <?=$this->partial('partial/form/row.phtml', array('form' => $form, 'element' => $element))?>
+<?php endforeach;?>
