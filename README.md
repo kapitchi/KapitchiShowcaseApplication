@@ -1,3 +1,9 @@
+!!! WORK IN PROGRESS !!!
+========================  
+
+This is not working yet! Follow us on twitter to get updated about the progress! 
+
+
 Zend Framework 2 - Kapitchi Showcase Application
 ================================================
 Version: 0.1    
