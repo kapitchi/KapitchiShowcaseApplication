@@ -1,4 +1,4 @@
-var kapApp = angular.module('KapApp', ['ngGrid', 'ui.compat']);
+var kapApp = angular.module('KapApp', ['ngGrid', 'ui.compat', 'ui.bootstrap']);
 kapApp.config(function($routeProvider, $locationProvider, $httpProvider, $stateProvider) {
     
     
@@ -52,7 +52,7 @@ kapApp.config(function($routeProvider, $locationProvider, $httpProvider, $stateP
                     }).then(function(response) {
                         var data = response.data;
                         
-                        $rootScope.title = data.title;
+                        //$rootScope.title = data.title;
                         return data.content;
                     });
             }
@@ -70,7 +70,8 @@ kapApp.config(function($routeProvider, $locationProvider, $httpProvider, $stateP
                     }).then(function(response) {
                         var data = response.data;
                         
-                        $rootScope.title = data.title;
+                        //$rootScope.title = data.title;
+                        //$state.current.title = data.title;
                         
                         return data.content;
                     });
@@ -88,6 +89,26 @@ kapApp.config(function($routeProvider, $locationProvider, $httpProvider, $stateP
     $locationProvider.html5Mode(true);
     
 }).run(function($rootScope, $http, $state) {
+    $rootScope.$on('EntityIndex.get', function(e, params) {
+        console.log(e);
+        console.log(params);
+        //console.log(a1);
+        //console.log(a2);
+        for(entity in params.data.entities) {
+            params.data.entities[entity].contact = {id: 111};
+        }
+    });
+    
+    $rootScope.$on('EntityIndex.post', function(e, params) {
+        console.log(e);
+        console.log(params);
+        e.targetScope.gridColumnDefs.push({field: 'contact.id', displayName:'ID'});
+    });
+    
+    $rootScope.page = {
+        title: 'My Application'
+    };
+    
     $rootScope.$state = $state;
     
     //http://stackoverflow.com/questions/14833597/listen-for-multiple-events-on-a-scope
@@ -136,14 +157,35 @@ kapApp.config(function($routeProvider, $locationProvider, $httpProvider, $stateP
 kapApp.controller('EntityIndex', function($scope, $http) {
     $scope.$on('ngGridEventData', function(e, a1, a2) {
         console.log(e);
-        console.log(a1);
-        console.log(a2);
+        //console.log(a1);
+        //console.log(a2);
     });
 
     $scope.selectedEntities = [];
     $scope.entities = [];
     $scope.gridColumnDefs = [
-            {field: 'id', displayName: 'ID', cellTemplate: '<div ng-class="\'ngCellText colt\' + $index"><a href="/identity/identity/update/{{row.getProperty(\'id\')}}"><span ng-cell-text>{{COL_FIELD}}</span></a></div>'},
+        {field: '\u2714',
+                    width: 100,
+                    sortable: false,
+                    resizable: false,
+                    groupable: false,
+                    headerCellTemplate: '<div><div>',
+//                    cellTemplate: '<div class="ngSelectionCell">' +
+//                    '<a class="dropdown-toggle">' +
+//                    '    Click me for a dropdown, yo!' +
+//                    '</a>' +
+//                    '<ul class="dropdown-menu">' +
+//                    '    <li>' +
+//                    '    <a>XXX</a>' +
+//                    '    </li>' +
+//                    '</ul>' +
+//                    '</div>' },
+                    cellTemplate: '<div class="ngSelectionCell">' +
+                    '<a href="/identity/identity/update/{{row.getProperty(\'id\')}}">' +
+                    '    Edit' +
+                    '</a>' +
+                    '</div>' },
+            {field: 'id', displayName: 'ID'},
             {field: 'displayName', displayName:'Display name'},
             {field: 'authEnabled', displayName:'Auth. enabled', cellFilter: 'checkmark'},
             {field: 'created', displayName:'Created', cellFilter: 'date:"medium"'}
@@ -156,36 +198,37 @@ kapApp.controller('EntityIndex', function($scope, $http) {
         currentPage: 1
     };
     
+    $scope.gridCheckboxHeaderTemplate = '<div><input class="ngSelectionHeader" type="checkbox" ng-show="multiSelect" ng-model="allSelected" ng-change="toggleSelectAll(allSelected)"/></div>';
     $scope.gridOptions = {
         data: 'entities',
         selectedItems: $scope.selectedEntities,
+        checkboxHeaderTemplate: $scope.gridCheckboxHeaderTemplate,
         multiSelect: true,
         enablePaging: true,
         pagingOptions: $scope.gridPagingOptions,
+        displaySelectionCheckbox: false,
+        selectWithCheckboxOnly: true,
         //checkboxCellTemplate: '<div class="ngSelectionCell"><input tabindex="-1" class="ngSelectionCheckbox" type="checkbox" ng-checked="row.selected" /></div>',
         columnDefs: 'gridColumnDefs'
     };
     
-    
-//    setTimeout(function() {
-//        $scope.columnDefs = [
-//                {field: 'id', displayName: 'ID', cellTemplate: '<div ng-class="\'ngCellText colt\' + $index"><a href="/identity/identity/update/{{row.getProperty(\'id\')}}"><span ng-cell-text>{{COL_FIELD}}</span></a></div>'},
-//                {field: 'displayName', displayName:'Display name'},
-//                //{field: 'authEnabled', displayName:'Auth. enabled', cellFilter: 'checkmark'},
-//                {field: 'created', displayName:'Created', cellFilter: 'date:"medium"'}
-//            ];
-//        
-//        console.log($scope);
-//    }, 2000);
+    setTimeout(function() {
+        //$scope.gridCheckboxHeaderTemplate = '<div>XXX<input class="ngSelectionHeader" type="checkbox" ng-show="multiSelect" ng-model="allSelected" ng-change="toggleSelectAll(allSelected)"/></div>';
+        //console.log('NOW');
+    }, 2000);
     
     $http.get('/identity/api/identity').success(function (data) {
+        $scope.$emit('EntityIndex.get', {
+            data: data
+        });
+        
         $scope.entities = data.entities;
         $scope.gridPagingOptions.totalServerItems = data.totalCount;
         //$scope.$apply();
         //$scope.setPagingData(largeLoad,page,pageSize);
     });
     
-    
+    $scope.$emit('EntityIndex.post');
 });
 
 kapApp.controller('EntityUpdate', function($scope, $http, $stateParams, $state) {

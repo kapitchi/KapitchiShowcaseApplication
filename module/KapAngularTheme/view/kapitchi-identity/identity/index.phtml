@@ -1,6 +1,9 @@
 <?php
 $viewModel = $this->viewModel()->getCurrent();
 $paginator = $viewModel->paginator;
+
+$this->headTitle('Identities');
+
 //$identityData = array();
 //foreach($paginator as $item) {
 //    $identityData[] = $this->identity()->toArray($item);
@@ -10,7 +13,7 @@ $paginator = $viewModel->paginator;
 <div ng-controller="EntityIndex">
     <h1><?=$this->translate("Identities")?></h1>
     <?php if($this->angular()->isAngularRequest()):?>
-        <div class="gridStyle" ng-grid="gridOptions" style="width: 100%; height: 400px"></div>
+        <div class="gridStyle" ng-grid="gridOptions" style="width: 100%; height: 300px"></div>
     <?php else:?>
         <?php foreach($paginator as $item):?>
             <?=var_dump($item)?>
@@ -21,6 +24,7 @@ $paginator = $viewModel->paginator;
         <tr ng-repeat="entity in selectedEntities">
             <td>{{entity.id}}</td>
             <td>{{entity.displayName}}</td>
+            <td>{{entity.contact.id}}</td>
         </tr>
     </table>
     
