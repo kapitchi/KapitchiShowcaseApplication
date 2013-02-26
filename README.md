@@ -18,7 +18,7 @@ Demo application for ZF2 modules developed or maintained by [Kapitchi Team](http
 Installation
 ============
 
-This applies to Win OS presuming you have (git)[http://msysgit.github.com/] and php set in (path environment variable)[http://blog.countableset.ch/2012/06/07/adding-git-to-windows-7-path/].  
+This applies to Win OS presuming you have [git](http://msysgit.github.com/) and php set in [path environment variable](http://blog.countableset.ch/2012/06/07/adding-git-to-windows-7-path/).  
 We don't think it's necessary to explain what to do for Linux "super users".
 
 1. Get the application source code under your www folder: `git clone https://github.com/kapitchi/KapitchiShowcaseApplication.git`
