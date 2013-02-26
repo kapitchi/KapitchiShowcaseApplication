@@ -11,7 +11,6 @@ return array(
         'KapitchiProcess',
         'KapTheme',
         'KapAngularTheme',
-        'Test',
     ),
     'module_listener_options' => array(
         'config_glob_paths'    => array(
