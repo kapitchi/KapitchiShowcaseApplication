@@ -4,12 +4,14 @@ return array(
         'KapShowcaseApp',
         'KapitchiBase',
         'KapitchiApp',
-        'KapTheme',
-        'KapAngularTheme',
         //'AsseticBundle',
         'KapitchiEntity',
         'KapitchiIdentity',
+        'KapitchiContact',
         'KapitchiProcess',
+        'KapTheme',
+        'KapAngularTheme',
+        'Test',
     ),
     'module_listener_options' => array(
         'config_glob_paths'    => array(
@@ -17,6 +19,7 @@ return array(
         ),
         'module_paths' => array(
             './module',
+            './module-dev',
             './vendor',
         ),
     ),

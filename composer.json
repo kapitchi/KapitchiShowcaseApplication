@@ -27,10 +27,10 @@
     "repositories": [
         {
             "type": "vcs",
-            "url": "https://github.com/kapitchi/zf2-mustache-module.git"
+            "url": "https://github.com/kapitchi/zf2-mustache-module"
         },
         {
-            "type": "vcs",
+            "type": "git",
             "url": "https://github.com/kapitchi/zf2.git"
         }
     ],
@@ -40,6 +40,7 @@
         "zendframework/zendframework": "dev-master",
         "kapitchi/app": "dev-master",
         "kapitchi/identity": "dev-master",
+        "kapitchi/contact": "dev-master",
         "kapitchi/process": "dev-master",
         "widmogrod/zf2-assetic-module": "dev-master",
         "widmogrod/zf2-mustache-module": "dev-master"

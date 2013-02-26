@@ -3,7 +3,7 @@
 
 $this->headTitle('My site')->setSeparator(' / ');
 
-if($this->exception) {
+if($this->angular()->isAngularRequest() && $this->exception) {
     echo $this->json(array(
         'title' => 'Exception',
         'exception' => array(
@@ -86,8 +86,8 @@ echo $this->plugin('doctype')->setDoctype(\Zend\View\Helper\Doctype::HTML5); ?>
           <div class="nav-collapse collapse">
             <ul class="nav">
               <li ng-class="{ active: $state.includes('home') }"><a href="/">Home</a></li>
-              <li ng-class="{ active: $state.includes('entity') }"><a href="/identity/identity/index">Identities</a></li>
-              <li><a href="/contact">Contact</a></li>
+              <li ng-class="{ active: $state.includes('identity') }"><a href="/identity/identity/index">Identities</a></li>
+              <li ng-class="{ active: $state.includes('contact') }"><a href="/contact/contact/index">Contacts</a></li>
             </ul>
           </div><!--/.nav-collapse -->
         </div>
@@ -96,7 +96,11 @@ echo $this->plugin('doctype')->setDoctype(\Zend\View\Helper\Doctype::HTML5); ?>
       <br>
       <br>
       <br>
+      <?php if(!$this->angular()->isAngularRequest() && $this->exception):?>
+      <div><?=$this->content?></div>
+      <?php else:?>
       <div ui-view></div>
+      <?php endif?>
       
     <?php
         echo $this->plugin('InlineScript');

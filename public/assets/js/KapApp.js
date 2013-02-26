@@ -1,7 +1,6 @@
 var kapApp = angular.module('KapApp', ['ngGrid', 'ui.compat', 'ui.bootstrap']);
 kapApp.config(function($routeProvider, $locationProvider, $httpProvider, $stateProvider) {
     
-    
     $httpProvider.responseInterceptors.push(function($q) {
         return function(promise) {
             return promise.then(function(response) {
@@ -28,23 +27,13 @@ kapApp.config(function($routeProvider, $locationProvider, $httpProvider, $stateP
                 }]
             }
         ).state('entity', {
+            url: '/:module/:entity',
             'abstract': true,
             template: '<div ng-view></div>'
-        }).state('entity.identity', {
-            url: '/identity/identity',
-            'abstract': true,
-            controller: function($scope) {
-                //console.log($scope);
-//                $scope.entities = [
-//                    {id: 1},
-//                    {id: 2},
-//                ];
-            },
-            template: '<div ng-view></div>'
-        }).state('entity.identity.index', {
+        }).state('entity.index', {
             url: '/index',
-            templateProvider: function($http, $templateCache, $rootScope) {
-                return $http.get('/identity/identity/index', {
+            templateProvider: function($http, $stateParams, $templateCache, $rootScope) {
+                return $http.get('/' + $stateParams.module + '/' + $stateParams.entity + '/index', {
                         headers: {
                             'Accept': 'application/kap-page'
                         },
@@ -56,10 +45,10 @@ kapApp.config(function($routeProvider, $locationProvider, $httpProvider, $stateP
                         return data.content;
                     });
             }
-        }).state('entity.identity.update', {
+        }).state('entity.update', {
             url: '/update/:id',
-            templateProvider: function($http, $templateCache, $rootScope, $stateParams) {
-                return $http.get('/identity/identity/update/' + $stateParams.id, {
+            templateProvider: function($http, $templateCache, $stateParams) {
+                return $http.get('/' + $stateParams.module + '/' + $stateParams.entity + '/update/' + $stateParams.id, {
 //                        params: {
 //                            id: $stateParams.id
 //                        },
@@ -78,14 +67,6 @@ kapApp.config(function($routeProvider, $locationProvider, $httpProvider, $stateP
             }
         });
     
-//    $routeProvider.
-//        when('/', {requestUrl: '/'}).
-//        when('/identity/identity/index', {requestUrl: '/identity/identity/index'}).
-//        when('/identity/identity/update/:id', {requestUrl: function(routeMatch) {
-//            return '/identity/identity/update/' + routeMatch.params.id;
-//        }}).
-//        otherwise({redirectTo: '/'});
-  
     $locationProvider.html5Mode(true);
     
 }).run(function($rootScope, $http, $state) {
@@ -110,61 +91,13 @@ kapApp.config(function($routeProvider, $locationProvider, $httpProvider, $stateP
     };
     
     $rootScope.$state = $state;
-    
-    //http://stackoverflow.com/questions/14833597/listen-for-multiple-events-on-a-scope
-    
-    //mz: add mime to route template requests
-    //var origAcceptHeader = $http.defaults.headers.common.Accept;
-    
-//    $rootScope.title = 'XXXX';
-//    $rootScope.$on('$routeChangeStart', function(e, routeMatch) {
-//        console.log(e);
-//        console.log(routeMatch);
-//        
-//    });
-//    $rootScope.$on('$routeChangeSuccess', function(e, routeMatch) {
-//        console.log(e);
-//        console.log(routeMatch);
-//        
-//        var url = routeMatch.requestUrl;
-//        if(angular.isFunction(url)) {
-//            url = url(routeMatch);
-//        }
-//        
-//        $http.get(url, {
-//            headers: {
-//                'Accept': 'application/kap-page'
-//            }
-//        }).success(function(data, status, headers, config) {
-//            console.log(data);
-//            $rootScope.title = data.title;
-//            $rootScope.content = data.content;
-//        }).error(function(data, status, headers, config) {
-//            // called asynchronously if an error occurs
-//            // or server returns response with an error status.
-//        });
-//    });
-//    $rootScope.$on('$routeChangeError', function(e, routeMatch) {
-//        //$http.defaults.headers.common.Accept = origAcceptHeader;
-//        console.log(e);
-//        console.log(routeMatch);
-//        
-//    });
-    //END
-    
 });
 
-kapApp.controller('EntityIndex', function($scope, $http) {
-    $scope.$on('ngGridEventData', function(e, a1, a2) {
-        console.log(e);
-        //console.log(a1);
-        //console.log(a2);
-    });
-
+kapApp.controller('EntityIndex', function($scope, $http, $stateParams) {
     $scope.selectedEntities = [];
     $scope.entities = [];
     $scope.gridColumnDefs = [
-        {field: '\u2714',
+        {field: '_rowSelection',
                     width: 100,
                     sortable: false,
                     resizable: false,
@@ -181,10 +114,10 @@ kapApp.controller('EntityIndex', function($scope, $http) {
 //                    '</ul>' +
 //                    '</div>' },
                     cellTemplate: '<div class="ngSelectionCell">' +
-                    '<a href="/identity/identity/update/{{row.getProperty(\'id\')}}">' +
+                    '<a href="/' + $stateParams.module + '/' + $stateParams.entity + '/update/{{row.getProperty(\'id\')}}">' +
                     '    Edit' +
                     '</a>' +
-                    '</div>' },
+                    '</div>'},
             {field: 'id', displayName: 'ID'},
             {field: 'displayName', displayName:'Display name'},
             {field: 'authEnabled', displayName:'Auth. enabled', cellFilter: 'checkmark'},
@@ -217,7 +150,9 @@ kapApp.controller('EntityIndex', function($scope, $http) {
         //console.log('NOW');
     }, 2000);
     
-    $http.get('/identity/api/identity').success(function (data) {
+    console.log($scope.options);
+    
+    $http.get($scope.options.apiUrl).success(function (data) {
         $scope.$emit('EntityIndex.get', {
             data: data
         });
@@ -233,14 +168,17 @@ kapApp.controller('EntityIndex', function($scope, $http) {
 
 kapApp.controller('EntityUpdate', function($scope, $http, $stateParams, $state) {
     //$scope.entity = {};
-    $http.get('/identity/api/identity/' + $stateParams.id).success(function (data) {
+    $http.get('/' + $stateParams.module + '/api/' + $stateParams.entity + '/' + $stateParams.id).success(function (data) {
         $scope.entity = data.entity;
     });
     
     $scope.save = function(entity) {
-        $http.put('/identity/api/identity/' + entity.id, entity).success(function (data) {
+        $http.put('/' + $stateParams.module + '/api/' + $stateParams.entity + '/' + entity.id, entity).success(function (data) {
             $scope.entity = data.entity;
-            $state.transitionTo('entity.identity.index');
+            $state.transitionTo('entity.index', {
+                module: $stateParams.module,
+                entity: $stateParams.entity
+            });
         }); 
     };
 });

@@ -2,7 +2,7 @@
 $viewModel = $this->viewModel()->getCurrent();
 $paginator = $viewModel->paginator;
 
-$this->headTitle('Identities');
+$this->headTitle('Contact');
 
 //$identityData = array();
 //foreach($paginator as $item) {
@@ -11,7 +11,7 @@ $this->headTitle('Identities');
 //$jsonData = \Zend\Json\Json::encode($identityData);
 ?>
 <?=$this->partial('partial/entity/index.phtml', array(
-    'heading' => $this->translate('Identities'),
+    'heading' => $this->translate('Contacts'),
     'paginator' => $paginator,
-    'apiUrl' => $this->url('identity/api/identity'),
+    'apiUrl' => $this->url('contact/api/contact'),
 ));

@@ -16,4 +16,4 @@ if(is_readable('config/application.local.php')) {
 }
 
 // Run application
-Zend\Mvc\Application::init($configuration)->run()->send();
+KapitchiApp\Mvc\Application::init($configuration)->run()->send();

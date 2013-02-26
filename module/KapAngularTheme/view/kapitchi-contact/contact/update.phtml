@@ -1,0 +1,18 @@
+<?php
+$viewModel = $this->viewModel()->getCurrent();
+$form = $viewModel->form;
+$form->setName('identity-form');
+$form->setAttribute('action', null);
+
+//$form->setAttribute('data-ng-submit', 'xxx()');
+//$form->setAttribute('data-ng-controller' , 'IdentityUpdate');
+
+$form->prepare();
+?>
+<div ng-controller="EntityUpdate">
+    <h1><?=$this->translate('Identity')?></h1>
+    <?=$this->partial('partial/form/header.phtml', array('form' => $form));?>
+    <?=$this->partial('partial/form/elements.phtml', array('form' => $form));?>
+        <input type="submit" value="Submit" ng-click="save(entity)"/>
+    <?=$this->partial('partial/form/footer.phtml', array('form' => $form));?>
+</div>
