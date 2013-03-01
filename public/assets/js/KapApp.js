@@ -1,6 +1,21 @@
 var kapApp = angular.module('KapApp', ['ngGrid', 'ui.compat', 'ui.bootstrap']);
 kapApp.config(function($routeProvider, $locationProvider, $httpProvider, $stateProvider) {
     
+    var pageTemplateProvider = function($browser, $http, $stateParams, $templateCache, $rootScope, $state) {
+        //return $http.get('/' + $stateParams.module + '/' + $stateParams.entity + '/index', {
+        return $http.get($browser.url(), {
+                headers: {
+                    'Accept': 'application/kap-page'
+                },
+                cache: $templateCache
+            }).then(function(response) {
+                console.log(response.data);
+                var data = response.data;
+                //$rootScope.title = data.title;
+                return data.content;
+            });
+    };
+            
     $httpProvider.responseInterceptors.push(function($q) {
         return function(promise) {
             return promise.then(function(response) {
@@ -26,53 +41,40 @@ kapApp.config(function($routeProvider, $locationProvider, $httpProvider, $stateP
                     return $timeout(function () {return "Hello world"}, 100);
                 }]
             }
-        ).state('entity', {
-            url: '/:module/:entity',
+        ).state('page', {
+            //url: '/:module/:entity',
             'abstract': true,
             template: '<div ng-view></div>'
-        }).state('entity.index', {
+        }).state('identity', {
+            url: '/identity/identity',
+            parent: 'page',
+            template: '<div ng-view></div>',
+            abstract: true
+        }).state('identity.index', {
             url: '/index',
-            templateProvider: function($http, $stateParams, $templateCache, $rootScope) {
-                return $http.get('/' + $stateParams.module + '/' + $stateParams.entity + '/index', {
-                        headers: {
-                            'Accept': 'application/kap-page'
-                        },
-                        cache: $templateCache
-                    }).then(function(response) {
-                        var data = response.data;
-                        
-                        //$rootScope.title = data.title;
-                        return data.content;
-                    });
-            }
-        }).state('entity.update', {
+            templateProvider: pageTemplateProvider
+        }).state('identity.update', {
             url: '/update/:id',
-            templateProvider: function($http, $templateCache, $stateParams) {
-                return $http.get('/' + $stateParams.module + '/' + $stateParams.entity + '/update/' + $stateParams.id, {
-//                        params: {
-//                            id: $stateParams.id
-//                        },
-                        headers: {
-                            'Accept': 'application/kap-page'
-                        },
-                        cache: $templateCache
-                    }).then(function(response) {
-                        var data = response.data;
-                        
-                        //$rootScope.title = data.title;
-                        //$state.current.title = data.title;
-                        
-                        return data.content;
-                    });
-            }
+            templateProvider: pageTemplateProvider
+        }).state('contact', {
+            url: '/contact/contact',
+            parent: 'page',
+            template: '<div ng-view></div>',
+            abstract: true
+        }).state('contact.index', {
+            url: '/index',
+            templateProvider: pageTemplateProvider
+        }).state('contact.update', {
+            url: '/update/:id',
+            templateProvider: pageTemplateProvider
         });
     
     $locationProvider.html5Mode(true);
     
 }).run(function($rootScope, $http, $state) {
     $rootScope.$on('EntityIndex.get', function(e, params) {
-        console.log(e);
-        console.log(params);
+        //console.log(e);
+        //console.log(params);
         //console.log(a1);
         //console.log(a2);
         for(entity in params.data.entities) {
@@ -81,9 +83,9 @@ kapApp.config(function($routeProvider, $locationProvider, $httpProvider, $stateP
     });
     
     $rootScope.$on('EntityIndex.post', function(e, params) {
-        console.log(e);
-        console.log(params);
-        e.targetScope.gridColumnDefs.push({field: 'contact.id', displayName:'ID'});
+        //console.log(e);
+        //console.log(params);
+        //e.targetScope.gridColumnDefs.push({field: 'contact.id', displayName:'ID'});
     });
     
     $rootScope.page = {
@@ -94,6 +96,7 @@ kapApp.config(function($routeProvider, $locationProvider, $httpProvider, $stateP
 });
 
 kapApp.controller('EntityIndex', function($scope, $http, $stateParams) {
+    console.log($stateParams);
     $scope.selectedEntities = [];
     $scope.entities = [];
     $scope.gridColumnDefs = [
@@ -150,7 +153,7 @@ kapApp.controller('EntityIndex', function($scope, $http, $stateParams) {
         //console.log('NOW');
     }, 2000);
     
-    console.log($scope.options);
+    //console.log($scope.options);
     
     $http.get($scope.options.apiUrl).success(function (data) {
         $scope.$emit('EntityIndex.get', {

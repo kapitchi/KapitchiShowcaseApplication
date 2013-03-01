@@ -1,7 +1,7 @@
 <?php
 $viewModel = $this->viewModel()->getCurrent();
 $form = $viewModel->form;
-$form->setName('identity-form');
+$form->setName('contact-form');
 $form->setAttribute('action', null);
 
 //$form->setAttribute('data-ng-submit', 'xxx()');
@@ -10,7 +10,7 @@ $form->setAttribute('action', null);
 $form->prepare();
 ?>
 <div ng-controller="EntityUpdate">
-    <h1><?=$this->translate('Identity')?></h1>
+    <h1><?=$this->translate('Contact')?></h1>
     <?=$this->partial('partial/form/header.phtml', array('form' => $form));?>
     <?=$this->partial('partial/form/elements.phtml', array('form' => $form));?>
         <input type="submit" value="Submit" ng-click="save(entity)"/>

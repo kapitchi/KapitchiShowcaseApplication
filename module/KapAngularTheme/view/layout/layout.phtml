@@ -32,30 +32,31 @@ if($this->angular()->isAngularRequest()) {
     return;
 }
 
-$this->plugin('InlineScript')->appendFile('/assets/js/jquery.min.js');
-$this->plugin('InlineScript')->appendFile('/assets/js/bootstrap.js');
-$this->plugin('HeadLink')->appendStylesheet('/assets/css/bootstrap.css');
-$this->plugin('HeadLink')->appendStylesheet('/assets/css/bootstrap-responsive.css');
+$this->plugin('InlineScript')->appendFile($this->basePath('/assets/js/jquery.min.js'));
+$this->plugin('InlineScript')->appendFile($this->basePath('/assets/js/bootstrap.js'));
+$this->plugin('HeadLink')->appendStylesheet($this->basePath('/assets/css/bootstrap.css'));
+$this->plugin('HeadLink')->appendStylesheet($this->basePath('/assets/css/bootstrap-responsive.css'));
 
-$this->plugin('InlineScript')->appendFile('/assets/js/angular.js');
-$this->plugin('InlineScript')->appendFile('/assets/js/angular-resource.js');
+$this->plugin('InlineScript')->appendFile($this->basePath('/assets/js/angular.js'));
+$this->plugin('InlineScript')->appendFile($this->basePath('/assets/js/angular-resource.js'));
 //$this->plugin('InlineScript')->appendFile('https://raw.github.com/angular/angular.js/master/src/ngLocale/angular-locale_en-gb.js');
-$this->plugin('InlineScript')->appendFile('/assets/js/angular-locale_en-gb.js');
+$this->plugin('InlineScript')->appendFile($this->basePath('/assets/js/angular-locale_en-gb.js'));
 
 //$this->plugin('InlineScript')->appendFile('https://raw.github.com/angular-ui/router/ui-states/build/angular-ui-states.js');
-$this->plugin('InlineScript')->appendFile('/assets/js/angular-ui-states.js');
+$this->plugin('InlineScript')->appendFile($this->basePath('/assets/js/angular-ui-states.js'));
 
-$this->plugin('InlineScript')->appendFile('http://angular-ui.github.com/bootstrap/ui-bootstrap-tpls-0.1.0.js');
+//$this->plugin('InlineScript')->appendFile('http://angular-ui.github.com/bootstrap/ui-bootstrap-tpls-0.1.0.js');
+$this->plugin('InlineScript')->appendFile($this->basePath('/assets/js/ui-bootstrap-tpls-0.1.0.js'));
 
 //$this->plugin('InlineScript')->appendFile('https://raw.github.com/angular-ui/ng-grid/master/ng-grid-1.8.0.debug.js');
 //$this->plugin('HeadLink')->appendStylesheet('https://raw.github.com/angular-ui/ng-grid/master/ng-grid.css');
 //$this->plugin('InlineScript')->appendFile('http://angular-ui.github.com/ng-grid/lib/ng-grid.debug.js');
-$this->plugin('InlineScript')->appendFile('/assets/js/ng-grid.debug.js');
+$this->plugin('InlineScript')->appendFile($this->basePath('/assets/js/ng-grid.debug.js'));
 //$this->plugin('HeadLink')->appendStylesheet('http://angular-ui.github.com/ng-grid/css/ng-grid.css');
-$this->plugin('HeadLink')->appendStylesheet('/assets/css/ng-grid.css');
+$this->plugin('HeadLink')->appendStylesheet($this->basePath('/assets/css/ng-grid.css'));
 
-$this->plugin('InlineScript')->appendFile('/assets/js/KapApp.js');
-$this->plugin('HeadLink')->appendStylesheet('/assets/css/kap-angular-theme.css');
+$this->plugin('InlineScript')->appendFile($this->basePath('/assets/js/KapApp.js'));
+$this->plugin('HeadLink')->appendStylesheet($this->basePath('/assets/css/kap-angular-theme.css'));
 
 echo $this->plugin('doctype')->setDoctype(\Zend\View\Helper\Doctype::HTML5); ?>
 <html lang="en" ng-app="KapApp">

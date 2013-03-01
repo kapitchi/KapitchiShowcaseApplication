@@ -27,6 +27,6 @@ We don't think it's necessary to explain what to do for Linux "super users".
 4. Run composer - `php composer.phar install`
 5. ... this will take some time... so in the meantime you can continue with following steps below
 6. Create database "kapichi_showcase"
-7. Run SQL script to create schemas and some sample records on the db: /deploy/mysql-install.sql
-8. Create db config file `copy config/autoload/database.local.php.dist config/autoload/database.local.php`
+7. Run SQL script to create schemas and some sample records on the db: deploy/mysql-install.sql
+8. Create db config file `copy config\autoload\database.local.php.dist config\autoload/database.local.php`
 9. Your done! - [http://localhost/KapitchiShowcaseApplication/public/](http://localhost/KapitchiShowcaseApplication/public/)
