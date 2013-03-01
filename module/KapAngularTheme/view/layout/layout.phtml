@@ -86,9 +86,9 @@ echo $this->plugin('doctype')->setDoctype(\Zend\View\Helper\Doctype::HTML5); ?>
           <a class="brand" href="/">Project name</a>
           <div class="nav-collapse collapse">
             <ul class="nav">
-              <li ng-class="{ active: $state.includes('home') }"><a href="/">Home</a></li>
-              <li ng-class="{ active: $state.includes('identity') }"><a href="/identity/identity/index">Identities</a></li>
-              <li ng-class="{ active: $state.includes('contact') }"><a href="/contact/contact/index">Contacts</a></li>
+              <li ng-class="{ active: $state.includes('home') }"><a href="<?=$this->url('home')?>">Home</a></li>
+              <li ng-class="{ active: $state.includes('identity') }"><a href="<?=$this->url('identity/identity', array('action' => 'index'))?>">Identities</a></li>
+              <li ng-class="{ active: $state.includes('contact') }"><a href="<?=$this->url('contact/contact', array('action' => 'index'))?>">Contacts</a></li>
             </ul>
           </div><!--/.nav-collapse -->
         </div>
