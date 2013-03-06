@@ -52,9 +52,11 @@ kapApp.config(function($routeProvider, $locationProvider, $httpProvider, $stateP
             abstract: true
         }).state('identity.index', {
             url: '/index',
+            updateUrl: '/identity/identity/update',
             templateProvider: pageTemplateProvider
         }).state('identity.update', {
             url: '/update/:id',
+            restUrl: 'identity/api/identity',
             templateProvider: pageTemplateProvider
         }).state('contact', {
             url: '/contact/contact',
@@ -63,9 +65,11 @@ kapApp.config(function($routeProvider, $locationProvider, $httpProvider, $stateP
             abstract: true
         }).state('contact.index', {
             url: '/index',
+            updateUrl: '/contact/contact/update',
             templateProvider: pageTemplateProvider
         }).state('contact.update', {
             url: '/update/:id',
+            restUrl: 'contact/api/contact',
             templateProvider: pageTemplateProvider
         });
     
@@ -95,8 +99,7 @@ kapApp.config(function($routeProvider, $locationProvider, $httpProvider, $stateP
     $rootScope.$state = $state;
 });
 
-kapApp.controller('EntityIndex', function($scope, $http, $stateParams) {
-    console.log($stateParams);
+kapApp.controller('EntityIndex', function($scope, $http, $stateParams, $state, $browser) {
     $scope.selectedEntities = [];
     $scope.entities = [];
     $scope.gridColumnDefs = [
@@ -117,7 +120,7 @@ kapApp.controller('EntityIndex', function($scope, $http, $stateParams) {
 //                    '</ul>' +
 //                    '</div>' },
                     cellTemplate: '<div class="ngSelectionCell">' +
-                    '<a href="/' + $stateParams.module + '/' + $stateParams.entity + '/update/{{row.getProperty(\'id\')}}">' +
+                    '<a href="' + ($browser.baseHref() + $state.current.updateUrl).replace('//', '/') + '/{{row.getProperty(\'id\')}}">' +
                     '    Edit' +
                     '</a>' +
                     '</div>'},
@@ -169,14 +172,15 @@ kapApp.controller('EntityIndex', function($scope, $http, $stateParams) {
     $scope.$emit('EntityIndex.post');
 });
 
-kapApp.controller('EntityUpdate', function($scope, $http, $stateParams, $state) {
+kapApp.controller('EntityUpdate', function($scope, $http, $stateParams, $state, $browser) {
     //$scope.entity = {};
-    $http.get('/' + $stateParams.module + '/api/' + $stateParams.entity + '/' + $stateParams.id).success(function (data) {
+    console.log($state);
+    $http.get($browser.baseHref() + $state.current.restUrl + '/' + $stateParams.id).success(function (data) {
         $scope.entity = data.entity;
     });
     
     $scope.save = function(entity) {
-        $http.put('/' + $stateParams.module + '/api/' + $stateParams.entity + '/' + entity.id, entity).success(function (data) {
+        $http.put($browser.baseHref() + $state.current.restUrl + '/' + $stateParams.id, entity).success(function (data) {
             $scope.entity = data.entity;
             $state.transitionTo('entity.index', {
                 module: $stateParams.module,
@@ -189,12 +193,5 @@ kapApp.controller('EntityUpdate', function($scope, $http, $stateParams, $state) 
 kapApp.filter('checkmark', function() {
     return function(input) {
         return input == '1' ? '\u2713' : '\u2718';
-    };
-});
-
-kapApp.filter('gridEntityUrl', function() {
-    return function(input, url) {
-        url = url.replace(':id', this.row.getProperty('id'));
-        return '<a href="' + url + '">' + input + '</a>';
     };
 });

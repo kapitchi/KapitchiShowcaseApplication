@@ -13,5 +13,5 @@ $this->headTitle('Identities');
 <?=$this->partial('partial/entity/index.phtml', array(
     'heading' => $this->translate('Identities'),
     'paginator' => $paginator,
-    'apiUrl' => $this->url('identity/api/identity'),
+    'apiUrl' => $this->url('identity/api/identity', array(), array('base_relative' => true)),
 ));
