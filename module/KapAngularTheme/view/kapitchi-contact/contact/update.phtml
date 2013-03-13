@@ -10,9 +10,14 @@ $form->setAttribute('action', null);
 $form->prepare();
 ?>
 <div ng-controller="EntityUpdate">
-    <h1><?=$this->translate('Contact')?></h1>
-    <?=$this->partial('partial/form/header.phtml', array('form' => $form));?>
-    <?=$this->partial('partial/form/elements.phtml', array('form' => $form));?>
-        <input type="submit" value="Submit" ng-click="save(entity)"/>
-    <?=$this->partial('partial/form/footer.phtml', array('form' => $form));?>
+    <div class="hero-unit span3">
+        <div class="container-fluid">
+        <h1><?= $this->translate('Contact') ?></h1>
+        <?= $this->partial('partial/form/header.phtml', array('form' => $form)); ?>
+        <?= $this->partial('partial/form/elements.phtml', array('form' => $form)); ?>
+        <br>    
+        <input class="btn btn-success" type="submit" value="Submit" ng-click="save(entity)"/>
+        <?= $this->partial('partial/form/footer.phtml', array('form' => $form)); ?>
+        </div>
+    </div>
 </div>
