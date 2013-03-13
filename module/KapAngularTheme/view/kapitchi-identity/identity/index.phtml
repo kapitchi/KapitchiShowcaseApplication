@@ -1,3 +1,4 @@
+
 <?php
 $viewModel = $this->viewModel()->getCurrent();
 $paginator = $viewModel->paginator;
@@ -10,8 +11,10 @@ $this->headTitle('Identities');
 //}
 //$jsonData = \Zend\Json\Json::encode($identityData);
 ?>
+    <div class="hero-unit">
 <?=$this->partial('partial/entity/index.phtml', array(
     'heading' => $this->translate('Identities'),
     'paginator' => $paginator,
     'apiUrl' => $this->url('identity/api/identity', array(), array('base_relative' => true)),
+    
 ));
