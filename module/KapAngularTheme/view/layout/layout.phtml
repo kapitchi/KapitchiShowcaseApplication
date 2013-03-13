@@ -93,7 +93,7 @@ echo $this->plugin('doctype')->setDoctype(\Zend\View\Helper\Doctype::HTML5); ?>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </a>
-          <a class="brand" href="/">Kapitchi ShowcaseApplication</a>
+          <a class="brand" href="<?=$this->url('home', array(), array('base_relative' => true))?>">Kapitchi ShowcaseApplication</a>
           <div class="nav-collapse collapse">
             <ul class="nav">
               <li ng-class="{ active: $state.includes('home') }"><a href="<?=$this->url('home', array(), array('base_relative' => true))?>">Home</a></li>
@@ -108,7 +108,7 @@ echo $this->plugin('doctype')->setDoctype(\Zend\View\Helper\Doctype::HTML5); ?>
       </div>
       <hr>
       
-      <div class="container hero-unit">
+      <div class="container">
       <?php if(!$this->angular()->isAngularRequest() && $this->exception):?>
       <div><?=$this->content?></div>
       
