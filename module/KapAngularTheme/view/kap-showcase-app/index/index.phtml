@@ -3,4 +3,51 @@
     <input type="text" ng-model="yourName" ng-init="yourName='there'" placeholder="Enter a name here">
     <hr>
     <h1>Hello {{yourName}}!</h1>
+    <div class="container-fluid">
+        <div class="span12">
+            <div class="row">
+                <div class="span4">
+                    <div class="hero-unit">
+                        <h3>WORK IN PROGRESS</h3>
+                        <ul class="p">
+
+                            <li>This application is not working yet! Follow us on twitter to get updates about the progress.
+                                We are experimenting and working on theme based on Twitter Bootstrap and AngularJS
+                            </li>
+
+                            <li>Version: 0.1-dev Author: Kapitchi Team
+                                Website:<a href='http://kapitchi.com'>http://kapitchi.com</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="span4">
+                    <div class="hero-unit">
+                        <h3>Introduction</h3>
+                        <ul class="p">
+                            <li>Demo application for ZF2 modules developed or maintained by <a href="http://kapitchi.com/">Kapitchi Team</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="span4">
+                    <div class="hero-unit">
+                        <h3>Instalation</h3>
+                        <ol class="o">This applies to Win OS presuming you have git and php set in path environment variable.
+                            We don't think it's necessary to explain what to do for Linux "super users".
+
+                            <li>Get the application source code under your www folder: <b>git clone https://github.com/kapitchi/KapitchiShowcaseApplication.git</b></li>
+                            <li>Change your working directory<b> cd KapitchiShowcaseApplication</b></li>
+                            <li>Create module-dev folder (folder for your modules to test, develop, break and play!)<b> mkdir module-dev</b></li>
+                            <li>Run composer - <b>php composer.phar install</b></li>
+                            <li>... this will take some time... so in the meantime you can continue with following steps below</li>
+                            <li>Create database <b>"kapichi_showcase"</b></li>
+                            <li>Run SQL script to create schemas and some sample records on the db: <b>deploy/mysql-install.sql</b></li>
+                            <li>Create db config file copy <b>config\autoload\database.local.php.dist config\autoload/database.local.php</b></li>
+                            <li>Your done! - <a href="http://localhost/KapitchiShowcaseApplication/public/">http://localhost/KapitchiShowcaseApplication/public/</a></li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
