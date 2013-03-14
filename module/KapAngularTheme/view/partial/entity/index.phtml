@@ -3,8 +3,7 @@ $options = array(
     'apiUrl' => $this->apiUrl,
 );
 ?>
-<div ng-init="options = <?=$this->escapeHtmlAttr(\Zend\Json\Json::encode($options))?>">
-<div ng-controller="EntityIndex">
+<div ng-controller="EntityIndex" ng-init="init(<?=$this->escapeHtmlAttr(\Zend\Json\Json::encode($options))?>)">
     <h1><?=$this->heading?></h1>
     <?php if($this->angular()->isAngularRequest()):?>
         <div class="gridStyle" ng-grid="gridOptions" style="width: 100%; height: 300px"></div>

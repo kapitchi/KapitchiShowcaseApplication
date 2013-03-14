@@ -1,47 +1,25 @@
 var kapApp = angular.module('KapApp', ['ngGrid', 'ui.compat', 'ui.bootstrap']);
+
 kapApp.config(function($routeProvider, $locationProvider, $httpProvider, $stateProvider) {
     
-    var pageTemplateProvider = function($browser, $http, $stateParams, $templateCache, $rootScope, $state) {
-        //return $http.get('/' + $stateParams.module + '/' + $stateParams.entity + '/index', {
+    var pageTemplateProvider = function($browser, $http, $stateParams, $templateCache, $rootScope, $state, pageMeta) {
         return $http.get($browser.url(), {
                 headers: {
                     'Accept': 'application/kap-page'
                 },
                 cache: $templateCache
             }).then(function(response) {
-                console.log(response.data);
                 var data = response.data;
-                //$rootScope.title = data.title;
+                pageMeta.setTitle(data.title);
                 return data.content;
             });
     };
             
-    $httpProvider.responseInterceptors.push(function($q) {
-        return function(promise) {
-            return promise.then(function(response) {
-                //on success
-                return response;
-            }, function(response) {
-//                if (canRecover(response)) {
-//                    return responseOrNewPromise
-//                }
-                console.error(response.data.exception.message, response.data.exception.traceString);
-                
-                return $q.reject(response);
-            });
-        }
-    });
-    
     $stateProvider
         .state('home', {
             url: '/',
-            templateProvider:
-                [        '$timeout',
-                function ($timeout) {
-                    return $timeout(function () {return "Hello world"}, 100);
-                }]
-            }
-        ).state('page', {
+            templateProvider: pageTemplateProvider
+        }).state('page', {
             //url: '/:module/:entity',
             'abstract': true,
             template: '<div ng-view></div>'
@@ -92,14 +70,33 @@ kapApp.config(function($routeProvider, $locationProvider, $httpProvider, $stateP
         //e.targetScope.gridColumnDefs.push({field: 'contact.id', displayName:'ID'});
     });
     
-    $rootScope.page = {
-        title: 'My Application'
-    };
-    
     $rootScope.$state = $state;
 });
 
+kapApp.service('pageMeta', function($rootScope) {
+    this.setTitle = function(title) {
+        $rootScope.title = title;
+    };
+});
+
 kapApp.controller('EntityIndex', function($scope, $http, $stateParams, $state, $browser) {
+    var options = {};
+    
+    $scope.init = function(opts) {
+        angular.extend(options, opts);
+        
+        $http.get(options.apiUrl).success(function (data) {
+            $scope.$emit('EntityIndex.get', {
+                data: data
+            });
+
+            $scope.entities = data.entities;
+            $scope.gridPagingOptions.totalServerItems = data.totalCount;
+        });
+
+        $scope.$emit('EntityIndex.init');
+    };
+    
     $scope.selectedEntities = [];
     $scope.entities = [];
     $scope.gridColumnDefs = [
@@ -151,25 +148,6 @@ kapApp.controller('EntityIndex', function($scope, $http, $stateParams, $state, $
         columnDefs: 'gridColumnDefs'
     };
     
-    setTimeout(function() {
-        //$scope.gridCheckboxHeaderTemplate = '<div>XXX<input class="ngSelectionHeader" type="checkbox" ng-show="multiSelect" ng-model="allSelected" ng-change="toggleSelectAll(allSelected)"/></div>';
-        //console.log('NOW');
-    }, 2000);
-    
-    //console.log($scope.options);
-    
-    $http.get($scope.options.apiUrl).success(function (data) {
-        $scope.$emit('EntityIndex.get', {
-            data: data
-        });
-        
-        $scope.entities = data.entities;
-        $scope.gridPagingOptions.totalServerItems = data.totalCount;
-        //$scope.$apply();
-        //$scope.setPagingData(largeLoad,page,pageSize);
-    });
-    
-    $scope.$emit('EntityIndex.post');
 });
 
 kapApp.controller('EntityUpdate', function($scope, $http, $stateParams, $state, $browser) {
