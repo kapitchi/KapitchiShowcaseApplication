@@ -20,6 +20,10 @@ a {color:#75ac1a}
 
 }
 
+#main_container{
+    margin-top: 133px;
+}
+
 h1, h2 { text-transform:uppercase; color: #fff}
 
 html {height:100%;font-family:kapitchi, helvetica;}
