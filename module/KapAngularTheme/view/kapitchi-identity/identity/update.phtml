@@ -1,15 +1,15 @@
 <?php
 $viewModel = $this->viewModel()->getCurrent();
 $form = $viewModel->form;
-$form->setName('identity-form');
+$form->setName('identity_form');
 $form->setAttribute('action', null);
 
 //$form->setAttribute('data-ng-submit', 'xxx()');
 //$form->setAttribute('data-ng-controller' , 'IdentityUpdate');
-
+$form->setAttribute('data-ng-controller', 'EntityUpdate');
 $form->prepare();
 ?>
-<div ng-controller="EntityUpdate">
+<div>
     <div class="container">
     <h1><?=$this->translate('Identity')?></h1>
     <?=$this->partial('partial/form/header.phtml', array('form' => $form));?>

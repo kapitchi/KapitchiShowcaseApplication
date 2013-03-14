@@ -154,7 +154,7 @@ kapApp.controller('EntityUpdate', function($scope, $http, $stateParams, $state, 
     //$scope.entity = {};
     console.log($state);
     $http.get($browser.baseHref() + $state.current.restUrl + '/' + $stateParams.id).success(function (data) {
-        $scope.entity = data.entity;
+        $scope.formData = data.entity;
     });
     
     $scope.save = function(entity) {

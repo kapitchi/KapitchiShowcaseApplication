@@ -1,6 +1,6 @@
 <?php
 $form = $this->form;
-$modelPrefix = empty($this->modelPrefix) ? 'entity' : $this->modelPrefix;
+$modelPrefix = empty($this->modelPrefix) ? 'formData' : $this->modelPrefix;
 ?>
 <?php foreach($form->getIterator() as $element):
     
@@ -20,10 +20,11 @@ $modelPrefix = empty($this->modelPrefix) ? 'entity' : $this->modelPrefix;
         }
         
         $modelProp = $modelPrefix . '.' . $elementName;
+        if($element instanceof \Zend\Form\Element\DateTime) {
+            //$modelProp .= ' | date:"medium"';
+        }
         $element->setAttribute('data-ng-model', $modelProp);
-        //mz: this can't be here as this supposed to be template only -- template is cached!!!
-        //$element->setAttribute('data-ng-init', "$modelProp='" . $element->getValue() . "'");
-
+        
         echo $this->partial('partial/form/row.phtml', array('form' => $form, 'element' => $element));
     }
     ?>
