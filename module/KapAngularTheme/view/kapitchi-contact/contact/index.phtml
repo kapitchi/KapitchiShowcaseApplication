@@ -4,13 +4,7 @@ $paginator = $viewModel->paginator;
 
 $this->headTitle('Contact');
 
-//$identityData = array();
-//foreach($paginator as $item) {
-//    $identityData[] = $this->identity()->toArray($item);
-//}
-//$jsonData = \Zend\Json\Json::encode($identityData);
 ?>
-<div class="container">
 <?=$this->partial('partial/entity/index.phtml', array(
     'heading' => $this->translate('Contacts'),
     'paginator' => $paginator,

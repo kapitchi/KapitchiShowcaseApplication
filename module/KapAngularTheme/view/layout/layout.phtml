@@ -115,7 +115,7 @@ echo $this->plugin('doctype')->setDoctype(\Zend\View\Helper\Doctype::HTML5);
         
         
         <div id="main_container" class="container">
-<?php if (!$this->angular()->isAngularRequest() && $this->exception): ?>
+            <?php if (!$this->angular()->isAngularRequest() && $this->exception): ?>
                 <div><?= $this->content ?></div>
             <?php else: ?>
                 <div ui-view></div>

@@ -142,6 +142,7 @@ kapApp.controller('EntityIndex', function($scope, $http, $stateParams, $state, $
         multiSelect: true,
         enablePaging: true,
         pagingOptions: $scope.gridPagingOptions,
+        showGroupPanel: true,
         displaySelectionCheckbox: false,
         selectWithCheckboxOnly: true,
         //checkboxCellTemplate: '<div class="ngSelectionCell"><input tabindex="-1" class="ngSelectionCheckbox" type="checkbox" ng-checked="row.selected" /></div>',
