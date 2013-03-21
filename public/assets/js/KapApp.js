@@ -3,7 +3,9 @@ var kapApp = angular.module('KapApp', ['ngGrid', 'ui.compat', 'ui.bootstrap']);
 kapApp.config(function($routeProvider, $locationProvider, $httpProvider, $stateProvider) {
     
     var pageTemplateProvider = function($browser, $http, $stateParams, $templateCache, $rootScope, $state, pageMeta) {
-        return $http.get($browser.url(), {
+        //var pageUrl = $browser.url().replace('http://localhost', '');
+        var pageUrl = $browser.url();
+        return $http.get(pageUrl, {
                 headers: {
                     'Accept': 'application/kap-page'
                 },
@@ -23,6 +25,11 @@ kapApp.config(function($routeProvider, $locationProvider, $httpProvider, $stateP
             //url: '/:module/:entity',
             'abstract': true,
             template: '<div ng-view></div>'
+        }).state('login', {
+            url: '/identity/auth/login',
+            parent: 'page',
+            controller: 'Identity/AuthLoginController',
+            templateProvider: pageTemplateProvider
         }).state('identity', {
             url: '/identity/identity',
             parent: 'page',
@@ -54,22 +61,6 @@ kapApp.config(function($routeProvider, $locationProvider, $httpProvider, $stateP
     $locationProvider.html5Mode(true);
     
 }).run(function($rootScope, $http, $state) {
-    $rootScope.$on('EntityIndex.get', function(e, params) {
-        //console.log(e);
-        //console.log(params);
-        //console.log(a1);
-        //console.log(a2);
-        for(entity in params.data.entities) {
-            params.data.entities[entity].contact = {id: 111};
-        }
-    });
-    
-    $rootScope.$on('EntityIndex.post', function(e, params) {
-        //console.log(e);
-        //console.log(params);
-        //e.targetScope.gridColumnDefs.push({field: 'contact.id', displayName:'ID'});
-    });
-    
     $rootScope.$state = $state;
 });
 
@@ -77,6 +68,21 @@ kapApp.service('pageMeta', function($rootScope) {
     this.setTitle = function(title) {
         $rootScope.title = title;
     };
+});
+
+kapApp.service('appState', function($rootScope) {
+    //TODO
+});
+
+kapApp.controller('Identity/AuthLoginController', function($scope, $http, $stateParams, $state, $browser) {
+    $scope.login = function(formData) {
+        $http.post('identity/api/auth/login', formData).success(function(data, statusCode, headers) {
+            if(data.redirectUrl) {
+                //TODO
+                $state.transitionTo('identity.index');
+            }
+        });
+    }
 });
 
 kapApp.controller('EntityIndex', function($scope, $http, $stateParams, $state, $browser) {

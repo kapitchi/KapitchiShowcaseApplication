@@ -105,6 +105,7 @@ echo $this->plugin('doctype')->setDoctype(\Zend\View\Helper\Doctype::HTML5);
                                     <li ng-class="{ active: $state.includes('home') }"><a href="<?= $this->url('home', array(), array('base_relative' => true)) ?>">Home</a></li>
                                     <li ng-class="{ active: $state.includes('identity') }"><a href="<?= $this->url('identity/identity', array('action' => 'index'), array('base_relative' => true)) ?>">Identities</a></li>
                                     <li ng-class="{ active: $state.includes('contact') }"><a href="<?= $this->url('contact/contact', array('action' => 'index'), array('base_relative' => true)) ?>">Contacts</a></li>
+                                    <li><a href="<?= $this->url('identity/auth/login', array(), array('base_relative' => true)) ?>">Log in</a></li>
                                 </ul>
                             </div><!--/.nav-collapse -->
                         </div>
@@ -119,6 +120,10 @@ echo $this->plugin('doctype')->setDoctype(\Zend\View\Helper\Doctype::HTML5);
                 <div><?= $this->content ?></div>
             <?php else: ?>
                 <div ui-view></div>
+                
+                <?php /*<script type="text/ng-template" id="<?=$_SERVER['REQUEST_URI']?>">
+                    <?=$this->content?>
+                </script> */?>
             <?php endif ?>
             <?php
             echo $this->plugin('InlineScript');
