@@ -2,6 +2,7 @@
 $viewModel = $this->viewModel()->getCurrent();
 $form = $viewModel->loginForm;
 //$form->setAttribute('action', $this->url('identity/auth/login'));
+$form->setAttribute('name', 'loginForm');
 $form->prepare();
 ?>
 <?=$this->partial('partial/form/header.phtml', array('form' => $form))?>

@@ -88,7 +88,6 @@ echo $this->plugin('doctype')->setDoctype(\Zend\View\Helper\Doctype::HTML5);
     </head>
     <body>
         
-
             <br>
             <div class="span6 offset2">  
                 <div class="navbar">
@@ -116,6 +115,8 @@ echo $this->plugin('doctype')->setDoctype(\Zend\View\Helper\Doctype::HTML5);
         
         
         <div id="main_container" class="container">
+            <alert ng-repeat="alert in alerts" type="alert.type" close="closeAlert($index)">{{alert.msg}}</alert>
+            
             <?php if (!$this->angular()->isAngularRequest() && $this->exception): ?>
                 <div><?= $this->content ?></div>
             <?php else: ?>

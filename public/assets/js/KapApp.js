@@ -70,16 +70,39 @@ kapApp.service('pageMeta', function($rootScope) {
     };
 });
 
+kapApp.service('alert', function($rootScope) {
+    this.add = function(alert) {
+        if(!$rootScope.alerts) {
+            $rootScope.alerts = [];
+            $rootScope.closeAlert = function(index) {
+                $rootScope.alerts.splice(index, 1);
+            }
+        }
+        $rootScope.alerts.push(alert);
+    };
+    
+});
+
 kapApp.service('appState', function($rootScope) {
     //TODO
 });
 
-kapApp.controller('Identity/AuthLoginController', function($scope, $http, $stateParams, $state, $browser) {
+kapApp.controller('Identity/AuthLoginController', function($scope, $http, $stateParams, $state, $browser, alert) {
     $scope.login = function(formData) {
         $http.post('identity/api/auth/login', formData).success(function(data, statusCode, headers) {
-            if(data.redirectUrl) {
-                //TODO
-                $state.transitionTo('identity.index');
+//            $scope.loginForm['credential[username]'].$valid = false;
+//            $scope.loginForm['credential[username]'].$error = {xxx: 'My validation'};
+            
+            //$state.transitionTo('home');
+            switch(data.result.code) {
+                case 1:
+                    alert.add({type: 'success', msg: 'Logged in!'});
+                    break;
+                default:
+                    for(var msg in data.result.messages) {
+                        alert.add({type: 'error', msg: data.result.messages[msg]});
+                    }
+                    break;
             }
         });
     }
