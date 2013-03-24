@@ -30,6 +30,10 @@ kapApp.config(function($routeProvider, $locationProvider, $httpProvider, $stateP
             parent: 'page',
             controller: 'Identity/AuthLoginController',
             templateProvider: pageTemplateProvider
+        }).state('logout', {
+            url: '/identity/auth/logout',
+            parent: 'page',
+            controller: 'Identity/AuthLogoutController'
         }).state('identity', {
             url: '/identity/identity',
             parent: 'page',
@@ -62,11 +66,18 @@ kapApp.config(function($routeProvider, $locationProvider, $httpProvider, $stateP
     
 }).run(function($rootScope, $http, $state) {
     $rootScope.$state = $state;
+    
+    $rootScope.acl = {
+        perms: {
+            login: true
+        }
+    };
 });
 
 kapApp.service('pageMeta', function($rootScope) {
     this.setTitle = function(title) {
-        $rootScope.title = title;
+        $rootScope.pageMeta = {};
+        $rootScope.pageMeta.title = title;
     };
 });
 
@@ -87,7 +98,7 @@ kapApp.service('appState', function($rootScope) {
     //TODO
 });
 
-kapApp.controller('Identity/AuthLoginController', function($scope, $http, $stateParams, $state, $browser, alert) {
+kapApp.controller('Identity/AuthLoginController', function($scope, $rootScope, $http, $stateParams, $state, $browser, alert) {
     $scope.login = function(formData) {
         $http.post('identity/api/auth/login', formData).success(function(data, statusCode, headers) {
 //            $scope.loginForm['credential[username]'].$valid = false;
@@ -97,8 +108,10 @@ kapApp.controller('Identity/AuthLoginController', function($scope, $http, $state
             switch(data.result.code) {
                 case 1:
                     alert.add({type: 'success', msg: 'Logged in!'});
+                    $rootScope.acl.perms.auth = true;
                     break;
                 default:
+                    $rootScope.acl.perms.auth = false;
                     for(var msg in data.result.messages) {
                         alert.add({type: 'error', msg: data.result.messages[msg]});
                     }
@@ -106,6 +119,14 @@ kapApp.controller('Identity/AuthLoginController', function($scope, $http, $state
             }
         });
     }
+});
+
+kapApp.controller('Identity/AuthLogoutController', function($scope, $rootScope, $http, $stateParams, $state, $browser, alert) {
+    $http.get('identity/api/auth/logout').success(function(data, statusCode, headers) {
+        alert.add({type: 'success', msg: 'You have been logged out'});
+        $rootScope.acl.perms = {};
+        $state.transitionTo('home');
+    });
 });
 
 kapApp.controller('EntityIndex', function($scope, $http, $stateParams, $state, $browser) {
