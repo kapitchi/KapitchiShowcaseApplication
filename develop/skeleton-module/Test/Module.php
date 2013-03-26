@@ -23,7 +23,7 @@ class Module extends AbstractModule
         return array(
             'factories' => array(
                 'Test\Controller\Index' => function($sm) {
-                    $ins = new Controller\TestController();
+                    $ins = new Controller\IndexController();
                     return $ins;
                 },
             )
