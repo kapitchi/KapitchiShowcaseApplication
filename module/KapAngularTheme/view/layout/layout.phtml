@@ -61,14 +61,10 @@ $this->plugin('HeadLink')->appendStylesheet($this->basePath('/assets/css/kap-ang
 echo $this->plugin('doctype')->setDoctype(\Zend\View\Helper\Doctype::HTML5);
 ?>
 <html lang="en" ng-app="KapApp">
-    
-    
-    
-    
     <head>
         <meta charset="utf-8">
         
-        <title>{{title}}</title>
+        <title>{{pageMeta.title}}</title>
         <base href="<?= $this->basePath() ?>/" />
         <?php
         //echo $this->plugin('HeadTitle');
@@ -88,7 +84,6 @@ echo $this->plugin('doctype')->setDoctype(\Zend\View\Helper\Doctype::HTML5);
     </head>
     <body>
         
-
             <br>
             <div class="span6 offset2">  
                 <div class="navbar">
@@ -105,6 +100,8 @@ echo $this->plugin('doctype')->setDoctype(\Zend\View\Helper\Doctype::HTML5);
                                     <li ng-class="{ active: $state.includes('home') }"><a href="<?= $this->url('home', array(), array('base_relative' => true)) ?>">Home</a></li>
                                     <li ng-class="{ active: $state.includes('identity') }"><a href="<?= $this->url('identity/identity', array('action' => 'index'), array('base_relative' => true)) ?>">Identities</a></li>
                                     <li ng-class="{ active: $state.includes('contact') }"><a href="<?= $this->url('contact/contact', array('action' => 'index'), array('base_relative' => true)) ?>">Contacts</a></li>
+                                    <li ng-hide="acl.perms.auth"><a href="<?=$this->url('identity/auth/login', array(), array('base_relative' => true)) ?>">Log in</a></li>
+                                    <li ng-show="acl.perms.auth"><a href="<?=$this->url('identity/auth/logout', array(), array('base_relative' => true)) ?>">Log out</a></li>
                                 </ul>
                             </div><!--/.nav-collapse -->
                         </div>
@@ -115,10 +112,16 @@ echo $this->plugin('doctype')->setDoctype(\Zend\View\Helper\Doctype::HTML5);
         
         
         <div id="main_container" class="container">
-<?php if (!$this->angular()->isAngularRequest() && $this->exception): ?>
+            <alert ng-repeat="alert in alerts" type="alert.type" close="closeAlert($index)">{{alert.msg}}</alert>
+            
+            <?php if (!$this->angular()->isAngularRequest() && $this->exception): ?>
                 <div><?= $this->content ?></div>
             <?php else: ?>
                 <div ui-view></div>
+                
+                <?php /*<script type="text/ng-template" id="<?=$_SERVER['REQUEST_URI']?>">
+                    <?=$this->content?>
+                </script> */?>
             <?php endif ?>
             <?php
             echo $this->plugin('InlineScript');

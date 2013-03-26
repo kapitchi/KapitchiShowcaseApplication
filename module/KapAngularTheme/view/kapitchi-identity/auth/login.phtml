@@ -1,9 +1,11 @@
 <?php
 $viewModel = $this->viewModel()->getCurrent();
 $form = $viewModel->loginForm;
+//$form->setAttribute('action', $this->url('identity/auth/login'));
+$form->setAttribute('name', 'loginForm');
 $form->prepare();
 ?>
-<?=$this->formRenderer()->renderHeader($form);?>
-<?=$this->formRenderer()->renderElements($form);?>
-<?=$this->formRenderer()->renderSubmit("Login", "login-submit-btn")?>
-<?=$this->formRenderer()->renderFooter($form);?>
+<?=$this->partial('partial/form/header.phtml', array('form' => $form))?>
+<?=$this->partial('partial/form/elements.phtml', array('form' => $form))?>
+<input class="btn btn-success" type="submit" value="Log in" ng-click="login(formData)"/>
+<?=$this->partial('partial/form/footer.phtml', array('form' => $form))?>

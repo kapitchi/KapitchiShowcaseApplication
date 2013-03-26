@@ -3,7 +3,9 @@ var kapApp = angular.module('KapApp', ['ngGrid', 'ui.compat', 'ui.bootstrap']);
 kapApp.config(function($routeProvider, $locationProvider, $httpProvider, $stateProvider) {
     
     var pageTemplateProvider = function($browser, $http, $stateParams, $templateCache, $rootScope, $state, pageMeta) {
-        return $http.get($browser.url(), {
+        //var pageUrl = $browser.url().replace('http://localhost', '');
+        var pageUrl = $browser.url();
+        return $http.get(pageUrl, {
                 headers: {
                     'Accept': 'application/kap-page'
                 },
@@ -23,6 +25,15 @@ kapApp.config(function($routeProvider, $locationProvider, $httpProvider, $stateP
             //url: '/:module/:entity',
             'abstract': true,
             template: '<div ng-view></div>'
+        }).state('login', {
+            url: '/identity/auth/login',
+            parent: 'page',
+            controller: 'Identity/AuthLoginController',
+            templateProvider: pageTemplateProvider
+        }).state('logout', {
+            url: '/identity/auth/logout',
+            parent: 'page',
+            controller: 'Identity/AuthLogoutController'
         }).state('identity', {
             url: '/identity/identity',
             parent: 'page',
@@ -54,29 +65,68 @@ kapApp.config(function($routeProvider, $locationProvider, $httpProvider, $stateP
     $locationProvider.html5Mode(true);
     
 }).run(function($rootScope, $http, $state) {
-    $rootScope.$on('EntityIndex.get', function(e, params) {
-        //console.log(e);
-        //console.log(params);
-        //console.log(a1);
-        //console.log(a2);
-        for(entity in params.data.entities) {
-            params.data.entities[entity].contact = {id: 111};
-        }
-    });
-    
-    $rootScope.$on('EntityIndex.post', function(e, params) {
-        //console.log(e);
-        //console.log(params);
-        //e.targetScope.gridColumnDefs.push({field: 'contact.id', displayName:'ID'});
-    });
-    
     $rootScope.$state = $state;
+    
+    $rootScope.acl = {
+        perms: {
+            login: true
+        }
+    };
 });
 
 kapApp.service('pageMeta', function($rootScope) {
     this.setTitle = function(title) {
-        $rootScope.title = title;
+        $rootScope.pageMeta = {};
+        $rootScope.pageMeta.title = title;
     };
+});
+
+kapApp.service('alert', function($rootScope) {
+    this.add = function(alert) {
+        if(!$rootScope.alerts) {
+            $rootScope.alerts = [];
+            $rootScope.closeAlert = function(index) {
+                $rootScope.alerts.splice(index, 1);
+            }
+        }
+        $rootScope.alerts.push(alert);
+    };
+    
+});
+
+kapApp.service('appState', function($rootScope) {
+    //TODO
+});
+
+kapApp.controller('Identity/AuthLoginController', function($scope, $rootScope, $http, $stateParams, $state, $browser, alert) {
+    $scope.login = function(formData) {
+        $http.post('identity/api/auth/login', formData).success(function(data, statusCode, headers) {
+//            $scope.loginForm['credential[username]'].$valid = false;
+//            $scope.loginForm['credential[username]'].$error = {xxx: 'My validation'};
+            
+            //$state.transitionTo('home');
+            switch(data.result.code) {
+                case 1:
+                    alert.add({type: 'success', msg: 'Logged in!'});
+                    $rootScope.acl.perms.auth = true;
+                    break;
+                default:
+                    $rootScope.acl.perms.auth = false;
+                    for(var msg in data.result.messages) {
+                        alert.add({type: 'error', msg: data.result.messages[msg]});
+                    }
+                    break;
+            }
+        });
+    }
+});
+
+kapApp.controller('Identity/AuthLogoutController', function($scope, $rootScope, $http, $stateParams, $state, $browser, alert) {
+    $http.get('identity/api/auth/logout').success(function(data, statusCode, headers) {
+        alert.add({type: 'success', msg: 'You have been logged out'});
+        $rootScope.acl.perms = {};
+        $state.transitionTo('home');
+    });
 });
 
 kapApp.controller('EntityIndex', function($scope, $http, $stateParams, $state, $browser) {
@@ -142,6 +192,7 @@ kapApp.controller('EntityIndex', function($scope, $http, $stateParams, $state, $
         multiSelect: true,
         enablePaging: true,
         pagingOptions: $scope.gridPagingOptions,
+        showGroupPanel: true,
         displaySelectionCheckbox: false,
         selectWithCheckboxOnly: true,
         //checkboxCellTemplate: '<div class="ngSelectionCell"><input tabindex="-1" class="ngSelectionCheckbox" type="checkbox" ng-checked="row.selected" /></div>',
