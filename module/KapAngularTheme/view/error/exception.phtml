@@ -1,9 +1,8 @@
-<?php if (true || isset($this->display_exceptions) && $this->display_exceptions): ?>
+<?php 
+$this->layout()->setTemplate('error/layout');
 
-<?php if(isset($this->exception) && $this->exception instanceof Exception):
-    
-    //mz: TODO XXX hack to display exception specific response from layout file
-    $this->layout()->exception = $this->exception;
+if (isset($this->display_exceptions) && $this->display_exceptions):
+if(isset($this->exception) && $this->exception instanceof Exception):
     ?>
 <hr/>
 <h2>Additional information:</h2>

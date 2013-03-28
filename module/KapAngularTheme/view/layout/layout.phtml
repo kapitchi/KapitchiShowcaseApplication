@@ -1,20 +1,6 @@
 <?php
-//mz: XXX TODO hack to test angular
 
-$this->headTitle('My site')->setSeparator(' / ');
-
-if ($this->angular()->isAngularRequest() && $this->exception) {
-    echo $this->json(array(
-        'title' => 'Exception',
-        'exception' => array(
-            'message' => $this->exception->getMessage(),
-            'code' => $this->exception->getCode(),
-            'traceString' => $this->exception->getTraceAsString(),
-        ),
-            //'content' => $this->content
-    ));
-    return;
-}
+$this->headTitle('Kapitchi Showcase')->setSeparator(' / ');
 
 //page action
 if ($this->angular()->isPageRequest()) {
@@ -77,13 +63,12 @@ echo $this->plugin('doctype')->setDoctype(\Zend\View\Helper\Doctype::HTML5);
         <meta name="description" content="">
         <meta name="author" content="">
         <link rel="icon" href="assets/img/favicon.ico">
-        
-    <a  href="<?= $this->url('home', array(), array('base_relative' => true)) ?>">
-                    <div class="logo"></div>
-                </a>
     </head>
     <body>
-        
+        <div>
+            <a  href="<?= $this->url('home', array(), array('base_relative' => true)) ?>">
+                <div class="logo"></div>
+            </a>
             <br>
             <div class="span6 offset2">  
                 <div class="navbar">
@@ -113,21 +98,11 @@ echo $this->plugin('doctype')->setDoctype(\Zend\View\Helper\Doctype::HTML5);
         
         <div id="main_container" class="container">
             <alert ng-repeat="alert in alerts" type="alert.type" close="closeAlert($index)">{{alert.msg}}</alert>
-            
-            <?php if (!$this->angular()->isAngularRequest() && $this->exception): ?>
-                <div><?= $this->content ?></div>
-            <?php else: ?>
-                <div ui-view></div>
-                
-                <?php /*<script type="text/ng-template" id="<?=$_SERVER['REQUEST_URI']?>">
-                    <?=$this->content?>
-                </script> */?>
-            <?php endif ?>
-            <?php
-            echo $this->plugin('InlineScript');
-            ?>
+            <div ui-view></div>
+            <?=$this->plugin('InlineScript');?>
         </div>
         <footer>
-      &copy; 2012 Copyright Kapitchi   </footer>
+            &copy; 2012 Copyright Kapitchi
+        </footer>
     </body>
 </html>

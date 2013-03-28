@@ -69,7 +69,7 @@ kapApp.config(function($routeProvider, $locationProvider, $httpProvider, $stateP
     
     $rootScope.acl = {
         perms: {
-            login: true
+            //login: true
         }
     };
 });

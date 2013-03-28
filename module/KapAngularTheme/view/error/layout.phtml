@@ -1,0 +1,38 @@
+<?php
+$this->headTitle('Kapitchi Showcase')->setSeparator(' / ');
+
+$this->plugin('InlineScript')->appendFile($this->basePath('/assets/js/jquery.min.js'));
+$this->plugin('InlineScript')->appendFile($this->basePath('/assets/js/bootstrap.js'));
+$this->plugin('HeadLink')->appendStylesheet($this->basePath('/assets/css/bootstrap.css'));
+$this->plugin('HeadLink')->appendStylesheet($this->basePath('/assets/css/bootstrap-responsive.css'));
+$this->plugin('HeadLink')->appendStylesheet($this->basePath('/assets/css/kap-angular-theme.css'));
+
+echo $this->plugin('doctype')->setDoctype(\Zend\View\Helper\Doctype::HTML5);
+?>
+<html lang="en" ng-app="KapApp">
+    <head>
+        <meta charset="utf-8">
+        
+        <title>Error</title>
+        <base href="<?= $this->basePath() ?>/" />
+        <?php
+        echo $this->plugin('HeadTitle');
+        echo $this->plugin('HeadMeta');
+        echo $this->plugin('HeadLink');
+        echo $this->plugin('HeadStyle');
+        echo $this->plugin('HeadScript');
+        ?>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <link rel="icon" href="assets/img/favicon.ico">
+    </head>
+    <body>
+        <div id="main_container" class="container">
+            <div><?= $this->content ?></div>
+            <?php
+            echo $this->plugin('InlineScript');
+            ?>
+        </div>
+    </body>
+</html>
