@@ -403,6 +403,7 @@ CREATE  TABLE IF NOT EXISTS `log_index` (
   `occured` DATETIME NOT NULL ,
   `data` TEXT NOT NULL ,
   `identityId` INT UNSIGNED NULL ,
+  `remoteIp` VARCHAR(16) NULL ,
   PRIMARY KEY (`id`) ,
   INDEX `fk_activity_identity1` (`identityId` ASC) ,
   CONSTRAINT `fk_activity_identity1`
@@ -795,6 +796,61 @@ CREATE  TABLE IF NOT EXISTS `contact_storage` (
 ENGINE = InnoDB;
 
 
+-- -----------------------------------------------------
+-- Table `poll`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `poll` ;
+
+CREATE  TABLE IF NOT EXISTS `poll` (
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT ,
+  PRIMARY KEY (`id`) )
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `poll_option`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `poll_option` ;
+
+CREATE  TABLE IF NOT EXISTS `poll_option` (
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT ,
+  `name` VARCHAR(45) NOT NULL ,
+  `pollId` INT UNSIGNED NOT NULL ,
+  PRIMARY KEY (`id`) ,
+  INDEX `fk_poll_options_poll1_idx` (`pollId` ASC) ,
+  CONSTRAINT `fk_poll_options_poll1`
+    FOREIGN KEY (`pollId` )
+    REFERENCES `poll` (`id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `poll_answer`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `poll_answer` ;
+
+CREATE  TABLE IF NOT EXISTS `poll_answer` (
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT ,
+  `optionId` INT UNSIGNED NOT NULL ,
+  `identityId` INT UNSIGNED NOT NULL ,
+  PRIMARY KEY (`id`) ,
+  INDEX `fk_poll_answer_poll_option1_idx` (`optionId` ASC) ,
+  INDEX `fk_poll_answer_identity1_idx` (`identityId` ASC) ,
+  CONSTRAINT `fk_poll_answer_poll_option1`
+    FOREIGN KEY (`optionId` )
+    REFERENCES `poll_option` (`id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_poll_answer_identity1`
+    FOREIGN KEY (`identityId` )
+    REFERENCES `identity` (`id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
@@ -1065,5 +1121,33 @@ SET AUTOCOMMIT=0;
 INSERT INTO contact_storage (`id`, `contactId`, `handle`, `tag`, `priority`, `value`) VALUES ('1', '1', 'email', 'personal', '1', 'matus.zeman@gmail.com');
 INSERT INTO contact_storage (`id`, `contactId`, `handle`, `tag`, `priority`, `value`) VALUES ('2', '1', 'email', 'work', '2', 'mz@kapitchi.com');
 INSERT INTO contact_storage (`id`, `contactId`, `handle`, `tag`, `priority`, `value`) VALUES ('3', '1', 'phone', 'work', '3', '071234567');
+
+COMMIT;
+
+-- -----------------------------------------------------
+-- Data for table `poll`
+-- -----------------------------------------------------
+SET AUTOCOMMIT=0;
+INSERT INTO poll (`id`) VALUES ('1');
+
+COMMIT;
+
+-- -----------------------------------------------------
+-- Data for table `poll_option`
+-- -----------------------------------------------------
+SET AUTOCOMMIT=0;
+INSERT INTO poll_option (`id`, `name`, `pollId`) VALUES ('1', 'aaa', '1');
+INSERT INTO poll_option (`id`, `name`, `pollId`) VALUES ('2', 'bbb', '1');
+INSERT INTO poll_option (`id`, `name`, `pollId`) VALUES ('3', 'ccc', '1');
+
+COMMIT;
+
+-- -----------------------------------------------------
+-- Data for table `poll_answer`
+-- -----------------------------------------------------
+SET AUTOCOMMIT=0;
+INSERT INTO poll_answer (`id`, `optionId`, `identityId`) VALUES ('1', '1', '1');
+INSERT INTO poll_answer (`id`, `optionId`, `identityId`) VALUES ('2', '2', '2');
+INSERT INTO poll_answer (`id`, `optionId`, `identityId`) VALUES ('3', '3', '3');
 
 COMMIT;
