@@ -44,6 +44,7 @@
         "kapitchi/contact": "dev-master",
         "kapitchi/process": "dev-master",
         "kapitchi/kap-poll": "dev-master",
+        "kapitchi/kap-gallery": "dev-master",
         "kapitchi/kap-dev": "dev-master"
     },
     "autoload": {
