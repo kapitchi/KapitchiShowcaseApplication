@@ -2,7 +2,7 @@ var kapApp = angular.module('KapApp', ['ngGrid', 'ui.compat', 'ui.bootstrap']);
 
 kapApp.config(function($routeProvider, $locationProvider, $httpProvider, $stateProvider) {
     
-    var pageTemplateProvider = function($browser, $http, $stateParams, $templateCache, $rootScope, $state, pageMeta) {
+    var pageTemplateProvider = function($browser, $http, $stateParams, $templateCache, $rootScope, $state, pageMetaService) {
         //var pageUrl = $browser.url().replace('http://localhost', '');
         var pageUrl = $browser.url();
         return $http.get(pageUrl, {
@@ -12,7 +12,7 @@ kapApp.config(function($routeProvider, $locationProvider, $httpProvider, $stateP
                 cache: $templateCache
             }).then(function(response) {
                 var data = response.data;
-                pageMeta.setTitle(data.title);
+                pageMetaService.setTitle(data.title);
                 return data.content;
             });
     };
@@ -34,6 +34,11 @@ kapApp.config(function($routeProvider, $locationProvider, $httpProvider, $stateP
             url: '/identity/auth/logout',
             parent: 'page',
             controller: 'Identity/AuthLogoutController'
+        }).state('AuthSessionController/index', {
+            url: '/identity/auth-session/index',
+            parent: 'page',
+            controller: 'GenericPageController',
+            templateProvider: pageTemplateProvider
         }).state('identity', {
             url: '/identity/identity',
             parent: 'page',
@@ -60,28 +65,29 @@ kapApp.config(function($routeProvider, $locationProvider, $httpProvider, $stateP
             url: '/update/:id',
             restUrl: 'contact/api/contact',
             templateProvider: pageTemplateProvider
+        }).state('default', {
+            url: '/:url',
+            parent: 'page',
+            controller: 'GenericPageController',
+            templateProvider: pageTemplateProvider
         });
     
     $locationProvider.html5Mode(true);
     
-}).run(function($rootScope, $http, $state) {
+}).run(function($rootScope, $http, $state, aclService) {
     $rootScope.$state = $state;
     
-    $rootScope.acl = {
-        perms: {
-            //login: true
-        }
-    };
+    aclService.load();
 });
 
-kapApp.service('pageMeta', function($rootScope) {
+kapApp.service('pageMetaService', function($rootScope) {
     this.setTitle = function(title) {
         $rootScope.pageMeta = {};
         $rootScope.pageMeta.title = title;
     };
 });
 
-kapApp.service('alert', function($rootScope) {
+kapApp.service('alertService', function($rootScope) {
     this.add = function(alert) {
         if(!$rootScope.alerts) {
             $rootScope.alerts = [];
@@ -94,11 +100,49 @@ kapApp.service('alert', function($rootScope) {
     
 });
 
-kapApp.service('appState', function($rootScope) {
+kapApp.service('aclService', function($rootScope) {
+    var service = this;
+    
+    //init
+    $rootScope.acl = {
+        perms: {}
+    };
+    
+    this.isAllowed = function(resource) {
+        if($rootScope.acl.perms[resource]) {
+            return true;
+        }
+        
+        return false;
+    }
+    
+    this.load = function(domain) {
+        $rootScope.acl = {
+            perms: {
+                identity_auth_login: true,
+                identity_auth_logout: false,
+                contact_contact_index: true,
+                identity_identity_index: true
+            }
+        };
+    };
+    
+    this.reload = function(domain) {
+        $rootScope.acl = {
+            perms: {
+                identity_auth_login: false,
+                identity_auth_logout: true
+            }
+        };
+    };
+    
+});
+
+kapApp.service('appStateService', function($rootScope) {
     //TODO
 });
 
-kapApp.controller('Identity/AuthLoginController', function($scope, $rootScope, $http, $stateParams, $state, $browser, alert) {
+kapApp.controller('Identity/AuthLoginController', function($scope, $http, alertService, aclService) {
     $scope.login = function(formData) {
         $http.post('identity/api/auth/login', formData).success(function(data, statusCode, headers) {
 //            $scope.loginForm['credential[username]'].$valid = false;
@@ -107,24 +151,90 @@ kapApp.controller('Identity/AuthLoginController', function($scope, $rootScope, $
             //$state.transitionTo('home');
             switch(data.result.code) {
                 case 1:
-                    alert.add({type: 'success', msg: 'Logged in!'});
-                    $rootScope.acl.perms.auth = true;
+                    alertService.add({type: 'success', msg: 'Logged in!'});
                     break;
                 default:
-                    $rootScope.acl.perms.auth = false;
+                    //$rootScope.acl.perms.login = false;
+                    //$rootScope.acl.perms.logout = true;
                     for(var msg in data.result.messages) {
-                        alert.add({type: 'error', msg: data.result.messages[msg]});
+                        alertService.add({type: 'error', msg: data.result.messages[msg]});
                     }
                     break;
             }
+            
+            aclService.reload();
         });
     }
 });
 
-kapApp.controller('Identity/AuthLogoutController', function($scope, $rootScope, $http, $stateParams, $state, $browser, alert) {
+kapApp.controller('GenericPageController', function($scope, $rootScope, $http, $stateParams, $state, $browser, alert) {
+    console.log($stateParams);
+});
+
+kapApp.controller('NavigationController', function($scope, $browser, aclService) {
+    
+    //@todo how can we use function with ng-show?
+    $scope.canShow = function(item) {
+        if(item.acl) {
+            aclService.load(item.acl.domain);
+            return aclService.isAllowed(item.acl.resource);
+        }
+        
+        return true;
+    };
+    
+    $scope.baseUrl = $browser.baseHref();
+    $scope.navigation = {
+        items: [
+            {
+                label: "Home",
+                url: '',
+                state: 'home'
+            },
+            {
+                label: "Identities",
+                url: 'identity/identity/index',
+                state: 'identity',
+                acl: {
+                    resource: 'identity_identity_index',
+                    domain: 'identity'
+                }
+            },
+            {
+                label: "Contacts",
+                url: 'contact/contact/index',
+                state: 'contact',
+                acl: {
+                    resource: 'contact_contact_index',
+                    domain: 'contact'
+                }
+            },
+            {
+                label: "Log in",
+                url: 'identity/auth/login',
+                state: 'login',
+                acl: {
+                    resource: 'identity_auth_login',
+                    domain: 'identity'
+                }
+            },
+            {
+                label: "Log out",
+                url: 'identity/auth/logout',
+                state: 'logout',
+                acl: {
+                    resource: 'identity_auth_logout',
+                    domain: 'identity'
+                }
+            }
+        ]
+    }
+});
+
+kapApp.controller('Identity/AuthLogoutController', function($scope, $state, alertService, aclService) {
     $http.get('identity/api/auth/logout').success(function(data, statusCode, headers) {
-        alert.add({type: 'success', msg: 'You have been logged out'});
-        $rootScope.acl.perms = {};
+        alertService.add({type: 'success', msg: 'You have been logged out'});
+        aclService.reload();
         $state.transitionTo('home');
     });
 });

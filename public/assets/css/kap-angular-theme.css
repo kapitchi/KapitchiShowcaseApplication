@@ -6,8 +6,6 @@
         Purpose of the stylesheet follows.
 */
 
-a {color:#75ac1a}
-
 @font-face {
     font-family: 'kapitchi';
     src: url('../fonts/helvetica-webfont.eot');
@@ -20,11 +18,8 @@ a {color:#75ac1a}
 
 }
 
-#main_container{
-    margin-top: 133px;
-}
-
-h1, h2 { text-transform:uppercase; color: #fff}
+a {color:#75ac1a}
+h1, h2 { text-transform:uppercase; color:#75ac1a}
 
 html {height:100%;font-family:kapitchi, helvetica;}
 body {background:url(../img/bg.jpg) no-repeat top left #75ac1a; font-size:12px; height:100%; overflow-x:hidden;font-family:kapitchi, helvetica;}
@@ -43,3 +38,10 @@ header {width:100%; height:300px; float:left; margin-right:50px;}
 .o {font-family: sans-serif;}
 
 footer {font-family: sans-serif; width:100%; float:left; padding:20px; background:#072c03; color:#fff; border-top:solid 1px #072c03; margin:20px 0px 0px 0px;}
+
+#main_container{
+    margin-top: 133px;
+    background: rgba(255, 255, 255, 0.7);
+    padding: 25px;
+    border-radius: 10px;
+}

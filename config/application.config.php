@@ -10,7 +10,7 @@ return array(
         'KapitchiContact',
         'KapitchiProcess',
         'KapTheme',
-        //'KapAngularTheme',
+        'KapAngularTheme',
     ),
     'module_listener_options' => array(
         'config_glob_paths'    => array(
