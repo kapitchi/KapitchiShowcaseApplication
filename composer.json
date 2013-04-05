@@ -45,6 +45,7 @@
         "kapitchi/process": "dev-master",
         "kapitchi/kap-poll": "dev-master",
         "kapitchi/kap-gallery": "dev-master",
+        "kapitchi/kap-angular-theme": "dev-master",
         "kapitchi/kap-dev": "dev-master"
     },
     "autoload": {
