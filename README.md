@@ -9,6 +9,8 @@ Version: 0.1-dev
 Author:  Kapitchi Team  
 Website: http://kapitchi.com   
 
+<a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/deed.en_GB"><img alt="Creative Commons Licence" style="border-width:0" src="http://i.creativecommons.org/l/by-sa/3.0/88x31.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">KapitchiIdentity</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="http://kapitchi.com" property="cc:attributionName" rel="cc:attributionURL">Kapitchi Ltd.</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/deed.en_GB">Creative Commons Attribution-ShareAlike 3.0 Unported License</a>.
+
 
 Introduction
 ============
@@ -30,3 +32,4 @@ We don't think it's necessary to explain what to do for Linux "super users".
 7. Run SQL script to create schemas and some sample records on the db: deploy/mysql-install.sql
 8. Create db config file `copy config\autoload\database.local.php.dist config\autoload/database.local.php`
 9. Your done! - [http://localhost/KapitchiShowcaseApplication/public/](http://localhost/KapitchiShowcaseApplication/public/)
+
