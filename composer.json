@@ -49,6 +49,9 @@
         "kapitchi/location": "dev-master",
         "kapitchi/kap-file-manager": "dev-master",
         "kapitchi/kap-calendar": "dev-master",
+        "kapitchi/kap-search": "dev-master",
+        "kapitchi/kap-real-property": "dev-master",
+        "kapitchi/kap-auction": "dev-master",
         "kapitchi/kap-dev": "dev-master"
     },
     "autoload": {
