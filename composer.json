@@ -48,6 +48,7 @@
         "kapitchi/kap-angular-theme": "dev-master",
         "kapitchi/location": "dev-master",
         "kapitchi/kap-file-manager": "dev-master",
+        "kapitchi/kap-calendar": "dev-master",
         "kapitchi/kap-dev": "dev-master"
     },
     "autoload": {
