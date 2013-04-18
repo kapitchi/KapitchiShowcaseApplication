@@ -119,10 +119,11 @@ kapApp.service('aclService', function($rootScope) {
     this.load = function(domain) {
         $rootScope.acl = {
             perms: {
+                default_true: true,
                 identity_auth_login: true,
                 identity_auth_logout: false,
-                contact_contact_index: true,
-                identity_identity_index: true
+                contact_contact_index: false,
+                identity_identity_index: false
             }
         };
     };
@@ -130,8 +131,11 @@ kapApp.service('aclService', function($rootScope) {
     this.reload = function(domain) {
         $rootScope.acl = {
             perms: {
+                default_true: true,
                 identity_auth_login: false,
-                identity_auth_logout: true
+                identity_auth_logout: true,
+                contact_contact_index: true,
+                identity_identity_index: true
             }
         };
     };
@@ -189,7 +193,11 @@ kapApp.controller('NavigationController', function($scope, $browser, aclService)
             {
                 label: "Home",
                 url: '',
-                state: 'home'
+                state: 'home',
+                acl: {
+                    resource: 'default_true',
+                    domain: 'default'
+                }
             },
             {
                 label: "Identities",
@@ -231,7 +239,7 @@ kapApp.controller('NavigationController', function($scope, $browser, aclService)
     }
 });
 
-kapApp.controller('Identity/AuthLogoutController', function($scope, $state, alertService, aclService) {
+kapApp.controller('Identity/AuthLogoutController', function($http, $state, alertService, aclService) {
     $http.get('identity/api/auth/logout').success(function(data, statusCode, headers) {
         alertService.add({type: 'success', msg: 'You have been logged out'});
         aclService.reload();

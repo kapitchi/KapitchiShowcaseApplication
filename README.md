@@ -1,18 +1,19 @@
 Zend Framework 2 - Kapitchi Showcase Application
 ================================================
 
-!!! WORK IN PROGRESS !!!
-This application is not working yet! Follow us on twitter to get updates about the progress.  
-We are experimenting and working on theme based on Twitter Bootstrap and AngularJS
+__Version:__ 0.1-dev  
+__Website:__ [http://kapitchi.com](http://kapitchi.com)  
+__Demo:__    [http://kapitchi.com/showcase](http://kapitchi.com/showcase)  
+__Copyright:__  [(c) 2012-2013 Kapitchi Open Source Team](http://kapitchi.com/open-source-team)  
 
-Version: 0.1-dev  
-Author:  Kapitchi Team  
-Website: http://kapitchi.com   
+__README.md status:__ INCOMPLETE  
 
-Licence
+
+License
 =======
 
-TODO
+![GPLv3](http://www.gnu.org/graphics/gplv3-88x31.png)  
+[The GNU General Public License, version 3.0](LICENSE.txt)
 
 Introduction
 ============
@@ -34,4 +35,14 @@ We don't think it's necessary to explain what to do for Linux "super users".
 7. Run SQL script to create schemas and some sample records on the db: deploy/mysql-install.sql
 8. Create db config file `copy config\autoload\database.local.php.dist config\autoload/database.local.php`
 9. Your done! - [http://localhost/KapitchiShowcaseApplication/public/](http://localhost/KapitchiShowcaseApplication/public/)
+
+Status
+======
+
+!!! WORK IN PROGRESS !!!
+This application is not fully functional yet! Follow us on twitter to get updates about the progress.  
+We are experimenting and working on theme based on Twitter Bootstrap and AngularJS.
+
+Are you AngularJS developer? Help us here please!  
+Are you ZF2 module developer? We need your help too!  
 
