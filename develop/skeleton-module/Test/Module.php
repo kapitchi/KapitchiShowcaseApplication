@@ -46,10 +46,10 @@ class Module extends AbstractModule
     {
         return array(
             'invokables' => array(
-                //'KapitchiAuction\Entity\Auction' => 'KapitchiAuction\Entity\Auction',
+                //'KapAuction\Entity\Auction' => 'KapAuction\Entity\Auction',
             ),
             'factories' => array(
-//                'KapitchiAuction\Form\Auction' => function ($sm) {
+//                'KapAuction\Form\Auction' => function ($sm) {
 //                    $ins = new Form\Auction();
 //                    return $ins;
 //                },
