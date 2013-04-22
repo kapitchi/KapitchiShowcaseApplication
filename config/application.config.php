@@ -9,7 +9,6 @@ return array(
         'KapitchiIdentity',
         'KapitchiContact',
         'KapitchiProcess',
-        'KapMessage',
         'KapitchiFileManager',
         'KapTheme',
         'KapAngularTheme',
