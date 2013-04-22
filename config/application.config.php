@@ -1,7 +1,7 @@
 <?php
 return array(
     'modules' => array(
-        'KapShowcaseApp',
+        'ZfcTwig',
         'KapitchiBase',
         'KapitchiApp',
         //'AsseticBundle',
@@ -9,8 +9,11 @@ return array(
         'KapitchiIdentity',
         'KapitchiContact',
         'KapitchiProcess',
+        'KapMessage',
+        'KapitchiFileManager',
         'KapTheme',
         'KapAngularTheme',
+        'KapShowcaseApp',
     ),
     'module_listener_options' => array(
         'config_glob_paths'    => array(

@@ -39,6 +39,7 @@
         "php": ">=5.3.3",
         "zendframework/zendframework": "dev-master",
         "widmogrod/zf2-assetic-module": "dev-master",
+        "zf-commons/zfc-twig": "dev-master",
         "kapitchi/app": "dev-master",
         "kapitchi/identity": "dev-master",
         "kapitchi/contact": "dev-master",
