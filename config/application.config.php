@@ -13,6 +13,7 @@ return array(
         'KapTheme',
         'KapAngularTheme',
         'KapShowcaseApp',
+        'KapCalendar'
     ),
     'module_listener_options' => array(
         'config_glob_paths'    => array(

@@ -54,7 +54,8 @@
         "kapitchi/kap-real-property": "dev-master",
         "kapitchi/kap-auction": "dev-master",
         "kapitchi/kap-dev": "dev-master",
-        "kapitchi/kap-page": "dev-master"
+        "kapitchi/kap-page": "dev-master",
+        "kapitchi/kap-location": "dev-master"
     },
     "autoload": {
         "psr-0": {
