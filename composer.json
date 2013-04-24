@@ -55,6 +55,7 @@
         "kapitchi/kap-auction": "dev-master",
         "kapitchi/kap-dev": "dev-master",
         "kapitchi/kap-page": "dev-master",
+        "kapitchi/kap-layout": "dev-master",
         "kapitchi/location": "dev-master"
     },
     "autoload": {
