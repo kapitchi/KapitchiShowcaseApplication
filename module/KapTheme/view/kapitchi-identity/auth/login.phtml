@@ -1,9 +1,0 @@
-<?php
-$viewModel = $this->viewModel()->getCurrent();
-$form = $viewModel->loginForm;
-$form->prepare();
-?>
-<?=$this->formRenderer()->renderHeader($form);?>
-<?=$this->formRenderer()->renderElements($form);?>
-<?=$this->formRenderer()->renderSubmit("Login", "login-submit-btn")?>
-<?=$this->formRenderer()->renderFooter($form);?>

@@ -1,7 +1,7 @@
 <?php
 return array(
     'modules' => array(
-        'ZfcTwig',
+        //'ZfcTwig',$this->partial() did not work? why was it so?
         'KapitchiBase',
         'KapitchiApp',
         //'AsseticBundle',
@@ -12,10 +12,11 @@ return array(
         'KapitchiFileManager',
         'KapTheme',
         'KapAngularTheme',
-        'KapShowcaseApp',
         'KapCalendar',
         'KapitchiLocation',
-        'KapLayout'
+        'KapLayout',
+        'KapMessage',
+        'KapShowcaseApp',
     ),
     'module_listener_options' => array(
         'config_glob_paths'    => array(
