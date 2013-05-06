@@ -1,5 +1,21 @@
 <?php
 return array(
+    'navigation' => array(
+        'default' => array(
+            array(
+                'id' => 'identity/identity',
+                'label' => $this->translate('Identities'),
+                'route' => 'identity/identity',
+                'action' => 'index',
+            ),
+            array(
+                'id' => 'contact/contact',
+                'label' => $this->translate('Contacts'),
+                'route' => 'contact/contact',
+                'action' => 'index',
+            ),
+        )
+    ),
     'router' => array(
         'routes' => array(
             'home' => array(

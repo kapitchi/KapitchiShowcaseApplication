@@ -1,8 +1,8 @@
-var kapApp = angular.module('KapApp', ['ngGrid', 'ui.compat', 'ui.bootstrap']);
+var kapApp = angular.module('KapApp', ['Test', 'ngGrid', 'ui.compat', 'ui.bootstrap']);
 
 kapApp.config(function($routeProvider, $locationProvider, $httpProvider, $stateProvider) {
     
-    var pageTemplateProvider = function($browser, $http, $stateParams, $templateCache, $rootScope, $state, pageMetaService) {
+    var pageTemplateProvider = function($browser, $http, $stateParams, $templateCache, $rootScope, $state, pageMetaService, navigationService) {
         //var pageUrl = $browser.url().replace('http://localhost', '');
         var pageUrl = $browser.url();
         return $http.get(pageUrl, {
@@ -13,6 +13,7 @@ kapApp.config(function($routeProvider, $locationProvider, $httpProvider, $stateP
             }).then(function(response) {
                 var data = response.data;
                 pageMetaService.setTitle(data.title);
+                navigationService.setBreadcrumbsHtml(data.breadcrumbsHtml);
                 return data.content;
             });
     };
@@ -87,6 +88,12 @@ kapApp.service('pageMetaService', function($rootScope) {
     };
 });
 
+kapApp.service('navigationService', function($rootScope) {
+    this.setBreadcrumbsHtml = function(html) {
+        $rootScope.breadcrumbsHtml = html;
+    };
+});
+
 kapApp.service('alertService', function($rootScope) {
     this.add = function(alert) {
         if(!$rootScope.alerts) {
@@ -147,7 +154,16 @@ kapApp.service('appStateService', function($rootScope) {
 });
 
 kapApp.controller('Identity/AuthLoginController', function($scope, $http, alertService, aclService) {
+    $scope.formData = {};
+    
     $scope.login = function(formData) {
+        console.log($scope.loginForm.username.$setValidity('xxx', false));
+        //$scope.loginForm.$setValidity('xxx', false);
+        //console.log($scope.loginForm['credential[username]'].$setValidity('xx', false));
+    
+        //console.log(formData);
+        return;
+        
         $http.post('identity/api/auth/login', formData).success(function(data, statusCode, headers) {
 //            $scope.loginForm['credential[username]'].$valid = false;
 //            $scope.loginForm['credential[username]'].$error = {xxx: 'My validation'};
@@ -167,6 +183,29 @@ kapApp.controller('Identity/AuthLoginController', function($scope, $http, alertS
             }
             
             aclService.reload();
+        }).error(function(data, statusCode, headers) {
+            console.log(data);
+            alertService.add({type: 'error', msg: data.formMessages});
+            
+//            for(var msg in data.formMessages.credential) {
+//                alertService.add({type: 'error', msg: data.formMessages.credential[msg]});
+//            }
+            //console.log($scope);
+//            $scope.$apply(function(s) {
+//                $scope.loginForm["credential[password]"].$setValidity('xxx', false);
+//            });
+//            $scope.$evalAsync(function(scope) {
+//                $scope.loginForm["credential[password]"].$setValidity('xxx', false);
+//                console.log($scope);
+//            })
+            //$scope.$digest();
+            
+            //$scope.formData.credential.$setValidity('username', 'dfd');
+            //console.log(data.formMessages.credential.username);
+            //$scope.loginForm['formData.credential.username'].$error.xxx = 'XXX';
+            //console.log($scope.loginForm);
+            //console.log(statusCode);
+            //console.log(headers);
         });
     }
 });

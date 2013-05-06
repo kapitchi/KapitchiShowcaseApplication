@@ -6,6 +6,10 @@
         Purpose of the stylesheet follows.
 */
 
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+  display: none;
+}
+
 @font-face {
     font-family: 'kapitchi';
     src: url('../fonts/helvetica-webfont.eot');

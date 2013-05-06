@@ -10,13 +10,16 @@ return array(
         'KapitchiContact',
         'KapitchiProcess',
         'KapitchiFileManager',
-        'KapTheme',
-        'KapAngularTheme',
+        //'KapTheme',
+        //'KapAngularTheme',
+        'KapBootstrapTheme',
         'KapCalendar',
         'KapitchiLocation',
         'KapLayout',
+        'KapPage',
         'KapMessage',
         'KapShowcaseApp',
+        'ZendDeveloperTools',
     ),
     'module_listener_options' => array(
         'config_glob_paths'    => array(
