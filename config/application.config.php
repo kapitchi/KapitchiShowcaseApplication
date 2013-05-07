@@ -19,7 +19,6 @@ return array(
         'KapPage',
         'KapMessage',
         'KapShowcaseApp',
-        'ZendDeveloperTools',
     ),
     'module_listener_options' => array(
         'config_glob_paths'    => array(

@@ -1,0 +1,29 @@
+<?php
+/**
+ * Kapitchi Zend Framework 2 Modules (http://kapitchi.com/)
+ *
+ * @copyright Copyright (c) 2012-2013 Kapitchi Open Source Team (http://kapitchi.com/open-source-team)
+ * @license   http://opensource.org/licenses/LGPL-3.0 LGPL 3.0
+ */
+
+//$breadcrumbsHtml = $this->navigation('DefaultNavigation')->breadcrumbs()->render();
+$this->headTitle('Kapitchi Showcase')->setSeparator(' / ');
+$this->plugin('InlineScript')->appendFile($this->basePath('/assets/js/jquery.min.js'));
+$this->plugin('InlineScript')->appendFile($this->basePath('/assets/js/bootstrap.js'));
+$this->plugin('HeadLink')->appendStylesheet($this->basePath('/assets/css/bootstrap.css'));
+$this->plugin('HeadLink')->appendStylesheet($this->basePath('/assets/css/bootstrap-responsive.css'));
+$this->plugin('HeadLink')->appendStylesheet($this->basePath('/assets/css/kap-bootstrap-theme.css'));
+?>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<?php
+echo $this->plugin('HeadTitle');
+echo $this->plugin('HeadMeta');
+echo $this->plugin('HeadLink');
+echo $this->plugin('HeadStyle');
+echo $this->plugin('HeadScript');
+?>
+<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+<!--[if lt IE 9]>
+    <script src="../assets/js/html5shiv.js"></script>
+<![endif]-->

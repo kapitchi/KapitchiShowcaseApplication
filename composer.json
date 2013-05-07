@@ -27,7 +27,7 @@
     "minimum-stability": "dev",
     "require": {
         "php": ">=5.3.3",
-        "zendframework/zendframework": "dev-master",
+        "zendframework/zendframework": "2.1.5",
         "widmogrod/zf2-assetic-module": "dev-master",
         "zf-commons/zfc-twig": "dev-master",
         "zendframework/zend-developer-tools": "dev-master",
