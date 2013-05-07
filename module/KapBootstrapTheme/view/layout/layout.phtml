@@ -16,12 +16,13 @@ echo $this->plugin('doctype')->setDoctype(\Zend\View\Helper\Doctype::HTML5);
                 </button>
                 <a class="brand" href="http://localhost/KapitchiShowcaseApplication/public/">Kapitchi Showcase</a>
                 <div class="nav-collapse collapse">
-                    <?=$this->navigation('DefaultNavigation')->menu()->setUlClass('nav')?>
+                    <?=$this->navigation('DefaultNavigation')->menu()->setMaxDepth(0)->setUlClass('nav')?>
                 </div>
             </div>
         </div>
     </div>
     <div class="container">
+        <?=$this->navigation('DefaultNavigation')->breadcrumbs()->setMinDepth(0);?>
         <?=$this->content?>
     </div>
     <?= $this->plugin('InlineScript'); ?>

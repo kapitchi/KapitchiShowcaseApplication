@@ -15,12 +15,8 @@
         if(is_string($column)) {
             echo $data[$column];
         }
-        elseif(isset($column['urlActions'])) {
-            echo "<ul class=\"actions\">";
-            foreach($column['urlActions'] as $name => $url) {
-                echo "<li><a href=\"{$url($entity, $this)}\">$name</a></li>";
-            }
-            echo "</ul>";
+        elseif(isset($column['button-dropdown'])) {
+            echo $this->partial('partial/common/button-dropdown', array('buttons' => $column['button-dropdown'], 'params' => array('entity' => $entity)));
         }
         elseif(isset($column['render'])) {
             $render = $column['render'];
