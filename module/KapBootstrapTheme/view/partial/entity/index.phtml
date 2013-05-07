@@ -1,7 +1,8 @@
 <?php
 ?>
 <h1><?=$this->heading?></h1>
-<table class="table entity-table">
+<table class="table table-bordered">
+    <tbody>
 <?php foreach($this->paginator as $entity):?>
     <tr>
     <?php 
@@ -32,5 +33,6 @@
     <?php endforeach?>
     </tr>
 <?php endforeach?>
+    </tbody>
 </table>
 <?=$this->paginationControl($this->paginator, 'Sliding', 'partial/common/pagination', (array)$this->paginationParams)?>
