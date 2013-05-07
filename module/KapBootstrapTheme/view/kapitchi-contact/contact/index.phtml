@@ -6,6 +6,10 @@ $view = $this;
 <?=$this->partial('partial/entity/index', array(
     'heading' => $this->translate('Contacts'),
     'paginator' => $paginator,
+    'paginationParams' => array(
+        'route' => 'contact/contact',
+        'routeParams' => array('action' => 'index'),
+    ),
     'columns' => array(
         array(
             'button-dropdown' => array(
