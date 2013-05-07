@@ -1,0 +1,39 @@
+<?php
+?>
+<h1><?=$this->heading?></h1>
+<table class="table entity-table">
+<?php foreach($this->paginator as $entity):?>
+    <tr>
+    <?php 
+    //@todo - this definitelly need some work to be done!
+    $x = new \Zend\Stdlib\Hydrator\ClassMethods(false);
+    $data = $x->extract($entity);
+    
+    foreach($this->columns as $column):?>
+        <td>
+        <?php
+        if(is_string($column)) {
+            echo $data[$column];
+        }
+        elseif(isset($column['urlActions'])) {
+            echo "<ul class=\"actions\">";
+            foreach($column['urlActions'] as $name => $url) {
+                echo "<li><a href=\"{$url($entity, $this)}\">$name</a></li>";
+            }
+            echo "</ul>";
+        }
+        elseif(isset($column['render'])) {
+            $render = $column['render'];
+            if(is_string($render)) {
+                echo $data[$render];
+            }
+            else if(is_callable($render)) {
+                echo $render($entity, $this);
+            }
+        }
+        ?>
+        </td>
+    <?php endforeach?>
+    </tr>
+<?php endforeach?>
+</table>

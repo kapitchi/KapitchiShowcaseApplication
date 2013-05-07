@@ -1,0 +1,5 @@
+<?php
+$viewModel = $this->viewModel()->getCurrent();
+$form = $viewModel->loginForm;
+?>
+<?=$this->partial('partial/form/default', array('form' => $form))?>

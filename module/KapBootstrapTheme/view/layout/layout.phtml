@@ -1,0 +1,63 @@
+<?php
+$breadcrumbsHtml = $this->navigation('DefaultNavigation')->breadcrumbs()->render();
+$this->headTitle('Kapitchi Showcase')->setSeparator(' / ');
+
+$this->plugin('InlineScript')->appendFile($this->basePath('/assets/js/jquery.min.js'));
+$this->plugin('InlineScript')->appendFile($this->basePath('/assets/js/bootstrap.js'));
+$this->plugin('HeadLink')->appendStylesheet($this->basePath('/assets/css/bootstrap.css'));
+$this->plugin('HeadLink')->appendStylesheet($this->basePath('/assets/css/bootstrap-responsive.css'));
+
+$this->plugin('HeadLink')->appendStylesheet($this->basePath('/assets/css/kap-angular-theme.css'));
+
+echo $this->plugin('doctype')->setDoctype(\Zend\View\Helper\Doctype::HTML5);
+?>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <?php
+        echo $this->plugin('HeadTitle');
+        echo $this->plugin('HeadMeta');
+        echo $this->plugin('HeadLink');
+        echo $this->plugin('HeadStyle');
+        echo $this->plugin('HeadScript');
+        ?>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <div>
+            <a  href="<?= $this->url('home') ?>">
+                <div class="logo"></div>
+            </a>
+            <br>
+            <div class="span6 offset2">  
+                <div class="navbar">
+                    <div class="navbar-inner">
+                        <div class="container">
+                            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </a>
+                            <a class="brand" href="<?= $this->url('home') ?>">ShowcaseApplication</a>
+                            <div class="nav-collapse collapse">
+                                <?=$this->navigation('DefaultNavigation')->menu()?>
+                            </div><!--/.nav-collapse -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="main_container" class="container">
+            <div class="breadcrumbs">
+                <?=$breadcrumbsHtml?>
+            </div>
+            <div>
+                <?=$this->content?>
+            </div>
+            <?=$this->plugin('InlineScript');?>
+        </div>
+        <footer>
+            &copy; 2012 Copyright Kapitchi
+        </footer>
+    </body>
+</html>

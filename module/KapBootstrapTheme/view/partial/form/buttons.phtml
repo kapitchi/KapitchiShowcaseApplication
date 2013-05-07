@@ -1,0 +1,9 @@
+<?php
+$form = $this->form;
+?>
+<?php foreach($form->getIterator() as $element):
+    if($element instanceof Zend\Form\Element\Submit || $element instanceof Zend\Form\Element\Button) {
+        echo $this->partial('partial/form/row.phtml', array('form' => $form, 'element' => $element));
+    }
+    ?>
+<?php endforeach;?>

@@ -1,0 +1,12 @@
+<?php
+if($this->element instanceof \Zend\Form\Element\Hidden) {
+    echo $this->formElement($this->element);
+    return;
+}
+?>
+<div class="input">
+<?=$this->formLabel($this->element)?>
+<?=$this->formElement($this->element)?>
+<?=$this->formElementErrors($this->element)?>
+</div>
+

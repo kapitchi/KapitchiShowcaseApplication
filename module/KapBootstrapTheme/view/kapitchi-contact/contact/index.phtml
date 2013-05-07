@@ -1,0 +1,16 @@
+<?php
+$viewModel = $this->viewModel()->getCurrent();
+$paginator = $viewModel->paginator;
+?>
+<?=$this->partial('partial/entity/index', array(
+    'heading' => $this->translate('Contacts'),
+    'paginator' => $paginator,
+    'columns' => array(
+        array('urlActions' => array(
+            'Edit' => function($entity, $view) {
+                return $view->url('contact/contact', array('id' => $entity->getId(), 'action' => 'update'));
+             }
+        )),
+        'displayName',
+    )
+));

@@ -1,0 +1,19 @@
+<div>
+Hey, in this session you are logged in as <?=$this->authIdentity()->getDisplayName()?>
+</div>
+<div>
+    You are logged in into these sessions:
+    <ul>
+        <?php foreach($this->authIdentities as $authIdentity):
+            $identity = $this->identity()->find($authIdentity->getId());
+            ?>
+            <?php if($this->authIdentity()->getLocalId() == $authIdentity->getId()):?>
+                <li><?=$identity->getDisplayName()?> (<?=$this->translate("Current session")?>)</li>
+            <?php else:?>
+                <li><a href="<?=$this->url('identity/auth-session/switch', array('sessionId' => $authIdentity->getSessionId()))?>"><?=$identity->getDisplayName()?></a></li>
+            <?php endif?>
+        <?php endforeach?>
+        <li><a href="<?=$this->url('identity/auth/login')?>"><?=$this->translate("Add new session")?></a></li>
+
+    </ul>
+</div>
