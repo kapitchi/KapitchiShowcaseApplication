@@ -33,4 +33,4 @@
     </tr>
 <?php endforeach?>
 </table>
-<?=$this->paginationControl($this->paginator, 'Sliding', 'partial/common/pagination', $this->paginationParams)?>
+<?=$this->paginationControl($this->paginator, 'Sliding', 'partial/common/pagination', (array)$this->paginationParams)?>

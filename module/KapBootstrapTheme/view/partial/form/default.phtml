@@ -1,10 +1,9 @@
-<form class="form-horizontal">
 <?php
 $form = $this->form;
+$form->setAttribute('class', $form->getAttribute('class') . ' form-horizontal');
 $form->prepare();
 ?>
 <?=$this->partial('partial/form/header.phtml', array('form' => $form))?>
 <?=$this->partial('partial/form/elements.phtml', array('form' => $form, 'renderButtons' => false))?>
 <?=$this->partial('partial/form/buttons.phtml', array('form' => $form))?>
 <?=$this->partial('partial/form/footer.phtml', array('form' => $form))?>
-</form>
