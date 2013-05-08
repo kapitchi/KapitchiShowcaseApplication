@@ -9,53 +9,49 @@ $params = $this->routeParams;
 ?>
 <?php if ($this->pageCount): ?>
     <div class="pagination pagination-right">
+        
         <!-- Previous page link -->
+        
         <ul>
             <?php if (isset($this->previous)): ?>
-                <li>
+                <li class="disabled">
                     <a href="<?php echo $this->url($this->route, array_merge($params, array('id' => $this->previous))); ?>">
-                        &laquo
-                    </a>
+                        &laquo</a>
                 </li>
             <?php else: ?>
-                <li>
+                <li class="active">
                     <a href="#">&laquo</a>
-
-                <?php endif; ?>
-            </li>
+                    <?php endif; ?>
+                </li>
+                
             <!-- Numbered page links -->
+            
             <?php foreach ($this->pagesInRange as $page): ?>
 
                 <?php if ($page != $this->current): ?>
-                    <li>
+                    <li class="disabled">
                         <a href="<?php echo $this->url($this->route, array_merge($params, array('id' => $page))); ?>">
-                            <?php echo $page; ?>
-                        </a> 
+                            <?php echo $page; ?></a> 
                     </li>
-
                 <?php else: ?>
-                    <li>
+                    <li class="active">
                         <a href="#"> <?php echo $page; ?></a>
                     </li>
                 <?php endif; ?>
             <?php endforeach; ?>
-
-
-
-
+                    
             <!-- Next page link -->
 
             <?php if (isset($this->next)): ?>
-                <li class="next">
+                <li class="disabled">
                     <a href="<?php echo $this->url($this->route, array_merge($params, array('id' => $this->next))); ?>">
-                        &raquo;
-                    </a>
+                        &raquo;</a>
                 </li>
             <?php else: ?>
-                <li class="next">
+                <li class="active">
                     <a href="#">&raquo;</a>
-                <?php endif; ?>
-            </li>
+                    <?php endif; ?>
+                </li>
         </ul>
     </div>
 <?php endif; ?>
