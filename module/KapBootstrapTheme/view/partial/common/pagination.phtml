@@ -20,14 +20,13 @@ $params = $this->routeParams;
                 </li>
             <?php else: ?>
                 <li class="active">
-                    <a href="#">&laquo</a>
-                    <?php endif; ?>
+                    <span>&laquo</span>
                 </li>
+            <?php endif; ?>
                 
             <!-- Numbered page links -->
             
             <?php foreach ($this->pagesInRange as $page): ?>
-
                 <?php if ($page != $this->current): ?>
                     <li class="disabled">
                         <a href="<?php echo $this->url($this->route, array_merge($params, array('id' => $page))); ?>">
@@ -35,9 +34,9 @@ $params = $this->routeParams;
                     </li>
                 <?php else: ?>
                     <li class="active">
-                        <a href="#"> <?php echo $page; ?></a>
+                        <span><?php echo $page; ?></span>
                     </li>
-                <?php endif; ?>
+            <?php endif; ?>
             <?php endforeach; ?>
                     
             <!-- Next page link -->
@@ -49,9 +48,9 @@ $params = $this->routeParams;
                 </li>
             <?php else: ?>
                 <li class="active">
-                    <a href="#">&raquo;</a>
-                    <?php endif; ?>
+                    <span>&raquo;</span>
                 </li>
+            <?php endif; ?>
         </ul>
     </div>
 <?php endif; ?>
