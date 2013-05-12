@@ -14,6 +14,13 @@ return array(
                 'route' => 'contact/contact',
                 'action' => 'index',
             ),
+            array(
+                'label' => $this->translate('Manual'),
+                'route' => 'showcase-app/default',
+                'controller' => 'index',
+                'action' => 'manual',
+                'order' => 100,
+            ),
         )
     ),
     'router' => array(
@@ -77,7 +84,7 @@ return array(
             //'error/index'             => __DIR__ . '/../view/error/index.phtml',
         ),
         'template_path_stack' => array(
-            //__DIR__ . '/../view',
+            __DIR__ . '/../view',
         ),
         'strategies' => array(
             'ViewJsonStrategy', // register JSON renderer strategy

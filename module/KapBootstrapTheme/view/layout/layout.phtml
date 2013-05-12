@@ -18,13 +18,7 @@ echo $this->plugin('doctype')->setDoctype(\Zend\View\Helper\Doctype::HTML5);
                 <div class="nav-collapse collapse">
                     <?=$this->navigation('DefaultNavigation')->menu()->setMaxDepth(0)->setUlClass('nav')?>
                 </div>
-                <?php if($this->authIdentity()->hasIdentity()):?>
-                <div class="nav-collapse collapse">
-                    <ul class="nav">
-                        <li><a href="<?=$this->url('identity/auth-session/default', array('action' => 'index'))?>">You are logged in as <?=$this->authIdentity()->getDisplayName()?></a></li>
-                    </ul>
-                </div>
-                <?php endif?>
+                <?=$this->render('layout/partial/identity-controls')?>
             </div>
         </div>
     </div>

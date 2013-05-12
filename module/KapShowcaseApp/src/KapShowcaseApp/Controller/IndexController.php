@@ -17,4 +17,11 @@ class IndexController extends AbstractActionController
     {
         return new ViewModel();
     }
+    
+    public function manualAction()
+    {
+        return array(
+            'embedUrl' => 'https://docs.google.com/document/d/1SwVkie9X-ftCo7zpfzM1crdsiQGT0aXmSue4vHIlnH4/pub?embedded=true'
+        );
+    }
 }
