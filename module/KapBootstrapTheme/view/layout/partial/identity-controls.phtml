@@ -1,0 +1,19 @@
+<?php
+
+/**
+ * Kapitchi Zend Framework 2 Modules (http://kapitchi.com/)
+ *
+ * @copyright Copyright (c) 2012-2013 Kapitchi Open Source Team (http://kapitchi.com/open-source-team)
+ * @license   http://opensource.org/licenses/LGPL-3.0 LGPL 3.0
+ */
+?>
+<div class="nav-collapse collapse">
+    <ul class="nav">
+        <?php if($this->authIdentity()->hasIdentity()):?>
+            <li><a href="<?=$this->url('identity/auth-session/default', array('action' => 'index'))?>">Current session - <?=$this->authIdentity()->getDisplayName()?></a></li>
+            <li><a href="<?=$this->url('identity/auth/logout')?>">Log out</a></li>
+        <?php else:?>
+            <li><a href="<?=$this->url('identity/auth/login')?>">Log in</a></li>
+        <?php endif?>
+    </ul>
+</div>
