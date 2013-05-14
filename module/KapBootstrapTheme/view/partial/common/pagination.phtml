@@ -14,21 +14,22 @@ $params = $this->routeParams;
         
         <ul>
             <?php if (isset($this->previous)): ?>
-                <li class="disabled">
+                <li>
                     <a href="<?php echo $this->url($this->route, array_merge($params, array('id' => $this->previous))); ?>">
                         &laquo</a>
                 </li>
             <?php else: ?>
-                <li class="active">
+                <li class="disabled">
                     <span>&laquo</span>
                 </li>
             <?php endif; ?>
+                
                 
             <!-- Numbered page links -->
             
             <?php foreach ($this->pagesInRange as $page): ?>
                 <?php if ($page != $this->current): ?>
-                    <li class="disabled">
+                    <li>
                         <a href="<?php echo $this->url($this->route, array_merge($params, array('id' => $page))); ?>">
                             <?php echo $page; ?></a> 
                     </li>
@@ -36,18 +37,18 @@ $params = $this->routeParams;
                     <li class="active">
                         <span><?php echo $page; ?></span>
                     </li>
-            <?php endif; ?>
+              <?php endif; ?>
             <?php endforeach; ?>
                     
             <!-- Next page link -->
 
             <?php if (isset($this->next)): ?>
-                <li class="disabled">
+                <li>
                     <a href="<?php echo $this->url($this->route, array_merge($params, array('id' => $this->next))); ?>">
                         &raquo;</a>
                 </li>
             <?php else: ?>
-                <li class="active">
+                <li class="disabled">
                     <span>&raquo;</span>
                 </li>
             <?php endif; ?>
