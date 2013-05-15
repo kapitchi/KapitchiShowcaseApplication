@@ -29,7 +29,8 @@ echo $this->plugin('doctype')->setDoctype(\Zend\View\Helper\Doctype::HTML5);
         </div>
     </div>
     <div class="container">
-        <?=$this->navigation('DefaultNavigation')->breadcrumbs()->setMinDepth(0);?>
+        <?=$this->navigation('DefaultNavigation')->breadcrumbs()->setMinDepth(0)
+                                                 ->setPartial(array('partial/common/breadcrumbs.phtml', 'default'));?>
         <?=$this->content?>
     </div>
     <?= $this->plugin('InlineScript'); ?>
