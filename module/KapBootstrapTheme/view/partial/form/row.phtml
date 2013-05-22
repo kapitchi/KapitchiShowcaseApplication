@@ -3,10 +3,15 @@ if($this->element instanceof \Zend\Form\Element\Hidden) {
     echo $this->formElement($this->element);
     return;
 }
+$this->element->setLabelAttributes(array(
+    "class" => 'control-label'
+));
 ?>
-<div class="input">
-<?=$this->formLabel($this->element)?>
-<?=$this->formElement($this->element)?>
-<?=$this->formElementErrors($this->element)?>
+<div class="control-group">
+    <?=$this->formLabel($this->element)?>
+    <div class="controls">
+        <?=$this->formElement($this->element)?>
+    </div>
+    <?=$this->formElementErrors($this->element)?>
 </div>
 
