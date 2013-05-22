@@ -11,11 +11,17 @@ namespace KapShowcaseApp\Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 
-class IndexController extends AbstractActionController
+class HelpController extends AbstractActionController
 {
     public function indexAction()
     {
         return new ViewModel();
     }
     
+    public function documentationAction()
+    {
+        return array(
+            'embedUrl' => 'https://docs.google.com/document/d/1SwVkie9X-ftCo7zpfzM1crdsiQGT0aXmSue4vHIlnH4/pub?embedded=true'
+        );
+    }
 }

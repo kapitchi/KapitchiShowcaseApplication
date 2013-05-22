@@ -1,74 +1,13 @@
 <?php
 return array(
-    'navigation' => array(
-        'default' => array(
-            array(
-                'id' => 'identity/identity',
-                'label' => $this->translate('Identities'),
-                'route' => 'identity/identity',
-                'action' => 'index',
-            ),
-            array(
-                'id' => 'contact/contact',
-                'label' => $this->translate('Contacts'),
-                'route' => 'contact/contact',
-                'action' => 'index',
-            ),
-            array(
-                'label' => $this->translate('Manual'),
-                'route' => 'showcase-app/default',
-                'controller' => 'index',
-                'action' => 'manual',
-                'order' => 100,
-            ),
-        )
-    ),
+    'navigation' => require 'navigation.config.php',
     'router' => array(
-        'routes' => array(
-            'home' => array(
-                'type' => 'Zend\Mvc\Router\Http\Literal',
-                'options' => array(
-                    'route'    => '/',
-                    'defaults' => array(
-                        'controller' => 'KapShowcaseApp\Controller\Index',
-                        'action'     => 'index',
-                    ),
-                ),
-            ),
-            // The following is a route to simplify getting started creating
-            // new controllers and actions without needing to create a new
-            // module. Simply drop new controllers in, and you can access them
-            // using the path /application/:controller/:action
-            'showcase-app' => array(
-                'type'    => 'Literal',
-                'options' => array(
-                    'route'    => '/showcase-app',
-                    'defaults' => array(
-                        '__NAMESPACE__' => 'KapShowcaseApp\Controller',
-                        'controller'    => 'Index',
-                    ),
-                ),
-                'may_terminate' => true,
-                'child_routes' => array(
-                    'default' => array(
-                        'type'    => 'Segment',
-                        'options' => array(
-                            'route'    => '/[:controller[/:action]]',
-                            'constraints' => array(
-                                'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
-                            ),
-                            'defaults' => array(
-                            ),
-                        ),
-                    ),
-                ),
-            ),
-        ),
+        'routes' => require 'routes.config.php'
     ),
     'controllers' => array(
         'invokables' => array(
-            'KapShowcaseApp\Controller\Index' => 'KapShowcaseApp\Controller\IndexController'
+            'KapShowcaseApp\Controller\Index' => 'KapShowcaseApp\Controller\IndexController',
+            'KapShowcaseApp\Controller\Help' => 'KapShowcaseApp\Controller\HelpController',
         ),
     ),
     'view_manager' => array(
