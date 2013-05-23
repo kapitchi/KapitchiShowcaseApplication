@@ -25,6 +25,15 @@ class Module extends \KapitchiBase\ModuleManager\AbstractModule implements Servi
         $router = $e->getApplication()->getServiceManager()->get('Router');
         \Zend\Navigation\Page\Mvc::setDefaultRouter($router);
         
+        //TODO mz: this is for testing purposes here - it should be moved into separate module?
+        $sharedEm->attach('KapitchiContact\Controller\ContactController', 'update.post', function($e) use ($sm) {
+            $entity = $e->getParam('entity');
+            $sm->get('KapPage\Service\Page')->setCurrentPageModel(array(
+                'title' => $entity->getDisplayName(),
+                'parentPageId' => 'contact/contact',
+            ));
+        });
+        
         $sharedEm->attach('KapitchiIdentity\Controller\IdentityController', 'update.post', function($e) use ($sm) {
             $entity = $e->getParam('entity');
             $sm->get('KapPage\Service\Page')->setCurrentPageModel(array(

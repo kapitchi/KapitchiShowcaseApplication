@@ -19,20 +19,14 @@ echo $this->plugin('doctype')->setDoctype(\Zend\View\Helper\Doctype::HTML5);
                                         <?=$this->navigation('DefaultNavigation')->menu()->setMaxDepth(1)->setUlClass('nav')?>
 
                 </div>
-                <?php if($this->authIdentity()->hasIdentity()):?>
-                <div class="nav-collapse collapse">
-                    <ul class="nav">
-                        <li><a href="<?=$this->url('identity/auth-session/default', array('action' => 'index'))?>">You are logged in as <?=$this->authIdentity()->getDisplayName()?></a></li>
-                    </ul>
-                </div>
-                <?php endif?>
+                <?=$this->render('layout/partial/identity-controls')?>
             </div>
         </div>
     </div>
     <div class="container">
         <ul class="breadcrumb">
             <?=$this->navigation('DefaultNavigation')->breadcrumbs()
-              ->setLinkLast(true)                   // link last page
+              ->setLinkLast(false)                   // link last page
               ->setMinDepth(0)                      // stop at level 1
               ->setSeparator(' /' . PHP_EOL); // cool separator with newline ?>
         </ul>
