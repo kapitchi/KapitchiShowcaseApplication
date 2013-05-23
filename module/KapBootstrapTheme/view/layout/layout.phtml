@@ -26,9 +26,9 @@ echo $this->plugin('doctype')->setDoctype(\Zend\View\Helper\Doctype::HTML5);
     <div class="container">
         <ul class="breadcrumb">
             <?=$this->navigation('DefaultNavigation')->breadcrumbs()
-              ->setLinkLast(false)                   // link last page
-              ->setMinDepth(0)                      // stop at level 1
-              ->setSeparator(' /' . PHP_EOL); // cool separator with newline ?>
+                ->setMinDepth(0)
+                ->setRenderInvisible(true)//KapPage injects active page as invisible
+            ?>
         </ul>
         <?=$this->content?>
     </div>
