@@ -1,7 +1,6 @@
     <?php
     $form = $this->form;
     ?>
-<div class="form-actions">
 <?php
 foreach ($form->getIterator() as $element):
     if ($element instanceof Zend\Form\Element\Submit || $element instanceof Zend\Form\Element\Button) {
@@ -10,4 +9,3 @@ foreach ($form->getIterator() as $element):
     ?>
 
 <?php endforeach; ?>
-</div>
