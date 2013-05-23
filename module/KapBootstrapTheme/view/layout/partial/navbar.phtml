@@ -1,0 +1,43 @@
+<?php
+/**
+ * Kapitchi Zend Framework 2 Modules (http://kapitchi.com/)
+ *
+ * @copyright Copyright (c) 2012-2013 Kapitchi Open Source Team (http://kapitchi.com/open-source-team)
+ * @license   http://opensource.org/licenses/LGPL-3.0 LGPL 3.0
+ * inspired:http://stackoverflow.com/questions/14884572/zend-framework-2-navigation-menu-twitter-bootstrap-integration
+ */
+?>
+<ul class="nav">
+    <?php $count = 0 ?>
+    <?php foreach ($this->container as $page):
+        if (!$page->isVisible() || !$this->navigation()->accept($page)) continue;
+        
+        $hasChildren = $page->hasPages();
+        if (!$hasChildren):?>
+            <li>
+                <a href="<?=$page->getHref()?>">
+                    <?=$this->translate($page->getLabel())?>
+                </a>
+            </li>
+        <?php else:?>
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown">
+                    <?=$page->getLabel()?>
+                    <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                    <?php foreach ($page->getPages() as $child):
+                        if (!$child->isVisible() || !$this->navigation()->accept($child)) continue; 
+                        ?>
+                        <li class="dropdown">
+                            <a href="<?=$child->getHref()?>">
+                            <?=$child->getLabel()?>
+                            </a>
+                        </li>
+                    <?php endforeach ?>
+                </ul>
+            </li>
+        <?php endif ?>
+        <?php $count++?>
+    <?php endforeach ?>
+</ul>
