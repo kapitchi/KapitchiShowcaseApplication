@@ -22,6 +22,18 @@ return array(
             'action' => 'index',
         ),
         array(
+            'label' => $this->translate('System'),
+            'route' => 'app/plugin',
+            'action' => 'index',
+            'pages' => array(
+                array(
+                    'label' => $this->translate('Plugins'),
+                    'route' => 'app/plugin',
+                    'action' => 'index',
+                ),
+            )
+        ),
+        array(
             'label' => $this->translate('Help'),
             'route' => 'showcase-app/default',
             'controller' => 'help',

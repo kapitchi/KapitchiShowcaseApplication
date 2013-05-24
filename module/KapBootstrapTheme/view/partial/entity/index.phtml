@@ -17,7 +17,7 @@
             echo $data[$column];
         }
         elseif(isset($column['button-dropdown'])) {
-            echo $this->partial('partial/common/button-dropdown', array('buttons' => $column['button-dropdown'], 'params' => array('entity' => $entity)));
+            echo $this->partial('partial/common/button-dropdown', array('buttons' => $column['button-dropdown'], 'params' => array('entity' => $entity, 'paginator' => $this->paginator)));
         }
         elseif(isset($column['render'])) {
             $render = $column['render'];

@@ -10,10 +10,11 @@ namespace KapShowcaseApp;
 
 use Zend\Mvc\ModuleRouteListener;
 use Zend\ModuleManager\Feature\ServiceProviderInterface;
+use Zend\EventManager\EventInterface;
 
 class Module extends \KapitchiBase\ModuleManager\AbstractModule implements ServiceProviderInterface
 {
-    public function onBootstrap(\Zend\EventManager\EventInterface $e)
+    public function onBootstrap(EventInterface $e)
     {
         $eventManager = $e->getApplication()->getEventManager();
         $sm = $e->getApplication()->getServiceManager();
@@ -25,6 +26,16 @@ class Module extends \KapitchiBase\ModuleManager\AbstractModule implements Servi
         $router = $e->getApplication()->getServiceManager()->get('Router');
         \Zend\Navigation\Page\Mvc::setDefaultRouter($router);
         
+        
+        $this->onBoostrapTest($e);
+    }
+    
+    protected function onBoostrapTest(EventInterface $e)
+    {
+        $eventManager = $e->getApplication()->getEventManager();
+        $sm = $e->getApplication()->getServiceManager();
+        $sharedEm = $eventManager->getSharedManager();
+
         //TODO mz: this is for testing purposes here - it should be moved into separate module?
         $sharedEm->attach('KapitchiContact\Controller\ContactController', 'update.post', function($e) use ($sm) {
             $entity = $e->getParam('entity');
@@ -41,7 +52,30 @@ class Module extends \KapitchiBase\ModuleManager\AbstractModule implements Servi
                 'parentPageId' => 'identity/identity',
             ));
         });
+
         
+        //KapitchiContact
+        $type = new \KapitchiContact\Service\Storage\StorageTypeListener(
+                $sm,
+                'email',
+                'KapitchiContact\Service\Individual',
+                'KapitchiContact\Form\Individual',
+                'KapitchiContact\Form\IndividualInputFilter',
+                array(
+                    array(
+                        'tag' => 'personal',
+                        'label' => 'Personal email',
+                        'required' => true,
+                    ),
+                    array(
+                        'tag' => 'work',
+                        'label' => 'Work email',
+                    ),
+                )
+        );
+        $sharedEm->attachAggregate($type);
+        
+        //$s = $sm->get('KapitchiContact\Form\Individual');
     }
     
     /**

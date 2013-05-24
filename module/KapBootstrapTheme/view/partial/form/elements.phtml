@@ -5,10 +5,6 @@ $renderButtons = isset($this->renderButtons) ? $this->renderButtons : true;
 <?php
 foreach($form->getIterator() as $element):
     if($element instanceof Zend\Form\FieldsetInterface) {
-        $renderPartial = $element->getOption('render_partial');
-        if($renderPartial) {
-            echo $this->partial($renderPartial, array('element' => $element));
-        }
         echo $this->partial('partial/form/elements', array('form' => $element));
     }
     elseif(!$renderButtons && ($element instanceof \Zend\Form\Element\Submit || $element instanceof \Zend\Form\Element\Button)) {

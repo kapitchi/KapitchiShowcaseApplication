@@ -12,7 +12,12 @@ $defaultParams = array(
     'params' => array()
 );
 
+$params = (array)$this->params;
+
 foreach($this->buttons as $button) {
+    if(is_callable($button)) {
+        $button = call_user_func($button, $params);
+    }
     
     if(!empty($button['type'])) {
         switch($button['type']) {
@@ -30,7 +35,7 @@ foreach($this->buttons as $button) {
     if(empty($button['label'])) {
         throw new \InvalidArgumentException("Button 'label' attr has to be specified");
     }
-    $button['params'] = array_merge((array)$this->params, $button['params']);
+    $button['params'] = array_merge($params, $button['params']);
     $sanitazedButtons[] = $button;
 }
 
@@ -38,10 +43,12 @@ $priButton = array_shift($sanitazedButtons);
 ?>
 <div class="btn-group">
     <a class="btn" href="<?=(is_callable($button['url']) ? call_user_func($button['url'], $button['params']) : $button['url'])?>"><?php if($button['icon']):?><i class="<?=$button['icon']?>"></i><?php endif?> <?=$priButton['label']?></a>
+    <?php if($sanitazedButtons):?>
     <a class="btn dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
     <ul class="dropdown-menu">
         <?php foreach($sanitazedButtons as $button): ?>
             <li><a class="btn" href="<?=(is_callable($button['url']) ? call_user_func($button['url'], $button['params']) : $button['url'])?>"><?php if($button['icon']):?><i class="<?=$button['icon']?>"></i><?php endif?> <?=$button['label']?></a></li>
         <?php endforeach;?>
     </ul>
+    <?php endif?>
 </div>

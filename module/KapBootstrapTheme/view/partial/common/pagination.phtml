@@ -15,7 +15,7 @@ $params = $this->routeParams;
         <ul>
             <?php if (isset($this->previous)): ?>
                 <li>
-                    <a href="<?php echo $this->url($this->route, array_merge($params, array('id' => $this->previous))); ?>">
+                    <a href="<?php echo $this->url($this->route, $params, array('query' => array('page' => $this->previous))); ?>">
                         &laquo</a>
                 </li>
             <?php else: ?>
@@ -30,7 +30,7 @@ $params = $this->routeParams;
             <?php foreach ($this->pagesInRange as $page): ?>
                 <?php if ($page != $this->current): ?>
                     <li>
-                        <a href="<?php echo $this->url($this->route, array_merge($params, array('id' => $page))); ?>">
+                        <a href="<?php echo $this->url($this->route, $params, array('query' => array('page' => $page))); ?>">
                             <?php echo $page; ?></a> 
                     </li>
                 <?php else: ?>
@@ -44,7 +44,7 @@ $params = $this->routeParams;
 
             <?php if (isset($this->next)): ?>
                 <li>
-                    <a href="<?php echo $this->url($this->route, array_merge($params, array('id' => $this->next))); ?>">
+                    <a href="<?php echo $this->url($this->route, $params, array('query' => array('page' => $this->next))); ?>">
                         &raquo;</a>
                 </li>
             <?php else: ?>

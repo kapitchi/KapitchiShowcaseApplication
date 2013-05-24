@@ -1,0 +1,44 @@
+<?php
+$viewModel = $this->viewModel()->getCurrent();
+$paginator = $viewModel->paginator;
+$view = $this;
+?>
+<?=$this->partial('partial/entity/index.phtml', array(
+    'heading' => $this->translate('Plugins'),
+    'paginator' => $paginator,
+    'paginationParams' => array(
+        'route' => 'app/plugin',
+        'routeParams' => array('action' => 'index'),
+    ),
+    'columns' => array(
+        array(
+            'button-dropdown' => array(
+                function($params) use ($view) {
+                    $entity = $params['entity'];
+                    if($entity->getEnabled()) {
+                        return array(
+                            'label' => 'Disable',
+                            'url' => $view->url('app/plugin', 
+                                    array('action' => 'disable', 'id' => $entity->getId()),
+                                    array('query' => array('redirect_page' => $params['paginator']->getCurrentPageNumber())))
+                        );
+                    }
+                    return array(
+                            'label' => 'Enable',
+                            'url' => $view->url('app/plugin', 
+                                    array('action' => 'enable', 'id' => $entity->getId()),
+                                    array('query' => array('redirect_page' => $params['paginator']->getCurrentPageNumber())))
+                    );
+                },
+            )
+        ),
+        array(
+            'render' => function($entity) {
+                return $entity->getEnabled() ? '&#10003;' : '&#10007;';
+            }
+        ),
+        'name',
+        'description',
+    )
+));
+                
