@@ -7,8 +7,13 @@
  */
 $page = $this->page;
 $level = empty($this->level) ? 0 : $this->level;
-
-$hasChildren = $page->hasPages();
+$hasChildren = false;
+foreach ($page->getPages() as $child) {
+    if ($this->navigation()->accept($child)) {
+        $hasChildren = true;
+        break;
+    }
+}
 if (!$hasChildren):?>
     <li><a href="<?=$page->getHref()?>"><?=$page->getLabel()?></a></li>
 <?php else:
