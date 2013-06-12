@@ -1,22 +1,28 @@
 <?php
-if($this->element instanceof \Zend\Form\Element\Hidden) {
-    echo $this->formElement($this->element);
+$element = $this->element;
+
+if($element instanceof \Zend\Form\Element\Hidden) {
+    echo $this->formElement($element);
     return;
 }
-$this->element->setLabelAttributes(array(
-    "class" => 'control-label'
+$element->setLabelAttributes(array(
+    'class' => 'control-label'
+));
+$element->setAttributes(array(
+    'data-toggle' => 'tooltip',
+    'data-placement' => 'right',
 ));
 
-$messages = $this->element->getMessages();
+$messages = $element->getMessages();
 $hasErrors = !empty($messages);
 $divClass = $hasErrors ? 'control-group error' : 'control-group';
 ?>
 <div class="<?=$divClass?>">
-    <?=$this->formLabel($this->element)?>
+    <?=$this->formLabel($element)?>
     <div class="controls">
-        <?=$this->formElement($this->element)?>
+        <?=$this->formElement($element)?>
         <?php if ($hasErrors):?>
-            <span class="help-inline"><?=$this->formElementErrors($this->element)?></span>
+            <span class="help-inline"><?=$this->formElementErrors($element)?></span>
         <?php endif?>
     </div>
 </div>
