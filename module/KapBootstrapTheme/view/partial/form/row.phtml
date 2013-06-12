@@ -6,12 +6,17 @@ if($this->element instanceof \Zend\Form\Element\Hidden) {
 $this->element->setLabelAttributes(array(
     "class" => 'control-label'
 ));
+
+$messages = $this->element->getMessages();
+$hasErrors = !empty($messages);
+$divClass = $hasErrors ? 'control-group error' : 'control-group';
 ?>
-<div class="control-group">
+<div class="<?=$divClass?>">
     <?=$this->formLabel($this->element)?>
     <div class="controls">
         <?=$this->formElement($this->element)?>
+        <?php if ($hasErrors):?>
+            <span class="help-inline"><?=$this->formElementErrors($this->element)?></span>
+        <?php endif?>
     </div>
-    <?=$this->formElementErrors($this->element)?>
 </div>
-
