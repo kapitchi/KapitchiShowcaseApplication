@@ -1,0 +1,15 @@
+<?php
+
+/**
+ * Kapitchi Zend Framework 2 Modules (http://kapitchi.com/)
+ *
+ * @copyright Copyright (c) 2012-2013 Kapitchi Open Source Team (http://kapitchi.com/open-source-team)
+ * @license   http://opensource.org/licenses/LGPL-3.0 LGPL 3.0
+ */
+
+$messenger = $this->flashMessenger()->getPluginFlashMessenger();
+$msgs = $messenger->getCurrentSuccessMessages();
+$currentMsgs = $messenger->getSuccessMessages();
+var_dump(__FILE__ . ' / line:' . __LINE__);
+var_dump($currentMsgs);
+var_dump($msgs);

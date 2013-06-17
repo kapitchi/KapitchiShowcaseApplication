@@ -25,12 +25,8 @@ echo $this->plugin('doctype')->setDoctype(\Zend\View\Helper\Doctype::HTML5);
         </div>
     </div>
     <div class="container">
-        <ul class="breadcrumb">
-            <?=$this->navigation('DefaultNavigation')->breadcrumbs()
-                ->setMinDepth(0)
-                ->setRenderInvisible(true)//KapPage injects active page as invisible
-            ?>
-        </ul>
+        <?=$this->render('layout/partial/breadcrumbs')?>
+        <?=$this->render('layout/partial/user-messages')?>
         <?=$this->content?>
     </div>
     <?= $this->plugin('InlineScript'); ?>
