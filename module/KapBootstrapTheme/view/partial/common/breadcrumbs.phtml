@@ -1,0 +1,24 @@
+<?php
+
+/**
+ * Kapitchi Zend Framework 2 Modules (http://kapitchi.com/)
+ *
+ * @copyright Copyright (c) 2012-2013 Kapitchi Open Source Team (http://kapitchi.com/open-source-team)
+ * @license   http://opensource.org/licenses/LGPL-3.0 LGPL 3.0
+ */
+?>
+
+<ul class="breadcrumb">
+   <?php foreach ($this->pages as $key => $page):// iterate through the pages
+        if ($key < count($this->pages) - 1): // if this isn't the last page, add a link and the separator?>
+            <li>
+                <a href="<?=$page->getHref(); ?>"><?=$page->getLabel(); ?></a>
+                <span class="divider">/</span>
+            </li>    
+        <?php else: // otherwise, just output the name?>
+            <li class="active">
+                <?=$page->getLabel(); ?>
+            </li>
+        <?php endif; ?>
+  <?php endforeach; ?>
+</ul>
