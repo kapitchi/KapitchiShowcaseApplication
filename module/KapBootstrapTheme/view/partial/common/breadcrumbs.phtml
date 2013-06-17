@@ -8,26 +8,17 @@
  */
 ?>
 
-  <ul class="breadcrumb">
-     <?php
-     // iterate through the pages
-     foreach ($this->pages as $key => $page):
-         ?>
-         <li>
-             <?php
-             // if this isn't the last page, add a link and the separator
-             if ($key < count($this->pages) - 1):
-                 ?>
-                 <a href="<?=$page->getHref(); ?>"><?=$page->getLabel(); ?></a>
-                 <span class="divider">/</span>
-             <?php
-             // otherwise, just output the name
-             else:
-             ?>
-                <li class="active">
-                    <?=$page->getLabel(); ?>
-                </li>
-             <?php endif; ?>
-         </li>
-         <?php endforeach; ?>
- </ul>
+<ul class="breadcrumb">
+   <?php foreach ($this->pages as $key => $page):// iterate through the pages
+        if ($key < count($this->pages) - 1):?> // if this isn't the last page, add a link and the separator
+            <li>
+                <a href="<?=$page->getHref(); ?>"><?=$page->getLabel(); ?></a>
+                <span class="divider">/</span>
+            </li>    
+        <?php else:?> // otherwise, just output the name
+            <li class="active">
+                <?=$page->getLabel(); ?>
+            </li>
+        <?php endif; ?>
+  <?php endforeach; ?>
+</ul>
