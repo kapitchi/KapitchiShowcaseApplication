@@ -9,7 +9,7 @@ echo $this->plugin('doctype')->setDoctype(\Zend\View\Helper\Doctype::HTML5);
     <?=$this->render('layout/partial/header')?>
     <div class="container">
         <?=$this->render('layout/partial/breadcrumbs')?>
-        <?=$this->render('layout/partial/user-messages')?>
+        <?//=$this->render('layout/partial/user-messages')?>
         <?=$this->content?>
     </div>
     <?= $this->plugin('InlineScript'); ?>

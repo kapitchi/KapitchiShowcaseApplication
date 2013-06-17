@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Kapitchi Zend Framework 2 Modules (http://kapitchi.com/)
  *
@@ -7,9 +6,21 @@
  * @license   http://opensource.org/licenses/LGPL-3.0 LGPL 3.0
  */
 
+use Zend\Mvc\Controller\Plugin\FlashMessenger;
+
 $messenger = $this->flashMessenger()->getPluginFlashMessenger();
-$msgs = $messenger->getCurrentSuccessMessages();
-$currentMsgs = $messenger->getSuccessMessages();
-var_dump(__FILE__ . ' / line:' . __LINE__);
-var_dump($currentMsgs);
-var_dump($msgs);
+foreach(array(
+        FlashMessenger::NAMESPACE_ERROR,
+        FlashMessenger::NAMESPACE_SUCCESS,
+        FlashMessenger::NAMESPACE_INFO,
+        FlashMessenger::NAMESPACE_DEFAULT)
+        as $namespace) {
+    
+    $messenger->setNamespace($namespace);
+    $currentMsgs = $messenger->getCurrentMessages();
+    $messenger->clearCurrentMessages();
+    $msgs = $messenger->getMessages();
+    var_dump(__FILE__ . ' / line:' . __LINE__);
+    var_dump($currentMsgs);
+    var_dump($msgs);
+}
