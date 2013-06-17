@@ -6,24 +6,7 @@ echo $this->plugin('doctype')->setDoctype(\Zend\View\Helper\Doctype::HTML5);
     <?=$this->render('layout/partial/head') ?>
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="navbar-inner">
-            <div class="container">
-                <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </a>
-                <a class="brand" href="<?php echo $this->basePath()?>">Kapitchi Showcase</a>
-                <div class="nav-collapse collapse">
-                    <?=$this->navigation('DefaultNavigation')->menu()
-                        ->setPartial(array('layout/partial/navbar.phtml', 'default'))
-                    ?>
-                </div>
-                <?=$this->render('layout/partial/identity-controls')?>
-            </div>
-        </div>
-    </div>
+    <?=$this->render('layout/partial/header')?>
     <div class="container">
         <?=$this->render('layout/partial/breadcrumbs')?>
         <?=$this->render('layout/partial/user-messages')?>

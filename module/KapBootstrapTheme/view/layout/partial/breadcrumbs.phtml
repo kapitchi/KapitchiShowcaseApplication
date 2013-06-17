@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Kapitchi Zend Framework 2 Modules (http://kapitchi.com/)
  *
@@ -7,9 +6,8 @@
  * @license   http://opensource.org/licenses/LGPL-3.0 LGPL 3.0
  */
 ?>
-<ul class="breadcrumb">
-    <?=$this->navigation('DefaultNavigation')->breadcrumbs()
-        ->setMinDepth(0)
-        ->setRenderInvisible(true)//KapPage injects active page as invisible
-    ?>
-</ul>
+<?=$this->navigation('DefaultNavigation')->breadcrumbs()
+    ->setPartial(array('partial/common/breadcrumbs.phtml', 'default'))
+    ->setMinDepth(0)
+    ->setRenderInvisible(true)//KapPage injects active page as invisible
+?>

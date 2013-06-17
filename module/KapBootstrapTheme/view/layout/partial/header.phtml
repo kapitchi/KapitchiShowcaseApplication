@@ -1,0 +1,26 @@
+<?php
+/**
+ * Kapitchi Zend Framework 2 Modules (http://kapitchi.com/)
+ *
+ * @copyright Copyright (c) 2012-2013 Kapitchi Open Source Team (http://kapitchi.com/open-source-team)
+ * @license   http://opensource.org/licenses/LGPL-3.0 LGPL 3.0
+ */
+?>
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </a>
+            <a class="brand" href="<?php echo $this->basePath()?>">Kapitchi Showcase</a>
+            <div class="nav-collapse collapse">
+                <?=$this->navigation('DefaultNavigation')->menu()
+                    ->setPartial(array('layout/partial/navbar.phtml', 'default'))
+                ?>
+            </div>
+            <?=$this->render('layout/partial/identity-controls')?>
+        </div>
+    </div>
+</div>
