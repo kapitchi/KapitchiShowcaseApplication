@@ -14,13 +14,22 @@ foreach(array(
         FlashMessenger::NAMESPACE_SUCCESS,
         FlashMessenger::NAMESPACE_INFO,
         FlashMessenger::NAMESPACE_DEFAULT)
-        as $namespace) {
+        as $namespace):
     
     $messenger->setNamespace($namespace);
     $currentMsgs = $messenger->getCurrentMessages();
     $messenger->clearCurrentMessages();
     $msgs = $messenger->getMessages();
-    var_dump(__FILE__ . ' / line:' . __LINE__);
-    var_dump($currentMsgs);
-    var_dump($msgs);
-}
+    $userMsgs = array_merge($currentMsgs,$msgs);
+    
+    foreach($userMsgs as $msg):
+        $msgText = $msg;
+        if(is_array($msg)){
+            $msgText = $msg['message'];    
+        }?>
+        <div class="alert alert-<?=$namespace?>">
+            <?=$msgText?>
+        </div>
+    <?php endforeach ?> 
+<?php endforeach ?>
+
