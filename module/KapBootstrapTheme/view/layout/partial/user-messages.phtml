@@ -17,8 +17,8 @@ foreach(array(
         as $namespace):
     
     $messenger->setNamespace($namespace);
-    $messenger->clearCurrentMessages();
     $userMsgs = array_merge($messenger->getCurrentMessages(), $messenger->getMessages());
+    $messenger->clearCurrentMessages();
     
     foreach($userMsgs as $msg):
         $msgText = $msg;
