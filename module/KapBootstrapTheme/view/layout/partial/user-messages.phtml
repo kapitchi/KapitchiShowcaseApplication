@@ -20,13 +20,14 @@ foreach(array(
     $currentMsgs = $messenger->getCurrentMessages();
     $messenger->clearCurrentMessages();
     $msgs = $messenger->getMessages();
-    $userMsgs = array_merge($currentMsgs,$msgs);
+    $userMsgs = array_merge($currentMsgs, $msgs);
     
     foreach($userMsgs as $msg):
         $msgText = $msg;
-        if(is_array($msg)){
+        if (is_array($msg)){
             $msgText = $msg['message'];    
-        }?>
+        }
+        ?>
         <div class="alert alert-<?=$namespace?>">
             <?=$msgText?>
         </div>
