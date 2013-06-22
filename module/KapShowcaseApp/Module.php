@@ -65,7 +65,7 @@ class Module extends \KapitchiBase\ModuleManager\AbstractModule implements Servi
                     array(
                         'tag' => 'personal',
                         'label' => 'Personal email',
-                        'required' => true,
+                        //'required' => true,
                     ),
                     array(
                         'tag' => 'work',
