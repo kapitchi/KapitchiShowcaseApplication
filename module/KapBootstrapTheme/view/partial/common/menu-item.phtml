@@ -24,12 +24,12 @@ if (!$hasChildren):?>
             <?=$page->getLabel()?>
             <?php if($level === 0):?><b class="caret"></b><?php endif?>
         </a>
-        <?php foreach ($page->getPages() as $child):
-            if (!$this->navigation()->accept($child)) continue;
-            ?> 
-            <ul class="dropdown-menu">
+        <ul class="dropdown-menu">
+            <?php foreach ($page->getPages() as $child):
+                if (!$this->navigation()->accept($child)) continue;
+                ?> 
                 <?=$this->partial('partial/common/menu-item', array('page' => $child, 'level' => $level + 1))?>
-            </ul>
-        <?php endforeach ?>
+            <?php endforeach ?>
+        </ul>
     </li>
 <?php endif ?>
