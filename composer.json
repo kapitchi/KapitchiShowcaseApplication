@@ -29,27 +29,23 @@
         "php": ">=5.3.3",
         "zendframework/zendframework": "2.1.5",
         "widmogrod/zf2-assetic-module": "dev-master",
-        "zf-commons/zfc-twig": "dev-master",
-        "zendframework/zend-developer-tools": "dev-master",
-        "bjyoungblood/BjyProfiler": "dev-master",
         "kapitchi/app": "dev-master",
         "kapitchi/identity": "dev-master",
         "kapitchi/contact": "dev-master",
         "kapitchi/process": "dev-master",
         "kapitchi/kap-poll": "dev-master",
         "kapitchi/kap-gallery": "dev-master",
-        "kapitchi/kap-angular-theme": "dev-master",
         "kapitchi/location": "dev-master",
-        "kapitchi/kap-file-manager": "dev-master",
         "kapitchi/kap-calendar": "dev-master",
         "kapitchi/kap-search": "dev-master",
-        "kapitchi/kap-real-property": "dev-master",
-        "kapitchi/kap-auction": "dev-master",
-        "kapitchi/kap-dev": "dev-master",
         "kapitchi/kap-page": "dev-master",
         "kapitchi/kap-layout": "dev-master",
-        "kapitchi/kap-message": "dev-master",
-        "kapitchi/location": "dev-master"
+        "kapitchi/kap-message": "dev-master"
+    },
+    "require-dev": {
+        "zendframework/zend-developer-tools": "dev-master",
+        "bjyoungblood/BjyProfiler": "dev-master",
+        "kapitchi/kap-dev": "dev-master"
     },
     "autoload": {
         "psr-0": {

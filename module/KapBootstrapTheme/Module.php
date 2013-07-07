@@ -53,7 +53,11 @@ class Module extends AbstractModule
     {
         return array(
             'factories' => array(
-                   
+//                'json' => function($sm) {
+//                    $ins = new \Zend\View\Helper\Json();
+//                    $ins->setResponse($sm->getServiceLocator()->get('Response'));
+//                    return $ins;
+//                }
             )
         );
     }
