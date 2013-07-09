@@ -5,7 +5,11 @@ $renderButtons = isset($this->renderButtons) ? $this->renderButtons : true;
 <?php
 foreach($form->getIterator() as $element):
     if($element instanceof Zend\Form\FieldsetInterface) {
-        echo $this->partial('partial/form/elements', array('form' => $element));
+        ?>
+        <fieldset class="<?=$element->getAttribute('name')?>" data-ui-group="<?=$element->getAttribute('data-ui-group')?>" data-ui-value="<?=$element->getAttribute('data-ui-value')?>">
+            <?=$this->partial('partial/form/elements', array('form' => $element));?>
+        </fieldset>
+        <?
     }
     elseif(!$renderButtons && ($element instanceof \Zend\Form\Element\Submit || $element instanceof \Zend\Form\Element\Button)) {
         continue;

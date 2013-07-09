@@ -1,1 +1,14 @@
-<?=$this->partial('partial/form/default', array('form' => $this->form));?>
+<?php
+$form = $this->form;
+$typeHandle = $form->get('typeHandle');
+$typeHandle->setAttribute('data-ui-control', 'switch');
+$valueOptions = $typeHandle->getValueOptions();
+foreach($valueOptions as $option) {
+    $type = $option['value'];
+    $fieldset = $form->get($type);
+    $fieldset->setAttribute('data-ui-group', 'typeHandle');
+    $fieldset->setAttribute('data-ui-value', $type);
+}
+
+?>
+<?=$this->partial('partial/form/default', array('form' => $form));?>

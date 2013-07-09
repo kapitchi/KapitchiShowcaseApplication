@@ -1,0 +1,15 @@
+<phpunit bootstrap="bootstrap.php"
+         colors="false"
+         convertErrorsToExceptions="true"
+         convertNoticesToExceptions="true"
+         convertWarningsToExceptions="true"
+         verbose="true"
+         stopOnFailure="false"
+         processIsolation="false"
+         backupGlobals="false"
+         syntaxCheck="true"
+>
+    <testsuite name="KapitchiEntity Test Suite">
+        <directory>./KapitchiEntityTest</directory>
+    </testsuite>
+</phpunit>
