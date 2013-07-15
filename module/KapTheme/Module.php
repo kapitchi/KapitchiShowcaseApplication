@@ -40,16 +40,20 @@ class Module extends AbstractModule
     {
         return array(
             'factories' => array(
-                'formRenderer' => function($sm) {
-                    $ins = new View\Helper\FormRenderer();
+                'tag' => function($sm) {
+                    $ins = new View\Helper\Tag();
                     return $ins;
                 },
-                'event' => function($sm) {
-                    $sl = $sm->getServiceLocator();
-                    $ins = new View\Helper\Event();
-                    $ins->setEventManager($sl->get('EventManager'));
-                    return $ins;
-                }
+//                'formRenderer' => function($sm) {
+//                    $ins = new View\Helper\FormRenderer();
+//                    return $ins;
+//                },
+//                'event' => function($sm) {
+//                    $sl = $sm->getServiceLocator();
+//                    $ins = new View\Helper\Event();
+//                    $ins->setEventManager($sl->get('EventManager'));
+//                    return $ins;
+//                }
             )
         );
     }

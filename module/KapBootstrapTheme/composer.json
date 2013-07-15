@@ -1,11 +1,10 @@
 {
-    "name": "kapitchi/kap-angular-theme",
+    "name": "kapitchi/kap-bootstrap-theme",
     "license": "LGPL-3.0",
-    "description": "ZF2 angular-theme module",
+    "description": "ZF2 bootstrap module",
     "keywords": [
         "kapitchi",
         "zf2",
-        "angular",
         "theme",
         "twitter bootstrap"
     ],
@@ -26,13 +25,11 @@
     },
     
     "require": {
-        "php": ">=5.3.3",
-        "kapitchi/base": "dev-master",
-        "kapitchi/entity": "dev-master"
+        "php": ">=5.3.3"
     },
     "autoload": {
         "psr-0": {
-            "KapAngularTheme": "src/"
+            "KapBootstrapTheme": "src/"
         },
         "classmap": [
             "./Module.php"

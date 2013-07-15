@@ -6,7 +6,7 @@ $renderButtons = isset($this->renderButtons) ? $this->renderButtons : true;
 foreach($form->getIterator() as $element):
     if($element instanceof Zend\Form\FieldsetInterface) {
         ?>
-        <fieldset class="<?=$element->getAttribute('name')?>" data-ui-group="<?=$element->getAttribute('data-ui-group')?>" data-ui-value="<?=$element->getAttribute('data-ui-value')?>">
+        <fieldset <?=$this->tag()->renderAttrs($element->getAttributes())?>>
             <?=$this->partial('partial/form/elements', array('form' => $element));?>
         </fieldset>
         <?

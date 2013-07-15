@@ -29,6 +29,7 @@
         "php": ">=5.3.3",
         "zendframework/zendframework": "2.1.5",
         "widmogrod/zf2-assetic-module": "dev-master",
+        "knplabs/gaufrette": "0.2.*@dev",
         "kapitchi/app": "dev-master",
         "kapitchi/identity": "dev-master",
         "kapitchi/contact": "dev-master",

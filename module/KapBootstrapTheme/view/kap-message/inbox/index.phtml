@@ -29,9 +29,9 @@ $view = $this;
         ),
         array(
            'render' => function($entity, $view) {
-            return $view->message()->find(
-                    $entity->getSubject());
-           } 
+                return $view->message()
+                    ->get($entity->getMessageId())->getSubject();
+            } 
         ),
     )
 ));

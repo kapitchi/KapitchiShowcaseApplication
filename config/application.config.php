@@ -10,7 +10,7 @@ return array(
         'KapitchiContact',
         'KapitchiProcess',
         //'KapitchiFileManager',
-        //'KapTheme',
+        'KapTheme',
         //'KapAngularTheme',
         'KapBootstrapTheme',
         'KapCalendar',
