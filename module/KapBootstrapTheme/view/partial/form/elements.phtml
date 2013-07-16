@@ -9,7 +9,7 @@ foreach($form->getIterator() as $element):
         <fieldset <?=$this->tag()->renderAttrs($element->getAttributes())?>>
             <?=$this->partial('partial/form/elements', array('form' => $element));?>
         </fieldset>
-        <?
+        <?php
     }
     elseif(!$renderButtons && ($element instanceof \Zend\Form\Element\Submit || $element instanceof \Zend\Form\Element\Button)) {
         continue;
