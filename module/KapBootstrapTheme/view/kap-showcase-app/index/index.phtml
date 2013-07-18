@@ -1,58 +1,26 @@
-<div>
-    <div class="container">
-        <div class="span12">
-            <div>
-                <div class="hero-unit">
-                    <h2>Work in progress</h2>
-                    <ul>
-
-                        <li>This application is not working yet! Follow us on twitter to get updates about the progress.
-                            We are experimenting and working on theme based on Twitter Bootstrap and AngularJS
-                        </li>
-
-                        <li>Version: 0.1-dev Author: Kapitchi Team
-                            Website:<a href='http://kapitchi.com'>http://kapitchi.com</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div>
-                <div>
-                    <h3>Introduction</h3>
-                    <ul>
-                        <li>Demo application for ZF2 modules developed or maintained by <a href="http://kapitchi.com/">Kapitchi Team</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div>
-                <div>
-                    <h3>Installation</h3>
-                    <ol>This applies to Win OS presuming you have git and php set in path environment variable.
-                        We don't think it's necessary to explain what to do for Linux "super users".
-
-                        <li>Get the application source code under your www folder: <b>git clone https://github.com/kapitchi/KapitchiShowcaseApplication.git</b></li>
-                        <li>Change your working directory<b> cd KapitchiShowcaseApplication</b></li>
-                        <li>Create module-dev folder (folder for your modules to test, develop, break and play!)<b> mkdir module-dev</b></li>
-                        <li>Run composer - <b>php composer.phar install</b></li>
-                        <li>... this will take some time... so in the meantime you can continue with following steps below</li>
-                        <li>Create database <b>"kapichi_showcase"</b></li>
-                        <li>Run SQL script to create schemas and some sample records on the db: <b>deploy/mysql-install.sql</b></li>
-                        <li>Create db config file copy <b>config\autoload\database.local.php.dist config\autoload/database.local.php</b></li>
-                        <li>Your done! - <a href="http://localhost/KapitchiShowcaseApplication/public/">http://localhost/KapitchiShowcaseApplication/public/</a></li>
-                    </ol>
-                </div>
-            </div>
-            <div class="span6">
-                <div class="alert alert-block alert-error fade in" >
-                    <button type="button" class="close" data-dismiss="alert">×</button>
-                    <h3 class="alert-heading">This is an alert exmaple</h3>
-                    <h4 class="alert-heading">Oh snap! You got an error!</h4>
-                    <p>Change this and that and try again. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum.</p>
-                    <p>
-                        <a class="btn btn-danger" href="#">Take this action</a> <a class="btn" href="#">Or do this</a>
-                    </p>
-                </div>
-            </div>
-        </div>
+<div class="container">
+    <div class="span12">
+        <h3>Good stuff!</h3>
+        <h4>This is Kapitchi Showcase Application ...</h4>
+        <p>So you know the application exists for these reasons:</p>
+        <ul>
+            <li>One big experiment with ZF2 development concepts focusing on extensibility - ultimate goal is to establish some concepts and best practices.</li>
+            <li>We use this application for ZF2 module development and testing.</li>
+            <li>It is working (sometime not) demonstration of all modules we have developed or used and to show how they can work together.</li>
+        </ul>
+        
+        <h4>Modules</h4>
+        <p>Following modules have been integrated or being developed:</p>
+        <ul>
+            <li>KapitchiIdentity - User management and authentication module supporting multiple user sessions.</li>
+            <li>KapitchiContact - Contact manager</li>
+            <li>KapitchiApp - Module (plugin) manager - install, enable, disable, update, un-install module related stuff. Note: we use concept of plugins at the moment but we realized later that plugin is essentially a 'smaller' ZF2 module primarily used to modify other modules - ZF2 module manager is being developed...</li>
+            <li>... there are many more coming but we haven't developed twitter bootstrap interface for all of them yet.</li>
+        </ul>
+        <h4>Some interesting things to try</h4>
+        <ul>
+            <li>Try to enable/disable some plugins and check how it automatically affects related functionality</li>
+            <li>... TODO ;)</li>
+        </ul>
     </div>
 </div>
