@@ -75,7 +75,18 @@ class Module extends \KapitchiBase\ModuleManager\AbstractModule implements Servi
         );
         $sharedEm->attachAggregate($type);
         
-        //$s = $sm->get('KapitchiContact\Form\Individual');
+        $sharedEm->attach('Zend\View\View', \Zend\View\ViewEvent::EVENT_RENDERER_POST, function($e) use ($sm) {
+            $model = $e->getModel();
+            if($model instanceof \KapitchiIdentity\View\Model\AuthLogin) {
+                $child = new \Zend\View\Model\ViewModel();
+                $child->setAppend(true);
+                $child->setCaptureTo('renderPre');
+                $child->setTemplate('kap-showcase-app/identity/auth-login-info');
+                $model->addChild($child);
+            }
+        });
+        
+        
     }
     
     /**
