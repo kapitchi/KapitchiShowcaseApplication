@@ -1,5 +1,18 @@
 <?php
 $viewModel = $this->viewModel()->getCurrent();
-$form = $viewModel->loginForm;
+$form = $viewModel->form;
+
+//@todo experimenting functionality
+$method = $form->get('method');
+$method->setAttribute('data-kap-control', 'switch');
+$valueOptions = $method->getValueOptions();
+foreach($valueOptions as $option) {
+    $type = $option['value'];
+    $fieldset = $form->get($type);
+    
+    $fieldset->setAttribute('data-kap-group', 'method');
+    $fieldset->setAttribute('data-kap-value', $type);
+}
+
 ?>
 <?=$this->partial('partial/form/default', array('form' => $form))?>
