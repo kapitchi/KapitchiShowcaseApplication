@@ -81,7 +81,7 @@ class Module extends \KapitchiBase\ModuleManager\AbstractModule implements Servi
                 $child = new \Zend\View\Model\ViewModel();
                 $child->setAppend(true);
                 $child->setCaptureTo('renderPre');
-                $child->setTemplate('kap-showcase-app/identity/auth-login-info');
+                $child->setTemplate('kap-showcase-app/partial/identity/auth-login-info');
                 $model->addChild($child);
             }
         });

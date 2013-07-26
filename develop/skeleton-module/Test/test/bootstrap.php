@@ -11,8 +11,8 @@
 chdir(__DIR__);
 
 $loader = null;
-if (file_exists('../vendor/autoload.php')) {
-    $loader = include '../vendor/autoload.php';
+if (file_exists('../../../vendor/autoload.php')) {
+    $loader = include '../../../vendor/autoload.php';
 } else if (file_exists('../../../autoload.php')) {
     $loader = include '../../../autoload.php';
 } else {

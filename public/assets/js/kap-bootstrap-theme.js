@@ -9,6 +9,14 @@ $(document).ready(function() {
 });
 
 //@todo xxx experiments
+$("#disqus-modal").draggable({
+    handle: ".modal-header"
+}); 
+
+$("#disqus-modal .modal-header button.close").click(function(e) {
+    $("#disqus-modal").hide();
+});
+
 $(document).ready(function() {
     $('input[data-kap-control=switch]').each(function(i, element) {
         var $element = $(element);

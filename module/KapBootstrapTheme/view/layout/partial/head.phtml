@@ -8,8 +8,10 @@
 
 $this->headTitle('Kapitchi Showcase')->setSeparator(' / ');
 $this->plugin('InlineScript')->appendFile($this->basePath('/assets/js/jquery.min.js'));
+$this->plugin('InlineScript')->appendFile('http://code.jquery.com/ui/1.10.3/jquery-ui.js');
 $this->plugin('InlineScript')->appendFile($this->basePath('/assets/js/bootstrap.js'));
 $this->plugin('InlineScript')->appendFile($this->basePath('/assets/js/kap-bootstrap-theme.js'));
+$this->plugin('HeadLink')->appendStylesheet('http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css');
 $this->plugin('HeadLink')->appendStylesheet($this->basePath('/assets/css/bootstrap.css'));
 $this->plugin('HeadLink')->appendStylesheet($this->basePath('/assets/css/bootstrap-responsive.css'));
 $this->plugin('HeadLink')->appendStylesheet($this->basePath('/assets/css/kap-bootstrap-theme.css'));
