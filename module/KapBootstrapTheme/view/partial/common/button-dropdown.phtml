@@ -22,15 +22,16 @@ foreach($this->buttons as $button) {
     if(!empty($button['type'])) {
         switch($button['type']) {
             case 'update':
-                $defaultParams['label'] = $this->translate('Update');
-                $defaultParams['icon'] = 'icon-pencil';
+                $button['label'] = $this->translate('Update');
+                $button['icon'] = 'icon-pencil';
                 break;
             case 'remove':
-                $defaultParams['label'] = $this->translate('Remove');
-                $defaultParams['icon'] = 'icon-pencil';
+                $button['label'] = $this->translate('Remove');
+                $button['icon'] = 'icon-remove';
                 break;
             case 'create':
-                $defaultParams['label'] = $this->translate('Create');
+                $button['label'] = $this->translate('Create');
+                $button['icon'] = 'icon-plus';
                 break;
             default:
                 throw new \InvalidArgumentException("Button 'type' attr '{$button['type']}' unknown");
@@ -49,7 +50,7 @@ foreach($this->buttons as $button) {
 $priButton = array_shift($sanitazedButtons);
 ?>
 <div class="btn-group">
-    <a class="btn" href="<?=(is_callable($button['url']) ? call_user_func($button['url'], $button['params']) : $button['url'])?>"><?php if($button['icon']):?><i class="<?=$button['icon']?>"></i><?php endif?> <?=$priButton['label']?></a>
+    <a class="btn" href="<?=(is_callable($priButton['url']) ? call_user_func($priButton['url'], $priButton['params']) : $priButton['url'])?>"><?php if($priButton['icon']):?><i class="<?=$priButton['icon']?>"></i><?php endif?> <?=$priButton['label']?></a>
     <?php if($sanitazedButtons):?>
     <a class="btn dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
     <ul class="dropdown-menu">
