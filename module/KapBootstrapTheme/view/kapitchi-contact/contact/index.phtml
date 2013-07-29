@@ -10,6 +10,18 @@ $view = $this;
         'route' => 'contact/contact',
         'routeParams' => array('action' => 'index'),
     ),
+    'toolbar' => array(
+        array(
+            'button-dropdown' => array(
+                array(
+                    'type' => 'create',
+                    'url' => function($params) use ($view) {
+                        return $view->url('contact/contact', array('action' => 'create'));
+                    }
+                ),
+            )
+        ),
+    ),
     'columns' => array(
         array(
             'button-dropdown' => array(
