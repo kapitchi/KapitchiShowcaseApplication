@@ -18,6 +18,12 @@ $view = $this;
                     'url' => function($params) use ($view) {
                         return $view->url('contact/contact', array('action' => 'update', 'id' => $params['entity']->getId()));
                     }
+                ),
+                array(
+                    'type' => 'remove',
+                    'url' => function($params) use ($view) {
+                        return $view->url('contact/contact', array('action' => 'remove', 'id' => $params['entity']->getId()));
+                    }
                 )
             )
         ),
