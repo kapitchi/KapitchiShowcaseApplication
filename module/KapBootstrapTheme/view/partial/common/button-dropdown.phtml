@@ -25,6 +25,13 @@ foreach($this->buttons as $button) {
                 $defaultParams['label'] = $this->translate('Update');
                 $defaultParams['icon'] = 'icon-pencil';
                 break;
+            case 'remove':
+                $defaultParams['label'] = $this->translate('Remove');
+                $defaultParams['icon'] = 'icon-pencil';
+                break;
+            case 'create':
+                $defaultParams['label'] = $this->translate('Create');
+                break;
             default:
                 throw new \InvalidArgumentException("Button 'type' attr '{$button['type']}' unknown");
         }

@@ -22,6 +22,16 @@ $view = $this;
             )
         ),
         'displayName',
+        array(
+            'button-dropdown' => array(
+                array(
+                    'type' => 'remove',
+                    'url' => function($params) use ($view) {
+                        return $view->url('contact/contact', array('action' => 'remove', 'id' => $params['entity']->getId()));
+                    }
+                )
+            )
+        ),
     )
 ));
 
