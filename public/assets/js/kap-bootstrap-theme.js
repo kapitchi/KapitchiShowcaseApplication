@@ -4,19 +4,18 @@ $(document).ready(function() {
     $('form select').tooltip();
 });
 
-$(document).ready(function() {
-    
-});
-
 //@todo xxx experiments
-$("#disqus-modal").draggable({
-    handle: ".modal-header"
-}); 
-
-$("#disqus-modal .modal-header button.close").click(function(e) {
-    $("#disqus-modal").hide();
+//disqus
+$(document).ready(function() {
+    $("#disqus-modal").draggable({
+        handle: ".modal-header"
+    }); 
+    $("#disqus-modal .modal-header button.close").click(function(e) {
+        $("#disqus-modal").hide();
+    });
 });
 
+//UI control: switch
 $(document).ready(function() {
     $('input[data-kap-control=switch]').each(function(i, element) {
         var $element = $(element);
@@ -40,6 +39,7 @@ $(document).ready(function() {
     });
 });
 
+//UI input contact selector
 $(document).ready(function() {
     $('input[data-kap-input=contact-selector]').each(function(i, element) {
         var $element = $(element);
@@ -51,12 +51,3 @@ $(document).ready(function() {
         });
     });
 });
-
-$(document).ready(function() {
-    $(document).on('click', '#myModal .modal-body a', function(e) {
-        $('#myModal').removeData("modal");
-        $('#myModal').modal({remote: $(this).attr("href")});
-        return false;
-    });
-});
-
