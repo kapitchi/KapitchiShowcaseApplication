@@ -4,7 +4,14 @@
 <div>
     <?php
         foreach($this->toolbar as $tool):
+            if(isset($tool['button-dropdown'])){
                 echo $this->partial('partial/common/button-dropdown', array('buttons' => $tool['button-dropdown']));
+            }
+            else{
+                throw new \InvalidArgumentException("Uknown toolbar item");
+                
+            }
+                
         endforeach?>
 </div>
 <table class="table table-bordered">
@@ -33,6 +40,9 @@
             else if(is_callable($render)) {
                 echo $render($entity, $this);
             }
+        }
+        else{
+            throw new \InvalidArgumentException("Unknown columns item");
         }
         ?>
         </td>
