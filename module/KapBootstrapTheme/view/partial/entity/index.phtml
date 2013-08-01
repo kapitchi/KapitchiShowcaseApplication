@@ -23,35 +23,33 @@
     $x = new \Zend\Stdlib\Hydrator\ClassMethods(false);
     $data = $x->extract($entity);
     
-    if(isset($this->columns)){
-        foreach($this->columns as $column):?>
-            <td>
-            <?php
-            if(is_string($column)) {
-                echo $data[$column];
-            }
-            elseif(isset($column['button-dropdown'])) {
-                echo $this->partial('partial/common/button-dropdown', array('buttons' => $column['button-dropdown'], 'params' => array('entity' => $entity, 'paginator' => $this->paginator)));
-            }
-            elseif(isset($column['render'])) {
-                $render = $column['render'];
-                if(is_string($render)) {
-                    echo $data[$render];
-                }
-                else if(is_callable($render)) {
-                    echo $render($entity, $this);
-                }
-            }
-            else{
-                throw new \InvalidArgumentException("Unknown columns item");
-            }
-            ?>
-            </td>
-        <?php endforeach;
+    if(!is_array($this->columns)){
+       throw new \InvalidArgumentException("Param 'columns' is missing or not an array"); 
     }
-    else{
-       throw new \InvalidArgumentException("You need to add some columns"); 
-    }?>
+    foreach($this->columns as $column):?>
+        <td>
+        <?php
+        if(is_string($column)) {
+            echo $data[$column];
+        }
+        elseif(isset($column['button-dropdown'])) {
+            echo $this->partial('partial/common/button-dropdown', array('buttons' => $column['button-dropdown'], 'params' => array('entity' => $entity, 'paginator' => $this->paginator)));
+        }
+        elseif(isset($column['render'])) {
+            $render = $column['render'];
+            if(is_string($render)) {
+                echo $data[$render];
+            }
+            else if(is_callable($render)) {
+                echo $render($entity, $this);
+            }
+        }
+        else{
+            throw new \InvalidArgumentException("Unknown columns item");
+        }
+        ?>
+        </td>
+    <?php endforeach?>
     </tr>
 <?php endforeach?>
     </tbody>
