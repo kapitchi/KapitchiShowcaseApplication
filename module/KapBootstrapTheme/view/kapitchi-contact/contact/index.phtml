@@ -13,14 +13,15 @@ $view = $this;
     'toolbar' => array(
         array(
             'button-dropdown' => array(
-                array(
+                function($params) use ($view) {
+                    return array(
                     'type' => 'create',
-                    'url' => function($params) use ($view) {
-                        return $view->url('contact/contact', array('action' => 'create'));
-                    }
-                ),
+                    'url' => $view->url('contact/contact', 
+                            array('action' => 'create'))
+                );
+                }
             )
-        ),
+        )
     ),
     'columns' => array(
         array(
@@ -34,7 +35,9 @@ $view = $this;
                 array(
                     'type' => 'remove',
                     'url' => function($params) use ($view) {
-                        return $view->url('contact/contact', array('action' => 'remove', 'id' => $params['entity']->getId()));
+                        return $view->url('contact/contact', 
+                                array('action' => 'remove', 'id' => $params['entity']->getId()),
+                                array('query' => array('redirect_page' => $params['paginator']->getCurrentPageNumber())));
                     }
                 )
             )

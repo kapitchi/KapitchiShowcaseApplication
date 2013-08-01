@@ -3,6 +3,7 @@
 <h1><?=$this->heading?></h1>
 <div>
     <?php
+    if(isset($this->toolbar)){
         foreach($this->toolbar as $tool):
             if(isset($tool['button-dropdown'])){
                 echo $this->partial('partial/common/button-dropdown', array('buttons' => $tool['button-dropdown']));
@@ -10,7 +11,8 @@
             else{
                 throw new \InvalidArgumentException("Uknown toolbar item");
             }
-        endforeach?>
+        endforeach;
+    }?>
 </div>
 <table class="table table-bordered">
     <tbody>
