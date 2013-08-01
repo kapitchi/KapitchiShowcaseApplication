@@ -1,4 +1,4 @@
-Zend Framework 2 - Kapitchi Angular Theme module
+Zend Framework 2 - Kapitchi Bootstrap Theme module
 ==============================================
 
 __Version:__ 0.1-dev  
