@@ -21,29 +21,29 @@ return array(
             'route' => 'contact/contact',
             'action' => 'index',
         ),
-//         array(
-//              'id' => 'messenger/inbox',
-//            'label' => $this->translate('Messenger'),
-//            'route' => 'messenger/inbox',
-//            'action' => 'index',
-//            'pages' => array(
-//                 array(
-//                    'label' => $this->translate('Create message'),
-//                    'route' => 'messenger/inbox',
-//                    'action' => 'create',
-//                ),
-//                 array(
-//                    'label' => $this->translate('Inbox'),
-//                    'route' => 'messenger/inbox',
-//                    'action' => 'index',
-//                ),
-//                array(
-//                    'label' => $this->translate('Sent'),
-//                    'route' => 'messenger/inbox',
-//                    'action' => 'sent',
-//                ),
-//            )
-//        ),
+         array(
+              'id' => 'messenger/inbox',
+            'label' => $this->translate('Messenger'),
+            'route' => 'messenger/inbox',
+            'action' => 'index',
+            'pages' => array(
+                 array(
+                    'label' => $this->translate('Create message'),
+                    'route' => 'messenger/inbox',
+                    'action' => 'create',
+                ),
+                 array(
+                    'label' => $this->translate('Inbox'),
+                    'route' => 'messenger/inbox',
+                    'action' => 'index',
+                ),
+                /*array(
+                    'label' => $this->translate('Sent'),
+                    'route' => 'messenger/inbox',
+                    'action' => 'sent',
+                ),*/
+            )
+        ),
         array(
             'label' => $this->translate('System'),
             'route' => 'app/plugin',
