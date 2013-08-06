@@ -24,10 +24,8 @@ Requirements
 ============
 Apache: rewrite_module enabled
 
-PHP: short open tag (If you're running on php 5.3.x)
-
-     php_openssl enabled
-     
+PHP: short open tag (If you're running on php 5.3.x),
+     php_openssl enabled,
      php_intl enabled
 
 Installation
