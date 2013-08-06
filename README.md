@@ -23,6 +23,7 @@ Demo application for ZF2 modules developed or maintained by [Kapitchi Team](http
 Requirements
 ============
 Apache: rewrite_module enabled
+
 PHP: short open tag (If you're running on php 5.3.x)
      php_openssl enabled
      php_intl enabled
