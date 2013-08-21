@@ -6,6 +6,14 @@ $form = $viewModel->form;
 $method = $form->get('method');
 $method->setAttribute('data-kap-control', 'switch');
 $valueOptions = $method->getValueOptions();
+
+//no authentication methods available? 
+if(empty($valueOptions)):?>
+    <div class="alert">
+        No authentication method available!
+    </div>
+<?php return; endif;
+
 foreach($valueOptions as $option) {
     $type = $option['value'];
     $fieldset = $form->get($type);
