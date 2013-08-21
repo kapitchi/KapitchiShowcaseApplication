@@ -23,6 +23,9 @@
     $x = new \Zend\Stdlib\Hydrator\ClassMethods(false);
     $data = $x->extract($entity);
     
+    if(!is_array($this->columns)){
+       throw new \InvalidArgumentException("Param 'columns' is missing or not an array"); 
+    }
     foreach($this->columns as $column):?>
         <td>
         <?php
